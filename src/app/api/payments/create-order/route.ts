@@ -12,10 +12,21 @@ import { successResponse, handleError, AppError } from "@/lib/errors";
 import { PendingOrderStore } from "@/lib/pending-order-store";
 import { z } from "zod";
 
-const razorpay = new Razorpay({
-  key_id:     process.env.RAZORPAY_KEY_ID!,
-  key_secret: process.env.RAZORPAY_KEY_SECRET!,
-});
+let razorpayClient: Razorpay | null = null;
+function getRazorpay() {
+  if (!razorpayClient) {
+    const keyId = process.env.RAZORPAY_KEY_ID;
+    const keySecret = process.env.RAZORPAY_KEY_SECRET;
+    if (!keyId || !keySecret) {
+      throw new AppError("Razorpay credentials (RAZORPAY_KEY_ID / RAZORPAY_KEY_SECRET) are missing.", 500);
+    }
+    razorpayClient = new Razorpay({
+      key_id: keyId,
+      key_secret: keySecret,
+    });
+  }
+  return razorpayClient;
+}
 
 const CustomTailoringInputSchema = z.object({
   neckline:          z.string().max(50).nullable().optional(),
@@ -94,7 +105,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Create Razorpay Order
-    const rzpOrder = await razorpay.orders.create({
+    const rzpOrder = await getRazorpay().orders.create({
       amount:   subtotal, // stored in paise, matching Razorpay expectation
       currency: "INR",
       receipt:  `receipt_${Date.now()}_${Math.floor(Math.random() * 1000)}`,
