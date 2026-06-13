@@ -1,4 +1,7 @@
 import OthersClient from "./OthersClient";
+
+export const dynamic = "force-dynamic";
+
 import { ProductService } from "@/services/product.service";
 
 export const metadata = {

@@ -113,5 +113,13 @@ export function handleError(error: unknown): NextResponse<ApiError> {
 
   // Unknown error — log and return generic message
   console.error("[API Error]", error);
-  return errorResponse("Internal server error", 500, "INTERNAL_ERROR");
+  const devMessage = error instanceof Error ? error.message : String(error);
+  const devStack = error instanceof Error ? error.stack : undefined;
+  const isDev = process.env.NODE_ENV === "development";
+  return errorResponse(
+    isDev ? devMessage : "Internal server error",
+    500,
+    "INTERNAL_ERROR",
+    isDev ? { stack: devStack ? [devStack] : [] } : undefined
+  );
 }
