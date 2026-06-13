@@ -1,0 +1,640 @@
+// Pehnawa — Production Prisma Schema
+// PostgreSQL · Prisma ORM · Clerk Auth · Razorpay · Cloudinary
+// ─────────────────────────────────────────────────────────────
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─────────────────────────────────────────────────────────────
+// ENUMS
+// ─────────────────────────────────────────────────────────────
+
+enum ProductStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+  DELETED
+}
+
+enum ProductCategory {
+  EVERYDAY
+  SIGNATURE
+  BRIDAL
+  OTHERS
+}
+
+enum ProductSubCategory {
+  KURTAS
+  CO_ORDS
+  DUPATTAS
+  LEHENGAS
+  ANARKALIS
+  SAREES
+  ACCESSORIES
+}
+
+enum OrderStatus {
+  NEW
+  ACCEPTED
+  IN_STITCHING
+  QUALITY_CHECK
+  READY_TO_SHIP
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  RAZORPAY
+  WALLET
+  MIXED // wallet + razorpay combined
+}
+
+enum ConsultationStatus {
+  NEW
+  CONTACTED
+  SCHEDULED
+  CONVERTED
+  CLOSED
+}
+
+enum ConsultationType {
+  VIRTUAL
+  IN_PERSON
+}
+
+enum WalletTxType {
+  CREDIT
+  DEBIT
+}
+
+enum WalletTxReason {
+  REFERRAL_BONUS
+  ORDER_REFUND
+  ADMIN_CREDIT
+  ORDER_PAYMENT
+  ADJUSTMENT
+}
+
+enum AddressType {
+  SHIPPING
+  BILLING
+}
+
+// ─────────────────────────────────────────────────────────────
+// USER
+// ─────────────────────────────────────────────────────────────
+
+model User {
+  id        String   @id @default(cuid())
+  clerkId   String   @unique           // Clerk's user ID — source of truth for auth
+  email     String   @unique
+  phone     String?
+  name      String?
+  avatarUrl String?
+
+  role      UserRole @default(CUSTOMER)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?                  // soft delete
+
+  // Relations
+  addresses           Address[]
+  measurementProfiles MeasurementProfile[]
+  cart                Cart?
+  wishlist            Wishlist?
+  orders              Order[]
+  wallet              Wallet?
+  referralCode        ReferralCode?
+  referralsGiven      ReferralRecord[]     @relation("referrer")
+  referralsReceived   ReferralRecord[]     @relation("referred")
+  consultations       ConsultationRequest[]
+
+  @@index([clerkId])
+  @@index([email])
+  @@index([deletedAt])
+}
+
+enum UserRole {
+  CUSTOMER
+  ADMIN
+  STYLIST
+}
+
+// ─────────────────────────────────────────────────────────────
+// ADDRESS
+// ─────────────────────────────────────────────────────────────
+
+model Address {
+  id         String      @id @default(cuid())
+  userId     String
+  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  type       AddressType @default(SHIPPING)
+  label      String?     // e.g. "Home", "Office"
+  name       String
+  phone      String
+  line1      String
+  line2      String?
+  city       String
+  state      String
+  pincode    String
+  country    String      @default("IN")
+  isDefault  Boolean     @default(false)
+
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  deletedAt  DateTime?
+
+  orders     Order[]
+
+  @@index([userId])
+  @@index([deletedAt])
+}
+
+// ─────────────────────────────────────────────────────────────
+// OCCASION (tag system for products)
+// ─────────────────────────────────────────────────────────────
+
+model Occasion {
+  id       String    @id @default(cuid())
+  name     String    @unique  // e.g. "Wedding", "Sangeet", "Casual"
+  slug     String    @unique
+  products ProductOccasion[]
+}
+
+// ─────────────────────────────────────────────────────────────
+// PRODUCT
+// ─────────────────────────────────────────────────────────────
+
+model Product {
+  id          String             @id @default(cuid())
+  slug        String             @unique   // URL-friendly e.g. "noorani-anarkali"
+  title       String
+  subTitle    String?
+  description String
+  fabric      String?
+  embroidery  String?
+  details     String[]           // array of bullet points
+
+  category    ProductCategory
+  subCategory ProductSubCategory?
+  status      ProductStatus      @default(DRAFT)
+
+  // Pricing — nullable for "Enquire" (bridal)
+  price       Int?               // stored in paise (₹ × 100) for precision
+  isEnquireOnly Boolean          @default(false)
+
+  // Metadata
+  craftingHours Int?             // e.g. 400 hours
+  isFeatured    Boolean          @default(false)
+  sortOrder     Int              @default(0)
+
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  deletedAt   DateTime?          // soft delete
+
+  // Relations
+  images      ProductImage[]
+  videos      ProductVideo[]
+  occasions   ProductOccasion[]
+  accessories ProductAccessory[] @relation("parent")
+  bundledIn   ProductAccessory[] @relation("accessory")
+  cartItems   CartItem[]
+  orderItems  OrderItem[]
+  wishlistItems WishlistItem[]
+
+  @@index([slug])
+  @@index([status])
+  @@index([category])
+  @@index([deletedAt])
+  @@index([isFeatured])
+}
+
+// Pivot: Product ↔ Occasion (many-to-many)
+model ProductOccasion {
+  productId  String
+  occasionId String
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  occasion   Occasion @relation(fields: [occasionId], references: [id], onDelete: Cascade)
+
+  @@id([productId, occasionId])
+}
+
+// Accessories bundled with a product
+model ProductAccessory {
+  id          String  @id @default(cuid())
+  parentId    String
+  accessoryId String
+  parent      Product @relation("parent",    fields: [parentId],    references: [id], onDelete: Cascade)
+  accessory   Product @relation("accessory", fields: [accessoryId], references: [id], onDelete: Cascade)
+
+  @@unique([parentId, accessoryId])
+  @@index([parentId])
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  url           String   // Cloudinary secure URL
+  cloudinaryId  String   // Cloudinary public_id for deletion/transformation
+  alt           String?
+  sortOrder     Int      @default(0)
+  isPrimary     Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+
+  @@index([productId])
+}
+
+model ProductVideo {
+  id        String   @id @default(cuid())
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  url          String
+  cloudinaryId String
+  thumbnail    String?
+  sortOrder    Int     @default(0)
+
+  createdAt DateTime @default(now())
+
+  @@index([productId])
+}
+
+// ─────────────────────────────────────────────────────────────
+// MEASUREMENT PROFILE
+// ─────────────────────────────────────────────────────────────
+
+model MeasurementProfile {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  label     String   @default("My Measurements") // e.g. "Bridal 2025"
+  isDefault Boolean  @default(false)
+
+  // All measurements in inches (decimal)
+  bust      Decimal? @db.Decimal(5, 2)
+  waist     Decimal? @db.Decimal(5, 2)
+  hips      Decimal? @db.Decimal(5, 2)
+  height    Decimal? @db.Decimal(5, 2)
+  shoulder  Decimal? @db.Decimal(5, 2)
+  sleeveLen Decimal? @db.Decimal(5, 2)
+  inseam    Decimal? @db.Decimal(5, 2)
+  notes     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+
+  orderItems OrderItem[] // which order items used this profile
+
+  @@index([userId])
+  @@index([deletedAt])
+}
+
+// ─────────────────────────────────────────────────────────────
+// WISHLIST
+// ─────────────────────────────────────────────────────────────
+
+model Wishlist {
+  id        String         @id @default(cuid())
+  userId    String         @unique
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  items     WishlistItem[]
+}
+
+model WishlistItem {
+  id         String   @id @default(cuid())
+  wishlistId String
+  wishlist   Wishlist @relation(fields: [wishlistId], references: [id], onDelete: Cascade)
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  addedAt    DateTime @default(now())
+
+  @@unique([wishlistId, productId])
+  @@index([wishlistId])
+}
+
+// ─────────────────────────────────────────────────────────────
+// CART
+// ─────────────────────────────────────────────────────────────
+
+model Cart {
+  id        String     @id @default(cuid())
+  userId    String     @unique
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  items     CartItem[]
+}
+
+model CartItem {
+  id        String   @id @default(cuid())
+  cartId    String
+  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  quantity  Int      @default(1)
+  size      String?  // S, M, L, XL, or "custom"
+
+  // Custom tailoring directives (stored as JSON)
+  customTailoring Json?
+  // Example shape:
+  // {
+  //   "neckline": "V-Neck",
+  //   "sleeve": "Full Sleeves",
+  //   "customSizeEnabled": true,
+  //   "bust": "36",
+  //   "waist": "30",
+  //   "height": "64"
+  // }
+
+  addedAt   DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([cartId, productId, size])   // one row per product+size combo
+  @@index([cartId])
+}
+
+// ─────────────────────────────────────────────────────────────
+// ORDER
+// ─────────────────────────────────────────────────────────────
+
+model Order {
+  id          String      @id @default(cuid())
+  orderNumber String      @unique  // e.g. "PEH-2025-001234" — human-readable
+
+  userId      String
+  user        User        @relation(fields: [userId], references: [id])
+  addressId   String
+  address     Address     @relation(fields: [addressId], references: [id])
+
+  status      OrderStatus @default(NEW)
+
+  // Pricing (all in paise)
+  subtotal    Int         // sum of items
+  discount    Int         @default(0)  // wallet/coupon discount
+  shipping    Int         @default(0)
+  total       Int         // final charged amount
+
+  // Optional gift wrapping
+  giftDraping Boolean     @default(false)
+  giftMessage String?
+
+  // Tracking
+  trackingCode    String?
+  shippingCarrier String?
+  trackingUrl     String?
+  estimatedDelivery DateTime?
+
+  // Timestamps for lifecycle transitions
+  acceptedAt      DateTime?
+  stitchingAt     DateTime?
+  qualityCheckAt  DateTime?
+  readyAt         DateTime?
+  shippedAt       DateTime?
+  deliveredAt     DateTime?
+  cancelledAt     DateTime?
+  cancellationReason String?
+
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  deletedAt   DateTime?   // soft delete (admin hide)
+
+  items       OrderItem[]
+  payment     Payment?
+
+  @@index([userId])
+  @@index([status])
+  @@index([orderNumber])
+  @@index([deletedAt])
+  @@index([createdAt])
+}
+
+model OrderItem {
+  id        String   @id @default(cuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+
+  // Snapshot at time of order (product details can change later)
+  productTitle    String
+  productSlug     String
+  productImageUrl String?
+  unitPrice       Int      // in paise at time of purchase
+  quantity        Int      @default(1)
+  size            String?
+
+  customTailoring     Json?    // same shape as CartItem
+  measurementProfileId String?
+  measurementProfile   MeasurementProfile? @relation(fields: [measurementProfileId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+// ─────────────────────────────────────────────────────────────
+// PAYMENT
+// ─────────────────────────────────────────────────────────────
+
+model Payment {
+  id      String        @id @default(cuid())
+  orderId String        @unique
+  order   Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  method  PaymentMethod @default(RAZORPAY)
+  status  PaymentStatus @default(PENDING)
+
+  // Razorpay identifiers
+  razorpayOrderId   String?  @unique  // order_xxxxx from Razorpay
+  razorpayPaymentId String?  @unique  // pay_xxxxx
+  razorpaySignature String?           // HMAC verification signature
+
+  // Amounts (in paise)
+  amount         Int
+  walletAmount   Int  @default(0)  // portion paid from wallet
+  razorpayAmount Int  @default(0)  // portion paid via Razorpay
+
+  // Refund tracking
+  refundId     String?
+  refundAmount Int?
+  refundedAt   DateTime?
+  refundReason String?
+
+  paidAt    DateTime?
+  failedAt  DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([razorpayOrderId])
+  @@index([razorpayPaymentId])
+  @@index([status])
+}
+
+// ─────────────────────────────────────────────────────────────
+// WALLET
+// ─────────────────────────────────────────────────────────────
+
+model Wallet {
+  id      String   @id @default(cuid())
+  userId  String   @unique
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  balance Int      @default(0)  // in paise
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  transactions WalletTransaction[]
+
+  @@index([userId])
+}
+
+model WalletTransaction {
+  id       String         @id @default(cuid())
+  walletId String
+  wallet   Wallet         @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  type     WalletTxType   // CREDIT | DEBIT
+  reason   WalletTxReason
+  amount   Int            // in paise (always positive)
+  balance  Int            // running balance after this transaction
+
+  description String?
+  referenceId String?  // order ID, refund ID, referral ID, etc.
+
+  createdAt DateTime @default(now())
+
+  @@index([walletId])
+  @@index([createdAt])
+}
+
+// ─────────────────────────────────────────────────────────────
+// REFERRAL
+// ─────────────────────────────────────────────────────────────
+
+model ReferralCode {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  code   String @unique  // e.g. "ASHRAYA100"
+
+  // Reward config (in paise)
+  referrerBonus  Int @default(10000)  // ₹100 referrer gets when referred makes first order
+  referredBonus  Int @default(5000)   // ₹50 new user gets on signup
+
+  isActive  Boolean  @default(true)
+  usesCount Int      @default(0)
+  maxUses   Int?     // null = unlimited
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  records ReferralRecord[]
+
+  @@index([code])
+}
+
+model ReferralRecord {
+  id             String       @id @default(cuid())
+  referralCodeId String
+  referralCode   ReferralCode @relation(fields: [referralCodeId], references: [id])
+
+  referrerId String
+  referrer   User   @relation("referrer", fields: [referrerId], references: [id])
+  referredId String
+  referred   User   @relation("referred", fields: [referredId], references: [id])
+
+  // Reward payout status
+  referrerRewarded Boolean  @default(false)
+  referredRewarded Boolean  @default(false)
+  rewardedAt       DateTime?
+
+  // Triggered by first completed order
+  triggerOrderId   String?
+
+  createdAt DateTime @default(now())
+
+  @@unique([referralCodeId, referredId])  // one referral per user
+  @@index([referrerId])
+  @@index([referredId])
+}
+
+// ─────────────────────────────────────────────────────────────
+// CONSULTATION REQUEST
+// ─────────────────────────────────────────────────────────────
+
+model ConsultationRequest {
+  id     String @id @default(cuid())
+  userId String?
+  user   User?  @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  // Guest details (for unauthenticated users)
+  clientName  String
+  clientEmail String
+  clientPhone String
+
+  type    ConsultationType   @default(VIRTUAL)
+  status  ConsultationStatus @default(NEW)
+
+  // Scheduling
+  requestedDate DateTime?
+  requestedTime String?       // e.g. "10:00 AM"
+  scheduledAt   DateTime?     // confirmed by admin
+
+  message      String?        // style inquiry / notes
+  adminNotes   String?        // internal notes by stylist
+
+  // Linked order (if consultation converted to a sale)
+  convertedOrderId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+  @@index([userId])
+  @@index([clientEmail])
+  @@index([scheduledAt])
+}
+
+// ─────────────────────────────────────────────────────────────
+// PENDING ORDER (Serverless Database Cache)
+// ─────────────────────────────────────────────────────────────
+
+model PendingOrder {
+  id              String   @id @default(cuid())
+  razorpayOrderId String   @unique
+  payload         Json
+  createdAt       DateTime @default(now())
+}
+

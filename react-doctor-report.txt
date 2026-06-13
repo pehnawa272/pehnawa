@@ -1,0 +1,694 @@
+React Doctor v0.4.2
+
+  
+
+  ✖ Bugs: Server action without auth check ×2
+    Learn more: https://react.doctor/docs/rules/react-doctor/server-auth-actions
+    → Add `const session = await auth()` at the top, and throw
+    or redirect if the user isn't allowed before touching any
+    data.
+
+    src/app/admin/actions.ts:9
+    ┌──────────────────────────────────────────────────────────────┐
+    │    8 | // Fetch all occasions, create standard ones if none[0m… │
+    │ >  9 | export async function getOccasions() {                │
+    │      |                       ^                               │
+    │   10 |   try {                                               │
+    └──────────────────────────────────────────────────────────────┘
+
+    src/app/admin/actions.ts:54
+    ┌──────────────────────────────────────────────────────────────┐
+    │   53 | // Fetch list of products to link as accessories      │
+    │ > 54 | export async function getAccessoryProducts() {        │
+    │      |                       ^                               │
+    │   55 |   try {                                               │
+    └──────────────────────────────────────────────────────────────┘
+
+  ⚠ Bugs: Array index used as a key ×5
+    Learn more: https://react.doctor/docs/rules/react-doctor/no-array-index-as-key
+    → Use a stable id from the item, like `key={item.id}` or
+    `key={item.slug}`. Index keys break when the list reorders
+    or filters.
+
+    src/components/admin/ProductForm.js:700
+
+    src/components/admin/ProductForm.js:889
+
+    src/components/admin/ProductForm.js:923
+
+    src/components/admin/ProductDetailView.js:233
+
+    src/app/admin/orders/page.js:482
+
+  ⚠ Bugs: Missing effect dependencies ×2
+    Learn more: https://react.doctor/docs/rules/react-doctor/exhaustive-deps
+    → Don't blindly add missing dependencies. Read the hook
+    callback first.
+    
+    Bad:
+    useEffect(() => {
+      setCount(count + 1);
+    }, [count]);
+    
+    Better:
+    useEffect(() => {
+      setCount((currentCount) => currentCount + 1);
+    }, []);
+    
+    If the missing value is recreated every render, move it
+    inside the hook or stabilize it before adding it to deps.
+
+    src/components/admin/ProductManagement.js:85
+
+    src/app/bridal/BridalAtelierClient.js:44
+
+  ⚠ Bugs: Sequential independent awaits
+    Learn more: https://react.doctor/docs/rules/react-doctor/server-sequential-independent-await
+    → These two awaits don't depend on each other. Wrap them in
+    `Promise.all([...])` so they run at the same time.
+
+    prisma/seed.ts:95
+
+  ⚠ Accessibility: Label missing associated control ×22
+    Learn more: https://react.doctor/docs/rules/react-doctor/label-has-associated-control
+    → Tie every label to a control with `htmlFor`, or by
+    nesting the input.
+
+    src/components/admin/ProductForm.js:472
+
+    src/components/admin/ProductForm.js:486
+
+    src/components/admin/ProductForm.js:501
+
+    src/components/admin/ProductForm.js:515
+
+    src/components/admin/ProductForm.js:537
+
+    src/components/admin/ProductForm.js:553
+
+    src/components/admin/ProductForm.js:575
+
+    src/components/admin/ProductForm.js:597
+
+    src/components/admin/ProductForm.js:611
+
+    src/components/admin/ProductForm.js:648
+
+    src/components/admin/ProductForm.js:662
+
+    src/components/admin/ProductForm.js:678
+
+    src/components/admin/ProductForm.js:736
+
+    src/components/admin/ProductForm.js:749
+
+    src/components/admin/ProductForm.js:762
+
+    src/components/admin/ProductForm.js:828
+
+    src/components/admin/ProductForm.js:840
+
+    src/components/admin/ProductForm.js:954
+
+    src/app/admin/orders/page.js:208
+
+    src/app/admin/orders/page.js:220
+
+    src/app/admin/orders/page.js:233
+
+    src/app/admin/page.js:330
+
+  ⚠ Performance: Independent awaits run sequentially ×3
+    Learn more: https://react.doctor/docs/rules/react-doctor/async-parallel
+    → Use `const [a, b] = await Promise.all([fetchA(),
+    fetchB()])` so independent calls run at the same time
+
+    scratch/test-razorpay-flows.ts:46
+
+    scratch/test-razorpay-flows.ts:191
+
+    scratch/test-admin-orders.ts:212
+
+  ⚠ Performance: await inside a loop ×6
+    Learn more: https://react.doctor/docs/rules/react-doctor/async-await-in-loop
+    → Collect the items, then use `await
+    Promise.all(items.map(...))` so independent work runs at
+    the same time
+
+    src/components/admin/CloudinaryUpload.js:30
+
+    src/components/admin/ProductForm.js:394
+
+    src/components/admin/ProductForm.js:425
+
+    src/components/admin/ProductManagement.js:202
+
+    src/components/admin/ProductManagement.js:216
+
+    prisma/seed.ts:207
+
+  ⚠ Performance: Non-passive scroll listener
+    Learn more: https://react.doctor/docs/rules/react-doctor/client-passive-event-listeners
+    → Add `{ passive: true }` as the third argument:
+    `addEventListener('scroll', handler, { passive: true })`.
+    Only do this if the handler doesn't call
+    `event.preventDefault()`, since passive listeners ignore it
+    (which breaks pull-to-refresh, custom gestures, and nested
+    scrolling).
+
+    src/components/Navbar.js:28
+
+  ⚠ Bugs: Prop derived into useState
+    Learn more: https://react.doctor/docs/rules/react-doctor/no-derived-useState
+    → Remove useState and compute the value inline: `const
+    value = transform(propName)`
+
+    src/app/admin/orders/page.js:267
+
+  ⚠ Bugs: Unknown DOM property ×2
+    Learn more: https://react.doctor/docs/rules/react-doctor/no-unknown-property
+    → Use the prop name React expects, like `className`,
+    `htmlFor`, or `tabIndex`.
+
+    src/app/admin/orders/page.js:962
+
+  ⚠ Performance: array.find() inside a loop
+    Learn more: https://react.doctor/docs/rules/react-doctor/js-index-maps
+    → Build a `Map` once before the loop instead of calling
+    `array.find(...)` inside it
+
+    src/components/admin/ProductForm.js:407
+
+  ⚠ Accessibility: Control missing accessible label ×23
+    Learn more: https://react.doctor/docs/rules/react-doctor/control-has-associated-label
+    → Give every interactive control a label screen readers can
+    read.
+
+    src/components/admin/CloudinaryUpload.js:115
+
+    src/components/admin/ProductForm.js:475
+
+    src/components/admin/ProductForm.js:489
+
+    src/components/admin/ProductForm.js:504
+
+    src/components/admin/ProductForm.js:518
+
+    src/components/admin/ProductForm.js:600
+
+    src/components/admin/ProductForm.js:614
+
+    src/components/admin/ProductForm.js:651
+
+    src/components/admin/ProductForm.js:665
+
+    src/components/admin/ProductForm.js:681
+
+    src/components/admin/ProductForm.js:701
+
+    src/components/admin/ProductForm.js:739
+
+    src/components/admin/ProductForm.js:752
+
+    src/components/admin/ProductForm.js:765
+
+    src/components/admin/ProductForm.js:831
+
+    src/components/admin/ProductForm.js:843
+
+    src/components/admin/ProductManagement.js:273
+
+    src/components/admin/ProductDetailView.js:89
+
+    src/app/admin/orders/page.js:211
+
+    src/app/admin/orders/page.js:223
+
+    src/app/admin/orders/page.js:236
+
+    src/app/admin/orders/page.js:341
+
+    src/app/admin/orders/page.js:863
+
+  ⚠ Bugs: Data fetching inside an effect ×2
+    Learn more: https://react.doctor/docs/rules/react-doctor/no-fetch-in-effect
+    → Use `useQuery()` from @tanstack/react-query, `useSWR()`,
+    or fetch in a Server Component instead
+
+    src/app/admin/orders/page.js:799
+
+    src/app/admin/page.js:18
+
+  ⚠ Bugs: Derived value copied into state ×4
+    Learn more: https://react.doctor/docs/rules/react-doctor/no-derived-state
+    → Work out the value while rendering (or with useMemo if
+    it's expensive) instead of copying it into useState through
+    a useEffect. See
+    https://react.dev/learn/you-might-not-need-an-effect#updating-state-based-on-props-or-state
+
+    src/components/admin/ProductForm.js:116
+
+    src/components/admin/ProductManagement.js:84
+
+    src/app/bridal/BridalAtelierClient.js:42
+
+    src/app/admin/orders/page.js:745
+
+  ⚠ Bugs: preventDefault on a form or link
+    Learn more: https://react.doctor/docs/rules/react-doctor/no-prevent-default
+    → Use `<form action>` where your framework supports it (it
+    works without JS), or use a `<button>` instead of an `<a>`
+    with preventDefault.
+
+    src/app/everyday/EverydayEditClient.js:212
+
+  ⚠ Accessibility: Interaction on static element ×3
+    Learn more: https://react.doctor/docs/rules/react-doctor/no-static-element-interactions
+    → Give clickable static elements a `role`, or use a button
+    or link.
+
+    src/components/admin/CloudinaryUpload.js:107
+
+    src/app/admin/orders/page.js:369
+
+    src/app/admin/orders/page.js:611
+
+  ⚠ Accessibility: Role used instead of HTML tag
+    Learn more: https://react.doctor/docs/rules/react-doctor/prefer-tag-over-role
+    → Replace `role` with the matching HTML element when one
+    exists.
+
+    src/app/product/[id]/ProductDetailClient.js:403
+
+  ⚠ Bugs: Client fetch for server data ×2
+    Learn more: https://react.doctor/docs/rules/react-doctor/nextjs-no-client-fetch-for-server-data
+    → Remove 'use client' and fetch directly in the Server
+    Component. No API round-trip, and secrets stay on the
+    server.
+
+    src/app/admin/orders/page.js:799
+
+    src/app/admin/page.js:18
+
+  ⚠ Maintainability: deslop/unused-file ×6
+    → Delete the file if it is truly unreachable, or import it
+    from an entry point.
+
+    scratch/test-admin-orders.ts
+
+    scratch/test-razorpay-flows.ts
+
+    src/generated/browser.ts
+
+    src/generated/internal/prismaNamespaceBrowser.ts
+
+    src/scratch/check-products.ts
+
+    src/types/index.ts
+
+  ⚠ Performance: State only used in handlers
+    Learn more: https://react.doctor/docs/rules/react-doctor/rerender-state-only-in-handlers
+    → Use useRef instead of useState when the value is only set
+    and never shown on screen. `ref.current = ...` updates it
+    without redrawing the component.
+
+    src/components/admin/ProductManagement.js:17
+
+  ⚠ Bugs: Button missing explicit type ×21
+    Learn more: https://react.doctor/docs/rules/react-doctor/button-has-type
+    → Always set a `type` on a `<button>`: `type="button"`,
+    `"submit"`, or `"reset"`.
+
+    src/components/admin/ProductManagement.js:239
+
+    src/components/admin/ProductManagement.js:256
+
+    src/components/admin/ProductManagement.js:313
+
+    src/components/admin/ProductManagement.js:325
+
+    src/components/admin/ProductManagement.js:425
+
+    src/components/admin/ProductManagement.js:435
+
+    src/components/admin/ProductManagement.js:442
+
+    src/components/admin/ProductManagement.js:453
+
+    src/components/admin/ProductManagement.js:463
+
+    src/components/admin/ProductManagement.js:473
+
+    src/components/admin/ProductManagement.js:481
+
+    src/components/admin/ProductManagement.js:506
+
+    src/components/admin/ProductManagement.js:513
+
+    src/components/admin/ProductDetailView.js:77
+
+    src/components/admin/ProductDetailView.js:127
+
+    src/components/admin/ProductDetailView.js:140
+
+    src/app/admin/orders/page.js:384
+
+    src/app/admin/orders/page.js:414
+
+    src/app/admin/orders/page.js:841
+
+    src/app/admin/orders/page.js:892
+
+    src/app/admin/orders/page.js:919
+
+  ⚠ Accessibility: Media missing captions
+    Learn more: https://react.doctor/docs/rules/react-doctor/media-has-caption
+    → Add `<track kind="captions">` inside every `<audio>` /
+    `<video>`.
+
+    src/components/admin/ProductDetailView.js:89
+
+  ⚠ Bugs: Event logic handled in an effect ×2
+    Learn more: https://react.doctor/docs/rules/react-doctor/no-event-handler
+    → Run the side effect in the event handler that triggers
+    it, instead of watching its state from a useEffect. See
+    https://react.dev/learn/you-might-not-need-an-effect#sharing-logic-between-event-handlers
+
+    src/components/admin/ProductForm.js:10
+
+    src/app/checkout/CheckoutClient.js:39
+
+  ⚠ Bugs: State initialized from a mount effect ×2
+    Learn more: https://react.doctor/docs/rules/react-doctor/no-initialize-state
+    → Pass the initial value directly to useState() instead of
+    setting it from a mount-only useEffect. For SSR hydration,
+    prefer useSyncExternalStore().
+
+    src/components/Navbar.js:17
+
+    src/app/admin/page.js:89
+
+  ⚠ Accessibility: Click handler missing keyboard handler ×3
+    Learn more: https://react.doctor/docs/rules/react-doctor/click-events-have-key-events
+    → Pair `onClick` with a key handler so keyboard users can
+    trigger it.
+
+    src/components/admin/CloudinaryUpload.js:107
+
+    src/app/admin/orders/page.js:369
+
+    src/app/admin/orders/page.js:611
+
+  ⚠ Performance: Empty default prop breaks memo ×2
+    Learn more: https://react.doctor/docs/rules/react-doctor/rerender-memo-with-default-value
+    → Move it to the top of the file: `const EMPTY_ITEMS:
+    Item[] = []`, then use that as the default value
+
+    src/app/everyday/EverydayEditClient.js:13
+
+    src/app/bridal/BridalAtelierClient.js:12
+
+  ⚠ Maintainability: Deprecated Zod schema API ×18
+    Learn more: https://react.doctor/docs/rules/react-doctor/zod-v4-no-deprecated-schema-apis
+    → Switch to the Zod 4 versions: top-level factories like
+    `z.enum()`, object helpers like `z.strictObject()`, the new
+    `z.function({ input, output })` form, and explicit
+    key/value schemas for `z.record()`.
+
+    src/app/api/customers/me/addresses/[id]/route.ts:21
+
+    src/lib/validations/order.ts:32
+
+    src/app/api/customers/me/route.ts:32
+
+    src/app/api/orders/[id]/route.ts:36
+
+    src/app/api/measurements/[id]/route.ts:21
+
+    src/app/api/customers/me/addresses/route.ts:18
+
+    src/app/api/measurements/route.ts:32
+
+    src/lib/validations/consultation.ts:9
+
+    src/lib/validations/consultation.ts:16
+
+    src/lib/validations/product.ts:17-18
+
+    src/lib/validations/product.ts:36
+
+    src/lib/validations/product.ts:40-41
+
+    src/app/api/consultations/route.ts:17
+
+    src/app/api/admin/orders/route.ts:17
+
+    src/app/api/cart/route.ts:32
+
+    src/app/api/cart/[itemId]/route.ts:21
+
+  ⚠ Performance: useEffect setState flashes on mount
+    Learn more: https://react.doctor/docs/rules/react-doctor/rendering-hydration-no-flicker
+    → Use `useSyncExternalStore(subscribe, getSnapshot,
+    getServerSnapshot)` or add `suppressHydrationWarning` to
+    the element
+
+    src/components/Navbar.js:16
+
+  ⚠ Maintainability: Static value rebuilt every render ×8
+    Learn more: https://react.doctor/docs/rules/react-doctor/prefer-module-scope-static-value
+    → Move the value above the component, at the top of the
+    file. It doesn't use local state, so rebuilding it each
+    update is wasted and makes it look new every time.
+
+    src/components/Navbar.js:32
+
+    src/app/everyday/EverydayEditClient.js:45
+
+    src/app/product/[id]/ProductDetailClient.js:61
+
+    src/app/book/BookConsultationClient.js:18
+
+    src/app/book/BookConsultationClient.js:27
+
+    src/app/bridal/BridalAtelierClient.js:115-117
+
+  ⚠ Performance: await before an early-return guard
+    Learn more: https://react.doctor/docs/rules/react-doctor/async-defer-await
+    → Move the `await` below the early-return guard so the skip
+    path stays fast
+
+    src/app/checkout/CheckoutClient.js:98
+
+  ⚠ Maintainability: deslop/unused-export ×11
+    → Drop the `export` keyword (or remove the declaration) if
+    no other module uses this symbol.
+
+    src/lib/cloudinary.ts:23
+
+    src/lib/cloudinary.ts:45
+
+    src/lib/db.js:2
+
+    src/lib/errors.ts:23
+
+    src/lib/errors.ts:63
+
+    src/lib/pagination.ts:21
+
+    src/lib/store.js:25
+
+    src/lib/store.js:37
+
+    src/lib/validations/order.ts:14
+
+    src/lib/validations/product.ts:35
+
+    src/lib/validations/wallet.ts:9
+
+  ⚠ Bugs: Data passed to parent via effect
+    Learn more: https://react.doctor/docs/rules/react-doctor/no-pass-data-to-parent
+    → Fetch the data in the parent and pass it down as a prop
+    (or return it from the hook), instead of handing it back up
+    through a prop callback in a useEffect. See
+    https://react.dev/learn/you-might-not-need-an-effect#passing-data-to-the-parent
+
+    src/components/admin/ProductForm.js:116
+
+  ⚠ Maintainability: Format method on z.string() ×25
+    Learn more: https://react.doctor/docs/rules/react-doctor/zod-v4-prefer-top-level-string-formats
+    → Use the Zod 4 top-level format checks like `z.email()`,
+    `z.uuid()`, or `z.ipv4()` instead of
+    `z.string().<format>()`.
+
+    src/app/api/payments/create-order/route.ts:35
+
+    src/app/api/payments/create-order/route.ts:40
+
+    src/lib/validations/cart.ts:5
+
+    src/lib/validations/order.ts:19
+
+    src/lib/validations/order.ts:24
+
+    src/lib/validations/customer.ts:6
+
+    src/app/api/referral/reward/route.ts:15-16
+
+    src/app/api/payments/refund/route.ts:22
+
+    src/app/api/wishlist/route.ts:33
+
+    src/app/api/wishlist/route.ts:51
+
+    src/lib/validations/wallet.ts:4
+
+    src/lib/validations/wallet.ts:10
+
+    src/lib/validations/consultation.ts:7-10
+
+    src/lib/validations/consultation.ts:17-19
+
+    src/lib/validations/product.ts:24
+
+    src/lib/validations/product.ts:46
+
+    src/lib/validations/product.ts:54
+
+    src/lib/validations/product.ts:64
+
+    src/lib/validations/product.ts:70-72
+
+    src/app/api/admin/products/[id]/route.ts:51
+
+    src/app/api/admin/products/[id]/route.ts:64
+
+  ⚠ Maintainability: Pure function rebuilt every render ×2
+    Learn more: https://react.doctor/docs/rules/react-doctor/prefer-module-scope-pure-function
+    → Move the function above the component, at the top of the
+    file. It doesn't use local state, so rebuilding it each
+    update is wasted work.
+
+    src/components/admin/ProductForm.js:119
+
+    src/app/bridal/BridalAtelierClient.js:76
+
+  ⚠ Maintainability: Component is too large ×7
+    Learn more: https://react.doctor/docs/rules/react-doctor/no-giant-component
+    → Pull each section into its own component, like
+    `<UserHeader />` and `<UserActions />`.
+
+    src/components/admin/ProductForm.js:9
+
+    src/components/admin/ProductManagement.js:9
+
+    src/app/checkout/CheckoutClient.js:12
+
+    src/app/product/[id]/ProductDetailClient.js:15
+
+    src/app/bridal/BridalAtelierClient.js:12
+
+    src/app/admin/orders/page.js:664
+
+    src/app/admin/page.js:10
+
+  ⚠ Maintainability: deslop/unused-dependency ×2
+    → Remove the dependency from package.json if it is
+    genuinely unused.
+
+    package.json
+
+  ⚠ Performance: .map().filter(Boolean) loops twice ×3
+    Learn more: https://react.doctor/docs/rules/react-doctor/js-flatmap-filter
+    → Use `.flatMap(item => condition ? [value] : [])` to
+    change and drop items in one pass, instead of building a
+    throwaway array in between
+
+    src/app/product/[id]/page.js:70
+
+    src/app/everyday/page.js:46
+
+    src/app/bridal/page.js:46
+
+  ⚠ Performance: Chained array iterations ×2
+    Learn more: https://react.doctor/docs/rules/react-doctor/js-combine-iterations
+    → Combine `.map().filter()` style chains into one pass with
+    `.reduce()` or a `for...of` loop, so you only loop over the
+    list once
+
+    src/context/CartContext.js:68
+
+    prisma/seed.ts:222
+
+  ⚠ Maintainability: Deprecated React 19 APIs
+    Learn more: https://react.doctor/docs/rules/react-doctor/no-react19-deprecated-apis
+    → Pass `ref` as a normal prop on function components, since
+    `forwardRef` isn't needed in React 19. Replace
+    `useContext(X)` with `use(X)`. Only runs on React 19+
+    projects.
+
+    src/context/CartContext.js:3
+
+  ⚠ Bugs: Many related useState calls ×9
+    Learn more: https://react.doctor/docs/rules/react-doctor/prefer-useReducer
+    → Group related state: `const [state, dispatch] =
+    useReducer(reducer, { field1, field2, ... })`
+
+    src/components/admin/ProductForm.js:9
+
+    src/components/admin/ProductManagement.js:9
+
+    src/app/checkout/CheckoutClient.js:12
+
+    src/app/product/[id]/ProductDetailClient.js:15
+
+    src/app/book/BookConsultationClient.js:9
+
+    src/app/bridal/BridalAtelierClient.js:12
+
+    src/app/admin/orders/page.js:266
+
+    src/app/admin/orders/page.js:664
+
+    src/app/admin/page.js:10
+
+  ⚠ Performance: Bouncy easing animation ×3
+    Learn more: https://react.doctor/docs/rules/react-doctor/no-inline-bounce-easing
+    → Use `cubic-bezier(0.16, 1, 0.3, 1)` (ease-out-expo) for a
+    natural finish. Real objects don't bounce.
+
+    src/app/book/BookConsultationClient.js:70
+
+    src/app/bridal/BridalAtelierClient.js:156
+
+    src/app/bridal/BridalAtelierClient.js:354
+
+
+  ────────────────────────────────────────────────────────────
+
+  All 214 issues
+
+  Bugs › 2 errors, 55 warnings
+  Performance › 24 warnings
+  Accessibility › 53 warnings
+  Maintainability › 80 warnings
+
+  ┌─────┐  58 / 100 Critical
+  │ • • │  █████████████████████████████▓▓░░░░░░░░░░░░░░░░░░░
+  │  ─  │  React Doctor (https://react.doctor)
+  └─────┘
+
+  You could improve +3% by fixing the top 3 issues
+  Full diagnostics written to /var/folders/3b/8gpp53d1455d2lrg42f5gkdc0000gn/T/react-doctor-d6959e17-b944-4f92-adde-33f18d90ff2d
+
+  ────────────────────────────────────────────────────────────
+
+  Share: https://react.doctor/share?p=pehnawa&s=58&e=2&w=212&f=51
+  Tell others how you did on socials
+
+  Docs: https://react.doctor/docs
+  Learn more about fixing issues, setting up CI/CD, and configuring rules with a config file
+
+  GitHub: https://github.com/millionco/react-doctor
+  Report issues and star the repository!
+

@@ -1,0 +1,21 @@
+{
+  "razorpayOrderId": "order_T0hTBxopFuDn7X",
+  "items": [
+    {
+      "productId": "noorani-anarkali",
+      "quantity": 1,
+      "size": "S"
+    }
+  ],
+  "shippingForm": {
+    "name": "Ashraya Mishra",
+    "email": "ashrayamishra7@gmail.com",
+    "phone": "9026263050",
+    "address": "hvdjhsfdbvb",
+    "city": "Lucknow",
+    "state": "Uttar Pradesh ",
+    "zip": "226002",
+    "giftDraping": false
+  },
+  "totalAmountInPaise": 4200000
+}

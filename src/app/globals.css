@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme {
+  --color-gold: #D4AF37;
+  --color-luxury-bg: #131313;
+  --color-charcoal: #1F1F1F;
+  --color-ivory: #FDFCF0;
+  --font-playfair: "Playfair Display", serif;
+  --font-montserrat: "Montserrat", sans-serif;
+}
+
+:root {
+  --background: #131313;
+  --foreground: #e5e2e1;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: "Montserrat", sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar for Luxury Experience */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #131313;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D4AF37;
+  border-radius: 0px;
+}
+
+/* Glassmorphic Utilities */
+.glass-panel {
+  background: rgba(31, 31, 31, 0.75);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gold-glow {
+  box-shadow: 0 0 50px -10px rgba(212, 175, 55, 0.15);
+}
+
+.gold-glow-hover:hover {
+  box-shadow: 0 0 30px -5px rgba(212, 175, 55, 0.25);
+  transition: all 0.5s ease;
+}
+
+/* Hide Scrollbar */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Cinematic Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes subtleZoom {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.05);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.cinematic-zoom:hover img {
+  animation: subtleZoom 8s ease-out forwards;
+}
+
+/* Asymmetric spacing logic for editorial list grids */
+.asymmetric-grid-item:nth-child(even) {
+  margin-top: 4rem;
+}
+
+@media (max-width: 768px) {
+  .asymmetric-grid-item:nth-child(even) {
+    margin-top: 0;
+  }
+}
