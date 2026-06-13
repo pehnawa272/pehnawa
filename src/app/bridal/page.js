@@ -1,5 +1,7 @@
 import BridalAtelierClient from "./BridalAtelierClient";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Golden Era | Pehnawa by Laxshmi",
   description: "Timeless elegant ethnic wear for the sophisticated woman. Premium sarees, luxury kurta sets, and refined festive fashion crafted with generational artisanship at Pehnawa by Laxshmi.",

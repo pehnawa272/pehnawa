@@ -1,5 +1,7 @@
 import SignatureEditClient from "./SignatureEditClient";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Signature Edit | Pehnawa by Laxshmi",
   description: "Explore our signature luxury Indian couture ensembles. Meticulously handcrafted masterpieces blending heritage and modern elegance.",

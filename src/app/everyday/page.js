@@ -1,5 +1,7 @@
 import EverydayEditClient from "./EverydayEditClient";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Professional Ethnic | Pehnawa by Laxshmi",
   description: "Elegant professional ethnic wear crafted for modern women. Discover kurtis, sarees, and contemporary Indian fashion at Pehnawa by Laxshmi.",

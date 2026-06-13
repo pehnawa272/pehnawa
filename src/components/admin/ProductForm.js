@@ -365,12 +365,14 @@ export default function ProductForm({ product, onSave, onCancel }) {
         });
 
         if (!res.ok) {
-          const errBody = await res.json();
+          const errBody = await res.json().catch(() => ({}));
           const fieldErrors = errBody.error?.fields;
           const fieldMsg = fieldErrors
             ? Object.entries(fieldErrors).map(([k, v]) => `${k}: ${v.join(", ")}`).join(" | ")
             : "";
-          throw new Error(fieldMsg || errBody.error?.message || "Failed to create product");
+          const serverMsg = fieldMsg || errBody.error?.message || errBody.message || `Server error ${res.status}`;
+          console.error("[ProductForm] Create failed:", res.status, errBody);
+          throw new Error(serverMsg);
         }
 
         const resData = await res.json();
