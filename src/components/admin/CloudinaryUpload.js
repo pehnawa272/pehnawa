@@ -36,7 +36,8 @@ export default function CloudinaryUpload({
         if (!signResponse.ok) {
           // Show the server's detailed error (e.g. "Cloudinary not configured")
           const errBody = await signResponse.json().catch(() => ({}));
-          throw new Error(errBody.error || "Failed to get upload signature");
+          const errMsg = errBody.error?.message || errBody.error || errBody.message || "Failed to get upload signature";
+          throw new Error(errMsg);
         }
 
         const { data: signData } = await signResponse.json();
