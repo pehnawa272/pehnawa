@@ -100,7 +100,7 @@ export default function Homepage() {
             <Link href="/everyday" className="group cursor-pointer flex flex-col">
               <div className="relative aspect-[3/4] overflow-hidden bg-[#1F1F1F] mb-6 border border-white/5 cinematic-zoom">
                 <Image
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0hgBNe_AXnYCDbFO5_41ix7K45ebWrSBnTzEyhIZHGL8Sv-zcwsraGiG04ahhwJfiTuikxJ4pLYPbwP56j4o06Exg-rs5G-X7QmxLifW5mP9bVm3IqHqVC872UOKFckvQPqgbXCjCuPd2xzw836nyHmL_m1JEzvVJPgjhjYboW5n79vcFkl1qvA8yzhUrYoOrMEqN3zddZg5FmNinHagGis0HDBqpUSkcjcKWZK-ZJ9TROkQyVjD2GPiKfLpzH5fOE8hLcf6BTPM"
+                  src="/pic6.jpeg"
                   alt="Professional Ethnic Collection"
                   fill
                   className="object-cover grayscale group-hover:grayscale-0 transition-all duration-[1000ms]"
