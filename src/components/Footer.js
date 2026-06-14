@@ -16,10 +16,10 @@ export default function Footer() {
       {/* Navigation Directory */}
       <div className="flex flex-wrap justify-center gap-x-12 gap-y-4 mb-12">
         <Link
-          href="/"
+          href="/about"
           className="font-montserrat text-[13px] text-white/50 hover:text-gold transition-colors tracking-widest uppercase"
         >
-          Our Story
+          About Us
         </Link>
         <Link
           href="/"
