@@ -34,6 +34,12 @@ export default function Footer() {
         >
           Privacy Policy
         </Link>
+        <Link
+          href="/return-policy"
+          className="font-montserrat text-[13px] text-white/50 hover:text-gold transition-colors tracking-widest uppercase"
+        >
+          Return Policy
+        </Link>
         <a
           href="tel:+917309336575"
           className="font-montserrat text-[13px] text-white/50 hover:text-gold transition-colors tracking-widest uppercase"

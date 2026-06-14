@@ -616,6 +616,17 @@ export default function Checkout() {
                     </div>
                   </div>
 
+                  {/* Return Policy Notice */}
+                  <div className="bg-gold/5 border border-gold/20 p-6 text-left space-y-3 font-montserrat text-[12px] max-w-md mx-auto">
+                    <h4 className="text-[11px] text-gold font-bold tracking-widest uppercase flex items-center gap-1.5">
+                      <SymbolIcon name="info" className="size-4" />
+                      Return Policy Notice
+                    </h4>
+                    <p className="text-white/70 leading-relaxed font-light">
+                      Returns/exchanges are strictly applicable <strong className="text-white font-semibold">within 7 days of delivery</strong> and not after that. To apply for a return, please contact our support helpline at <a href="tel:+917309336575" className="text-gold hover:underline font-semibold font-montserrat">+91 73093 36575</a>.
+                    </p>
+                  </div>
+
                   <div className="pt-4 flex flex-col sm:flex-row gap-4 justify-center">
                     <Link
                       href="/"
