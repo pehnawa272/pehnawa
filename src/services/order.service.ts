@@ -70,6 +70,7 @@ export const OrderService = {
         unitPrice:            product.price,
         quantity:             item.quantity,
         size:                 item.size ?? null,
+        colour:               item.colour ?? null,
         customTailoring:      (item.customTailoring ?? undefined) as object | undefined,
         measurementProfileId: item.measurementProfileId ?? null,
       };
@@ -143,6 +144,7 @@ export const OrderService = {
       productId: string;
       quantity: number;
       size?: string;
+      colour?: string;
       customTailoring?: any;
       measurementProfileId?: string;
     }>;
@@ -222,6 +224,7 @@ export const OrderService = {
             unitPrice:            product.price!,
             quantity:             item.quantity,
             size:                 item.size ?? null,
+            colour:               item.colour ?? null,
             customTailoring:      (item.customTailoring ?? undefined) as any,
             measurementProfileId: item.measurementProfileId ?? null,
           };

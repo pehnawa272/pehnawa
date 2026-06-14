@@ -18,6 +18,10 @@ export default function ProductDetail({ initialProduct }) {
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [selectedSize, setSelectedSize] = useState("S");
+  const [selectedColour, setSelectedColour] = useState(() => {
+    // Pre-select first colour if available
+    return product?.colours?.[0] || null;
+  });
   
   // Custom Tailoring State
   const [customTailoringEnabled, setCustomTailoringEnabled] = useState(false);
@@ -51,7 +55,7 @@ export default function ProductDetail({ initialProduct }) {
       };
     }
 
-    addToCart(product, selectedSize, customTailoringSpecs);
+    addToCart(product, selectedSize, customTailoringSpecs, selectedColour);
     setAddedNotice(true);
     setTimeout(() => setAddedNotice(false), 2000);
   };
@@ -180,6 +184,35 @@ export default function ProductDetail({ initialProduct }) {
                   ))}
                 </div>
               </div>
+
+              {/* Colour Selection — shown only if product has colour variants */}
+              {product.colours && product.colours.length > 0 && (
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center text-[12px] font-montserrat tracking-widest font-semibold text-white">
+                    <span>SELECT COLOUR</span>
+                    {selectedColour && (
+                      <span className="text-gold text-[11px] font-normal italic">{selectedColour}</span>
+                    )}
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {product.colours.map((colour) => (
+                      <button
+                        key={colour}
+                        type="button"
+                        onClick={() => setSelectedColour(colour)}
+                        title={colour}
+                        className={`px-4 py-2 text-[11px] font-montserrat font-semibold tracking-wider transition-all border ${
+                          selectedColour === colour
+                            ? "bg-gold text-[#131313] border-gold"
+                            : "border-white/20 hover:border-gold text-white"
+                        }`}
+                      >
+                        {colour}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Bespoke Tailoring Module */}
               <div className="border border-white/5 bg-[#1F1F1F]/40 p-6 space-y-6">

@@ -42,6 +42,7 @@ const CheckoutItemInputSchema = z.object({
   id:                  z.string().min(1), // product id
   quantity:            z.number().int().positive().max(10),
   size:                z.string().max(20).nullable().optional(),
+  colour:              z.string().max(50).nullable().optional(),
   customTailoring:     CustomTailoringInputSchema.nullable().optional(),
   measurementProfileId: z.string().cuid().nullable().optional(),
 });
@@ -122,6 +123,7 @@ export async function POST(req: NextRequest) {
         productId:            item.id,
         quantity:             item.quantity,
         size:                 item.size ?? undefined,
+        colour:               item.colour ?? undefined,
         customTailoring:      item.customTailoring ?? undefined,
         measurementProfileId: item.measurementProfileId ?? undefined,
       })),

@@ -41,6 +41,8 @@ export default function ProductForm({ product, onSave, onCancel }) {
   });
 
   const [occasions, setOccasions] = useState([]);
+  const [colours, setColours] = useState([]);   // ["Ivory White", "Midnight Black", ...]
+  const [colourInput, setColourInput] = useState(""); // live text in colour input field
   const [images, setImages] = useState([]); // [{ url, cloudinaryId, isPrimary }]
   const [videos, setVideos] = useState([]);  // [{ url, cloudinaryId }]
   const [isLoading, setIsLoading] = useState(false);
@@ -110,6 +112,7 @@ export default function ProductForm({ product, onSave, onCancel }) {
 
         if (product.images) setImages(product.images);
         if (product.videos) setVideos(product.videos);
+        if (product.colours) setColours(product.colours);
       }
     }
 
@@ -196,6 +199,26 @@ export default function ProductForm({ product, onSave, onCancel }) {
       const details = prev.details.filter((_, i) => i !== index);
       return { ...prev, details: details.length ? details : [""] };
     });
+  };
+
+  // Colour tag management
+  const handleColourInputKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === ",") {
+      e.preventDefault();
+      addColour();
+    }
+  };
+
+  const addColour = () => {
+    const trimmed = colourInput.trim().replace(/,$/, "");
+    if (trimmed && !colours.includes(trimmed)) {
+      setColours((prev) => [...prev, trimmed]);
+    }
+    setColourInput("");
+  };
+
+  const removeColour = (colourToRemove) => {
+    setColours((prev) => prev.filter((c) => c !== colourToRemove));
   };
 
   // Occasions checkbox toggle
@@ -319,6 +342,7 @@ export default function ProductForm({ product, onSave, onCancel }) {
         isFeatured: formData.isFeatured,
         occasionIds: formData.occasionIds,
         details: finalDetails,
+        colours,
       };
 
       let savedProduct;
@@ -549,6 +573,7 @@ export default function ProductForm({ product, onSave, onCancel }) {
               <option value="SIGNATURE">Signature Edit</option>
               <option value="BRIDAL">Golden Era</option>
               <option value="OTHERS">Others</option>
+              <option value="BOTTOMWEAR">Bottomwear</option>
             </select>
           </div>
 
@@ -569,6 +594,7 @@ export default function ProductForm({ product, onSave, onCancel }) {
               <option value="DUPATTAS">Dupatta</option>
               <option value="ANARKALIS">Anarkali</option>
               <option value="ACCESSORIES">Accessories</option>
+              <option value="BOTTOMWEAR">Bottomwear</option>
             </select>
           </div>
         </div>
@@ -591,6 +617,58 @@ export default function ProductForm({ product, onSave, onCancel }) {
               </label>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Colour Variants */}
+      <div className="space-y-4">
+        <h4 className="font-playfair text-[18px] text-gold tracking-wider uppercase font-semibold border-b border-white/5 pb-2">
+          Colour Variants
+        </h4>
+        <p className="font-montserrat text-[11px] text-white/40 leading-relaxed">
+          Add available colour options for this design. Customers will be able to select a colour on the product page before checkout.
+        </p>
+
+        {/* Colour chips */}
+        {colours.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {colours.map((colour) => (
+              <span
+                key={colour}
+                className="inline-flex items-center gap-1.5 bg-gold/10 border border-gold/30 text-gold font-montserrat text-[11px] font-semibold px-3 py-1.5 tracking-wider"
+              >
+                {colour}
+                <button
+                  type="button"
+                  onClick={() => removeColour(colour)}
+                  className="text-gold/60 hover:text-gold transition-colors ml-1 font-bold leading-none"
+                  aria-label={`Remove ${colour}`}
+                >
+                  ×
+                </button>
+              </span>
+            ))}
+          </div>
+        )}
+
+        {/* Colour input */}
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={colourInput}
+            onChange={(e) => setColourInput(e.target.value)}
+            onKeyDown={handleColourInputKeyDown}
+            onBlur={addColour}
+            placeholder="e.g. Ivory White — press Enter or comma to add"
+            className="flex-1 bg-[#131313] border border-white/10 p-3 text-[13px] font-montserrat text-white focus:border-gold outline-none transition-colors"
+          />
+          <button
+            type="button"
+            onClick={addColour}
+            className="px-4 py-3 bg-gold/10 border border-gold/30 text-gold font-montserrat text-[11px] font-bold tracking-wider uppercase hover:bg-gold/20 transition-colors"
+          >
+            Add
+          </button>
         </div>
       </div>
 

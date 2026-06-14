@@ -107,6 +107,11 @@ export default function CartDrawer() {
                         <span className="inline-block mt-1 font-montserrat text-[11px] uppercase tracking-wider text-gold font-medium">
                           Size: {item.size}
                         </span>
+                        {item.colour && (
+                          <span className="inline-block font-montserrat text-[11px] uppercase tracking-wider text-white/50 font-medium">
+                            Colour: {item.colour}
+                          </span>
+                        )}
                       </div>
                       <button
                         type="button"

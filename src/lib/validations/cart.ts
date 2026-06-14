@@ -5,6 +5,7 @@ export const AddToCartSchema = z.object({
   productId:       z.string().cuid(),
   quantity:        z.number().int().positive().max(10).default(1),
   size:            z.string().max(20).optional(),
+  colour:          z.string().max(50).nullish(),
   customTailoring: CustomTailoringSchema.optional(),
 });
 

@@ -16,7 +16,7 @@ const productCardSelect = {
 
 const productDetailSelect = {
   ...productCardSelect,
-  description: true, fabric: true, embroidery: true, details: true,
+  description: true, fabric: true, embroidery: true, details: true, colours: true,
   images:   { orderBy: { sortOrder: "asc" as const } },
   videos:   { orderBy: { sortOrder: "asc" as const } },
   occasions: { include: { occasion: true } },

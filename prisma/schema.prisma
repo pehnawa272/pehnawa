@@ -27,6 +27,7 @@ enum ProductCategory {
   SIGNATURE
   BRIDAL
   OTHERS
+  BOTTOMWEAR
 }
 
 enum ProductSubCategory {
@@ -37,6 +38,7 @@ enum ProductSubCategory {
   ANARKALIS
   SAREES
   ACCESSORIES
+  BOTTOMWEAR
 }
 
 enum OrderStatus {
@@ -198,6 +200,9 @@ model Product {
   // Pricing — nullable for "Enquire" (bridal)
   price       Int?               // stored in paise (₹ × 100) for precision
   isEnquireOnly Boolean          @default(false)
+
+  // Available colour variants for this design (e.g. ["Ivory White", "Midnight Black"])
+  colours       String[]         @default([])
 
   // Metadata
   craftingHours Int?             // e.g. 400 hours
@@ -362,6 +367,7 @@ model CartItem {
 
   quantity  Int      @default(1)
   size      String?  // S, M, L, XL, or "custom"
+  colour    String?  // Selected colour variant
 
   // Custom tailoring directives (stored as JSON)
   customTailoring Json?
@@ -378,7 +384,7 @@ model CartItem {
   addedAt   DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([cartId, productId, size])   // one row per product+size combo
+  @@unique([cartId, productId, size, colour])   // one row per product+size+colour combo
   @@index([cartId])
 }
 
@@ -451,6 +457,7 @@ model OrderItem {
   unitPrice       Int      // in paise at time of purchase
   quantity        Int      @default(1)
   size            String?
+  colour          String?  // Selected colour variant
 
   customTailoring     Json?    // same shape as CartItem
   measurementProfileId String?

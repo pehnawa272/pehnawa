@@ -92,6 +92,7 @@ export default function Checkout() {
               id: item.id,
               quantity: item.quantity,
               size: item.size || undefined,
+              colour: item.colour || undefined,
               customTailoring: tailoring,
             };
           }),
@@ -151,6 +152,7 @@ export default function Checkout() {
                 title: item.title,
                 price: item.price,
                 size: item.size,
+                colour: item.colour,
                 quantity: item.quantity,
               })),
               total: cartTotal,
@@ -450,9 +452,17 @@ export default function Checkout() {
                           <h4 className="font-playfair text-[16px] text-white font-medium">
                             {item.title} x {item.quantity}
                           </h4>
-                          <div className="flex gap-4 font-montserrat text-[11px]">
-                            <span className="text-white/40">CHOSEN FITTING:</span>
-                            <span className="text-gold font-bold">{item.size} (Standard)</span>
+                          <div className="flex flex-col gap-1 mt-1 font-montserrat text-[11px]">
+                            <div className="flex gap-4">
+                              <span className="text-white/40">CHOSEN FITTING:</span>
+                              <span className="text-gold font-bold">{item.size} (Standard)</span>
+                            </div>
+                            {item.colour && (
+                              <div className="flex gap-4">
+                                <span className="text-white/40">CHOSEN COLOUR:</span>
+                                <span className="text-gold font-bold">{item.colour}</span>
+                              </div>
+                            )}
                           </div>
                         </div>
 
@@ -591,9 +601,9 @@ export default function Checkout() {
                     {/* Items loop */}
                     <div className="border-t border-white/5 pt-3 mt-3 space-y-2">
                       {orderResult.items.map((item) => (
-                        <div key={`${item.id}-${item.size}`} className="flex justify-between text-[12px]">
+                        <div key={`${item.id}-${item.size}-${item.colour || "std"}`} className="flex justify-between text-[12px]">
                           <span className="text-white/60">
-                            {item.title} ({item.size}) <span className="text-[10px] text-white/40">x{item.quantity}</span>
+                            {item.title} ({item.size}{item.colour ? `, ${item.colour}` : ""}) <span className="text-[10px] text-white/40">x{item.quantity}</span>
                           </span>
                           <span className="text-white font-semibold">₹ {item.price.toLocaleString()}</span>
                         </div>
@@ -642,7 +652,7 @@ export default function Checkout() {
                           {item.title}
                         </h4>
                         <p className="font-montserrat text-[10px] text-white/40 uppercase">
-                          Size: {item.size} • Qty: {item.quantity}
+                          Size: {item.size} {item.colour ? `• Colour: ${item.colour}` : ""} • Qty: {item.quantity}
                         </p>
                         {item.customTailoring && (
                           <span className="inline-block text-[9px] font-montserrat text-gold tracking-wider uppercase font-semibold">

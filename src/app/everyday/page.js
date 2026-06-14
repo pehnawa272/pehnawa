@@ -53,10 +53,13 @@ function mapDbProduct(p) {
 export default async function EverydayEditPage() {
   let initialProducts = [];
   try {
-    const d = await ProductService.list({ category: "EVERYDAY", page: 1, limit: 100 });
-    if (d?.items) {
-      initialProducts = d.items.map(mapDbProduct);
-    }
+    // Fetch both EVERYDAY and BOTTOMWEAR categories together
+    const [everyday, bottomwear] = await Promise.all([
+      ProductService.list({ category: "EVERYDAY",   page: 1, limit: 100 }),
+      ProductService.list({ category: "BOTTOMWEAR", page: 1, limit: 100 }),
+    ]);
+    if (everyday?.items)   initialProducts.push(...everyday.items.map(mapDbProduct));
+    if (bottomwear?.items) initialProducts.push(...bottomwear.items.map(mapDbProduct));
   } catch (err) {
     console.error("Failed to fetch everyday products on server:", err);
   }

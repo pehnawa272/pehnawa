@@ -20,7 +20,14 @@ export default function EverydayEdit({ initialProducts = [] }) {
     let result = [...initialProducts];
 
     if (activeCategory !== "all") {
-      result = result.filter((p) => p.subCategory === activeCategory);
+      if (activeCategory === "bottomwear") {
+        // Bottomwear products can have category=bottomwear OR subCategory=bottomwear
+        result = result.filter(
+          (p) => p.category === "bottomwear" || p.subCategory === "bottomwear"
+        );
+      } else {
+        result = result.filter((p) => p.subCategory === activeCategory);
+      }
     }
 
     if (sortBy === "price-low") {
@@ -33,10 +40,11 @@ export default function EverydayEdit({ initialProducts = [] }) {
   }, [activeCategory, initialProducts, sortBy]);
 
   const categories = [
-    { name: "ALL PIECES", value: "all" },
-    { name: "KURTAS", value: "kurtas" },
-    { name: "CO-ORDS", value: "co-ords" },
-    { name: "DUPATTAS", value: "dupattas" },
+    { name: "ALL PIECES",  value: "all" },
+    { name: "KURTAS",      value: "kurtas" },
+    { name: "CO-ORDS",     value: "co-ords" },
+    { name: "DUPATTAS",    value: "dupattas" },
+    { name: "BOTTOMWEAR",  value: "bottomwear" },
   ];
 
   return (

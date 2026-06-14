@@ -24,9 +24,10 @@ export function CartProvider({ children }) {
   });
   const [cartOpen, setCartOpen] = useState(false);
 
-  const addToCart = useCallback((product, fitSize = "S", customTailoring = null) => {
+  const addToCart = useCallback((product, fitSize = "S", customTailoring = null, colour = null) => {
     setCartItems((prevItems) => {
-      const itemKey = `${product.id}-${fitSize}-${customTailoring ? JSON.stringify(customTailoring) : "standard"}`;
+      const colourKey = colour || "standard";
+      const itemKey = `${product.id}-${fitSize}-${colourKey}-${customTailoring ? JSON.stringify(customTailoring) : "standard"}`;
       const existingIndex = prevItems.findIndex((item) => item.key === itemKey);
 
       let updatedCart;
@@ -44,6 +45,7 @@ export function CartProvider({ children }) {
             image: product.images?.[0] || "",
             category: product.category,
             size: fitSize,
+            colour: colour,
             customTailoring: customTailoring,
             quantity: 1,
           },

@@ -296,6 +296,7 @@ export default function ProductManagement() {
             <option value="EVERYDAY">Professional Ethnic</option>
             <option value="SIGNATURE">Signature Edit</option>
             <option value="BRIDAL">Golden Era</option>
+            <option value="BOTTOMWEAR">Bottomwear</option>
           </select>
 
           {/* Sort Selector */}

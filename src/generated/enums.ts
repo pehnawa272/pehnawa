@@ -23,7 +23,8 @@ export const ProductCategory = {
   EVERYDAY: 'EVERYDAY',
   SIGNATURE: 'SIGNATURE',
   BRIDAL: 'BRIDAL',
-  OTHERS: 'OTHERS'
+  OTHERS: 'OTHERS',
+  BOTTOMWEAR: 'BOTTOMWEAR'
 } as const
 
 export type ProductCategory = (typeof ProductCategory)[keyof typeof ProductCategory]
@@ -36,7 +37,8 @@ export const ProductSubCategory = {
   LEHENGAS: 'LEHENGAS',
   ANARKALIS: 'ANARKALIS',
   SAREES: 'SAREES',
-  ACCESSORIES: 'ACCESSORIES'
+  ACCESSORIES: 'ACCESSORIES',
+  BOTTOMWEAR: 'BOTTOMWEAR'
 } as const
 
 export type ProductSubCategory = (typeof ProductSubCategory)[keyof typeof ProductSubCategory]

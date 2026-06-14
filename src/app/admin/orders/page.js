@@ -486,6 +486,9 @@ function OrderDetailPanel({ order, onUpdate, onClose }) {
                       <h4 className="font-playfair text-[15px] text-white">{item.title}</h4>
                       <div className="flex gap-3 mt-1 font-montserrat text-[11px] text-white/50">
                         <span>Size: <span className="text-gold font-semibold">{item.size || "Standard"}</span></span>
+                        {item.colour && (
+                          <span>Colour: <span className="text-gold font-semibold">{item.colour}</span></span>
+                        )}
                         <span>Qty: <span className="text-white font-semibold">{item.quantity}</span></span>
                       </div>
                     </div>
@@ -727,6 +730,7 @@ export default function AdminOrdersPage() {
           id:             item.id,
           title:          item.productTitle,
           size:           item.size || "Standard",
+          colour:         item.colour,
           quantity:       item.quantity,
           customTailoring: item.customTailoring,
         })),

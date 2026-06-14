@@ -46,6 +46,7 @@ export type OrderItemMinAggregateOutputType = {
   unitPrice: number | null
   quantity: number | null
   size: string | null
+  colour: string | null
   measurementProfileId: string | null
   createdAt: Date | null
 }
@@ -60,6 +61,7 @@ export type OrderItemMaxAggregateOutputType = {
   unitPrice: number | null
   quantity: number | null
   size: string | null
+  colour: string | null
   measurementProfileId: string | null
   createdAt: Date | null
 }
@@ -74,6 +76,7 @@ export type OrderItemCountAggregateOutputType = {
   unitPrice: number
   quantity: number
   size: number
+  colour: number
   customTailoring: number
   measurementProfileId: number
   createdAt: number
@@ -101,6 +104,7 @@ export type OrderItemMinAggregateInputType = {
   unitPrice?: true
   quantity?: true
   size?: true
+  colour?: true
   measurementProfileId?: true
   createdAt?: true
 }
@@ -115,6 +119,7 @@ export type OrderItemMaxAggregateInputType = {
   unitPrice?: true
   quantity?: true
   size?: true
+  colour?: true
   measurementProfileId?: true
   createdAt?: true
 }
@@ -129,6 +134,7 @@ export type OrderItemCountAggregateInputType = {
   unitPrice?: true
   quantity?: true
   size?: true
+  colour?: true
   customTailoring?: true
   measurementProfileId?: true
   createdAt?: true
@@ -231,6 +237,7 @@ export type OrderItemGroupByOutputType = {
   unitPrice: number
   quantity: number
   size: string | null
+  colour: string | null
   customTailoring: runtime.JsonValue | null
   measurementProfileId: string | null
   createdAt: Date
@@ -269,6 +276,7 @@ export type OrderItemWhereInput = {
   unitPrice?: Prisma.IntFilter<"OrderItem"> | number
   quantity?: Prisma.IntFilter<"OrderItem"> | number
   size?: Prisma.StringNullableFilter<"OrderItem"> | string | null
+  colour?: Prisma.StringNullableFilter<"OrderItem"> | string | null
   customTailoring?: Prisma.JsonNullableFilter<"OrderItem">
   measurementProfileId?: Prisma.StringNullableFilter<"OrderItem"> | string | null
   createdAt?: Prisma.DateTimeFilter<"OrderItem"> | Date | string
@@ -287,6 +295,7 @@ export type OrderItemOrderByWithRelationInput = {
   unitPrice?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   size?: Prisma.SortOrderInput | Prisma.SortOrder
+  colour?: Prisma.SortOrderInput | Prisma.SortOrder
   customTailoring?: Prisma.SortOrderInput | Prisma.SortOrder
   measurementProfileId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -308,6 +317,7 @@ export type OrderItemWhereUniqueInput = Prisma.AtLeast<{
   unitPrice?: Prisma.IntFilter<"OrderItem"> | number
   quantity?: Prisma.IntFilter<"OrderItem"> | number
   size?: Prisma.StringNullableFilter<"OrderItem"> | string | null
+  colour?: Prisma.StringNullableFilter<"OrderItem"> | string | null
   customTailoring?: Prisma.JsonNullableFilter<"OrderItem">
   measurementProfileId?: Prisma.StringNullableFilter<"OrderItem"> | string | null
   createdAt?: Prisma.DateTimeFilter<"OrderItem"> | Date | string
@@ -326,6 +336,7 @@ export type OrderItemOrderByWithAggregationInput = {
   unitPrice?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   size?: Prisma.SortOrderInput | Prisma.SortOrder
+  colour?: Prisma.SortOrderInput | Prisma.SortOrder
   customTailoring?: Prisma.SortOrderInput | Prisma.SortOrder
   measurementProfileId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -349,6 +360,7 @@ export type OrderItemScalarWhereWithAggregatesInput = {
   unitPrice?: Prisma.IntWithAggregatesFilter<"OrderItem"> | number
   quantity?: Prisma.IntWithAggregatesFilter<"OrderItem"> | number
   size?: Prisma.StringNullableWithAggregatesFilter<"OrderItem"> | string | null
+  colour?: Prisma.StringNullableWithAggregatesFilter<"OrderItem"> | string | null
   customTailoring?: Prisma.JsonNullableWithAggregatesFilter<"OrderItem">
   measurementProfileId?: Prisma.StringNullableWithAggregatesFilter<"OrderItem"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"OrderItem"> | Date | string
@@ -362,6 +374,7 @@ export type OrderItemCreateInput = {
   unitPrice: number
   quantity?: number
   size?: string | null
+  colour?: string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   order: Prisma.OrderCreateNestedOneWithoutItemsInput
@@ -379,6 +392,7 @@ export type OrderItemUncheckedCreateInput = {
   unitPrice: number
   quantity?: number
   size?: string | null
+  colour?: string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   measurementProfileId?: string | null
   createdAt?: Date | string
@@ -392,6 +406,7 @@ export type OrderItemUpdateInput = {
   unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colour?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   order?: Prisma.OrderUpdateOneRequiredWithoutItemsNestedInput
@@ -409,6 +424,7 @@ export type OrderItemUncheckedUpdateInput = {
   unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colour?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   measurementProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -424,6 +440,7 @@ export type OrderItemCreateManyInput = {
   unitPrice: number
   quantity?: number
   size?: string | null
+  colour?: string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   measurementProfileId?: string | null
   createdAt?: Date | string
@@ -437,6 +454,7 @@ export type OrderItemUpdateManyMutationInput = {
   unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colour?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -451,6 +469,7 @@ export type OrderItemUncheckedUpdateManyInput = {
   unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colour?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   measurementProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -476,6 +495,7 @@ export type OrderItemCountOrderByAggregateInput = {
   unitPrice?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   size?: Prisma.SortOrder
+  colour?: Prisma.SortOrder
   customTailoring?: Prisma.SortOrder
   measurementProfileId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -496,6 +516,7 @@ export type OrderItemMaxOrderByAggregateInput = {
   unitPrice?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   size?: Prisma.SortOrder
+  colour?: Prisma.SortOrder
   measurementProfileId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -510,6 +531,7 @@ export type OrderItemMinOrderByAggregateInput = {
   unitPrice?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   size?: Prisma.SortOrder
+  colour?: Prisma.SortOrder
   measurementProfileId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -653,6 +675,7 @@ export type OrderItemCreateWithoutProductInput = {
   unitPrice: number
   quantity?: number
   size?: string | null
+  colour?: string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   order: Prisma.OrderCreateNestedOneWithoutItemsInput
@@ -668,6 +691,7 @@ export type OrderItemUncheckedCreateWithoutProductInput = {
   unitPrice: number
   quantity?: number
   size?: string | null
+  colour?: string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   measurementProfileId?: string | null
   createdAt?: Date | string
@@ -712,6 +736,7 @@ export type OrderItemScalarWhereInput = {
   unitPrice?: Prisma.IntFilter<"OrderItem"> | number
   quantity?: Prisma.IntFilter<"OrderItem"> | number
   size?: Prisma.StringNullableFilter<"OrderItem"> | string | null
+  colour?: Prisma.StringNullableFilter<"OrderItem"> | string | null
   customTailoring?: Prisma.JsonNullableFilter<"OrderItem">
   measurementProfileId?: Prisma.StringNullableFilter<"OrderItem"> | string | null
   createdAt?: Prisma.DateTimeFilter<"OrderItem"> | Date | string
@@ -725,6 +750,7 @@ export type OrderItemCreateWithoutMeasurementProfileInput = {
   unitPrice: number
   quantity?: number
   size?: string | null
+  colour?: string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   order: Prisma.OrderCreateNestedOneWithoutItemsInput
@@ -741,6 +767,7 @@ export type OrderItemUncheckedCreateWithoutMeasurementProfileInput = {
   unitPrice: number
   quantity?: number
   size?: string | null
+  colour?: string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
@@ -779,6 +806,7 @@ export type OrderItemCreateWithoutOrderInput = {
   unitPrice: number
   quantity?: number
   size?: string | null
+  colour?: string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   product: Prisma.ProductCreateNestedOneWithoutOrderItemsInput
@@ -794,6 +822,7 @@ export type OrderItemUncheckedCreateWithoutOrderInput = {
   unitPrice: number
   quantity?: number
   size?: string | null
+  colour?: string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   measurementProfileId?: string | null
   createdAt?: Date | string
@@ -834,6 +863,7 @@ export type OrderItemCreateManyProductInput = {
   unitPrice: number
   quantity?: number
   size?: string | null
+  colour?: string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   measurementProfileId?: string | null
   createdAt?: Date | string
@@ -847,6 +877,7 @@ export type OrderItemUpdateWithoutProductInput = {
   unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colour?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   order?: Prisma.OrderUpdateOneRequiredWithoutItemsNestedInput
@@ -862,6 +893,7 @@ export type OrderItemUncheckedUpdateWithoutProductInput = {
   unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colour?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   measurementProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -876,6 +908,7 @@ export type OrderItemUncheckedUpdateManyWithoutProductInput = {
   unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colour?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   measurementProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -891,6 +924,7 @@ export type OrderItemCreateManyMeasurementProfileInput = {
   unitPrice: number
   quantity?: number
   size?: string | null
+  colour?: string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
 }
@@ -903,6 +937,7 @@ export type OrderItemUpdateWithoutMeasurementProfileInput = {
   unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colour?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   order?: Prisma.OrderUpdateOneRequiredWithoutItemsNestedInput
@@ -919,6 +954,7 @@ export type OrderItemUncheckedUpdateWithoutMeasurementProfileInput = {
   unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colour?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -933,6 +969,7 @@ export type OrderItemUncheckedUpdateManyWithoutMeasurementProfileInput = {
   unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colour?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -946,6 +983,7 @@ export type OrderItemCreateManyOrderInput = {
   unitPrice: number
   quantity?: number
   size?: string | null
+  colour?: string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   measurementProfileId?: string | null
   createdAt?: Date | string
@@ -959,6 +997,7 @@ export type OrderItemUpdateWithoutOrderInput = {
   unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colour?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   product?: Prisma.ProductUpdateOneRequiredWithoutOrderItemsNestedInput
@@ -974,6 +1013,7 @@ export type OrderItemUncheckedUpdateWithoutOrderInput = {
   unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colour?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   measurementProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -988,6 +1028,7 @@ export type OrderItemUncheckedUpdateManyWithoutOrderInput = {
   unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   quantity?: Prisma.IntFieldUpdateOperationsInput | number
   size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  colour?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   customTailoring?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   measurementProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1005,6 +1046,7 @@ export type OrderItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   unitPrice?: boolean
   quantity?: boolean
   size?: boolean
+  colour?: boolean
   customTailoring?: boolean
   measurementProfileId?: boolean
   createdAt?: boolean
@@ -1023,6 +1065,7 @@ export type OrderItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   unitPrice?: boolean
   quantity?: boolean
   size?: boolean
+  colour?: boolean
   customTailoring?: boolean
   measurementProfileId?: boolean
   createdAt?: boolean
@@ -1041,6 +1084,7 @@ export type OrderItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
   unitPrice?: boolean
   quantity?: boolean
   size?: boolean
+  colour?: boolean
   customTailoring?: boolean
   measurementProfileId?: boolean
   createdAt?: boolean
@@ -1059,12 +1103,13 @@ export type OrderItemSelectScalar = {
   unitPrice?: boolean
   quantity?: boolean
   size?: boolean
+  colour?: boolean
   customTailoring?: boolean
   measurementProfileId?: boolean
   createdAt?: boolean
 }
 
-export type OrderItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderId" | "productId" | "productTitle" | "productSlug" | "productImageUrl" | "unitPrice" | "quantity" | "size" | "customTailoring" | "measurementProfileId" | "createdAt", ExtArgs["result"]["orderItem"]>
+export type OrderItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "orderId" | "productId" | "productTitle" | "productSlug" | "productImageUrl" | "unitPrice" | "quantity" | "size" | "colour" | "customTailoring" | "measurementProfileId" | "createdAt", ExtArgs["result"]["orderItem"]>
 export type OrderItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   order?: boolean | Prisma.OrderDefaultArgs<ExtArgs>
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
@@ -1098,6 +1143,7 @@ export type $OrderItemPayload<ExtArgs extends runtime.Types.Extensions.InternalA
     unitPrice: number
     quantity: number
     size: string | null
+    colour: string | null
     customTailoring: runtime.JsonValue | null
     measurementProfileId: string | null
     createdAt: Date
@@ -1536,6 +1582,7 @@ export interface OrderItemFieldRefs {
   readonly unitPrice: Prisma.FieldRef<"OrderItem", 'Int'>
   readonly quantity: Prisma.FieldRef<"OrderItem", 'Int'>
   readonly size: Prisma.FieldRef<"OrderItem", 'String'>
+  readonly colour: Prisma.FieldRef<"OrderItem", 'String'>
   readonly customTailoring: Prisma.FieldRef<"OrderItem", 'Json'>
   readonly measurementProfileId: Prisma.FieldRef<"OrderItem", 'String'>
   readonly createdAt: Prisma.FieldRef<"OrderItem", 'DateTime'>

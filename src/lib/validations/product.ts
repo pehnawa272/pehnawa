@@ -14,6 +14,7 @@ const ProductBaseSchema = z.object({
   fabric:        z.string().max(100).nullish(),
   embroidery:    z.string().max(100).nullish(),
   details:       z.array(z.string()).default([]),
+  colours:       z.array(z.string().max(50)).default([]),
   category:      z.nativeEnum(ProductCategory),
   subCategory:   z.nativeEnum(ProductSubCategory).nullish(),
   price:         z.number().int().positive().nullish(),

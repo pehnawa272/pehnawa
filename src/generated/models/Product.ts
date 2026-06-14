@@ -94,6 +94,7 @@ export type ProductCountAggregateOutputType = {
   status: number
   price: number
   isEnquireOnly: number
+  colours: number
   craftingHours: number
   isFeatured: number
   sortOrder: number
@@ -172,6 +173,7 @@ export type ProductCountAggregateInputType = {
   status?: true
   price?: true
   isEnquireOnly?: true
+  colours?: true
   craftingHours?: true
   isFeatured?: true
   sortOrder?: true
@@ -281,6 +283,7 @@ export type ProductGroupByOutputType = {
   status: $Enums.ProductStatus
   price: number | null
   isEnquireOnly: boolean
+  colours: string[]
   craftingHours: number | null
   isFeatured: boolean
   sortOrder: number
@@ -326,6 +329,7 @@ export type ProductWhereInput = {
   status?: Prisma.EnumProductStatusFilter<"Product"> | $Enums.ProductStatus
   price?: Prisma.IntNullableFilter<"Product"> | number | null
   isEnquireOnly?: Prisma.BoolFilter<"Product"> | boolean
+  colours?: Prisma.StringNullableListFilter<"Product">
   craftingHours?: Prisma.IntNullableFilter<"Product"> | number | null
   isFeatured?: Prisma.BoolFilter<"Product"> | boolean
   sortOrder?: Prisma.IntFilter<"Product"> | number
@@ -356,6 +360,7 @@ export type ProductOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrderInput | Prisma.SortOrder
   isEnquireOnly?: Prisma.SortOrder
+  colours?: Prisma.SortOrder
   craftingHours?: Prisma.SortOrderInput | Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
@@ -389,6 +394,7 @@ export type ProductWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumProductStatusFilter<"Product"> | $Enums.ProductStatus
   price?: Prisma.IntNullableFilter<"Product"> | number | null
   isEnquireOnly?: Prisma.BoolFilter<"Product"> | boolean
+  colours?: Prisma.StringNullableListFilter<"Product">
   craftingHours?: Prisma.IntNullableFilter<"Product"> | number | null
   isFeatured?: Prisma.BoolFilter<"Product"> | boolean
   sortOrder?: Prisma.IntFilter<"Product"> | number
@@ -419,6 +425,7 @@ export type ProductOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrderInput | Prisma.SortOrder
   isEnquireOnly?: Prisma.SortOrder
+  colours?: Prisma.SortOrder
   craftingHours?: Prisma.SortOrderInput | Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
@@ -449,6 +456,7 @@ export type ProductScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumProductStatusWithAggregatesFilter<"Product"> | $Enums.ProductStatus
   price?: Prisma.IntNullableWithAggregatesFilter<"Product"> | number | null
   isEnquireOnly?: Prisma.BoolWithAggregatesFilter<"Product"> | boolean
+  colours?: Prisma.StringNullableListFilter<"Product">
   craftingHours?: Prisma.IntNullableWithAggregatesFilter<"Product"> | number | null
   isFeatured?: Prisma.BoolWithAggregatesFilter<"Product"> | boolean
   sortOrder?: Prisma.IntWithAggregatesFilter<"Product"> | number
@@ -471,6 +479,7 @@ export type ProductCreateInput = {
   status?: $Enums.ProductStatus
   price?: number | null
   isEnquireOnly?: boolean
+  colours?: Prisma.ProductCreatecoloursInput | string[]
   craftingHours?: number | null
   isFeatured?: boolean
   sortOrder?: number
@@ -501,6 +510,7 @@ export type ProductUncheckedCreateInput = {
   status?: $Enums.ProductStatus
   price?: number | null
   isEnquireOnly?: boolean
+  colours?: Prisma.ProductCreatecoloursInput | string[]
   craftingHours?: number | null
   isFeatured?: boolean
   sortOrder?: number
@@ -531,6 +541,7 @@ export type ProductUpdateInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isEnquireOnly?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colours?: Prisma.ProductUpdatecoloursInput | string[]
   craftingHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
@@ -561,6 +572,7 @@ export type ProductUncheckedUpdateInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isEnquireOnly?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colours?: Prisma.ProductUpdatecoloursInput | string[]
   craftingHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
@@ -591,6 +603,7 @@ export type ProductCreateManyInput = {
   status?: $Enums.ProductStatus
   price?: number | null
   isEnquireOnly?: boolean
+  colours?: Prisma.ProductCreatecoloursInput | string[]
   craftingHours?: number | null
   isFeatured?: boolean
   sortOrder?: number
@@ -613,6 +626,7 @@ export type ProductUpdateManyMutationInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isEnquireOnly?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colours?: Prisma.ProductUpdatecoloursInput | string[]
   craftingHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
@@ -635,6 +649,7 @@ export type ProductUncheckedUpdateManyInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isEnquireOnly?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colours?: Prisma.ProductUpdatecoloursInput | string[]
   craftingHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
@@ -665,6 +680,7 @@ export type ProductCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   price?: Prisma.SortOrder
   isEnquireOnly?: Prisma.SortOrder
+  colours?: Prisma.SortOrder
   craftingHours?: Prisma.SortOrder
   isFeatured?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
@@ -736,6 +752,10 @@ export type ProductCreatedetailsInput = {
   set: string[]
 }
 
+export type ProductCreatecoloursInput = {
+  set: string[]
+}
+
 export type ProductUpdatedetailsInput = {
   set?: string[]
   push?: string | string[]
@@ -759,6 +779,11 @@ export type NullableIntFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type ProductUpdatecoloursInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -895,6 +920,7 @@ export type ProductCreateWithoutOccasionsInput = {
   status?: $Enums.ProductStatus
   price?: number | null
   isEnquireOnly?: boolean
+  colours?: Prisma.ProductCreatecoloursInput | string[]
   craftingHours?: number | null
   isFeatured?: boolean
   sortOrder?: number
@@ -924,6 +950,7 @@ export type ProductUncheckedCreateWithoutOccasionsInput = {
   status?: $Enums.ProductStatus
   price?: number | null
   isEnquireOnly?: boolean
+  colours?: Prisma.ProductCreatecoloursInput | string[]
   craftingHours?: number | null
   isFeatured?: boolean
   sortOrder?: number
@@ -969,6 +996,7 @@ export type ProductUpdateWithoutOccasionsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isEnquireOnly?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colours?: Prisma.ProductUpdatecoloursInput | string[]
   craftingHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
@@ -998,6 +1026,7 @@ export type ProductUncheckedUpdateWithoutOccasionsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isEnquireOnly?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colours?: Prisma.ProductUpdatecoloursInput | string[]
   craftingHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1027,6 +1056,7 @@ export type ProductCreateWithoutAccessoriesInput = {
   status?: $Enums.ProductStatus
   price?: number | null
   isEnquireOnly?: boolean
+  colours?: Prisma.ProductCreatecoloursInput | string[]
   craftingHours?: number | null
   isFeatured?: boolean
   sortOrder?: number
@@ -1056,6 +1086,7 @@ export type ProductUncheckedCreateWithoutAccessoriesInput = {
   status?: $Enums.ProductStatus
   price?: number | null
   isEnquireOnly?: boolean
+  colours?: Prisma.ProductCreatecoloursInput | string[]
   craftingHours?: number | null
   isFeatured?: boolean
   sortOrder?: number
@@ -1090,6 +1121,7 @@ export type ProductCreateWithoutBundledInInput = {
   status?: $Enums.ProductStatus
   price?: number | null
   isEnquireOnly?: boolean
+  colours?: Prisma.ProductCreatecoloursInput | string[]
   craftingHours?: number | null
   isFeatured?: boolean
   sortOrder?: number
@@ -1119,6 +1151,7 @@ export type ProductUncheckedCreateWithoutBundledInInput = {
   status?: $Enums.ProductStatus
   price?: number | null
   isEnquireOnly?: boolean
+  colours?: Prisma.ProductCreatecoloursInput | string[]
   craftingHours?: number | null
   isFeatured?: boolean
   sortOrder?: number
@@ -1164,6 +1197,7 @@ export type ProductUpdateWithoutAccessoriesInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isEnquireOnly?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colours?: Prisma.ProductUpdatecoloursInput | string[]
   craftingHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1193,6 +1227,7 @@ export type ProductUncheckedUpdateWithoutAccessoriesInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isEnquireOnly?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colours?: Prisma.ProductUpdatecoloursInput | string[]
   craftingHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1233,6 +1268,7 @@ export type ProductUpdateWithoutBundledInInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isEnquireOnly?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colours?: Prisma.ProductUpdatecoloursInput | string[]
   craftingHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1262,6 +1298,7 @@ export type ProductUncheckedUpdateWithoutBundledInInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isEnquireOnly?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colours?: Prisma.ProductUpdatecoloursInput | string[]
   craftingHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1291,6 +1328,7 @@ export type ProductCreateWithoutImagesInput = {
   status?: $Enums.ProductStatus
   price?: number | null
   isEnquireOnly?: boolean
+  colours?: Prisma.ProductCreatecoloursInput | string[]
   craftingHours?: number | null
   isFeatured?: boolean
   sortOrder?: number
@@ -1320,6 +1358,7 @@ export type ProductUncheckedCreateWithoutImagesInput = {
   status?: $Enums.ProductStatus
   price?: number | null
   isEnquireOnly?: boolean
+  colours?: Prisma.ProductCreatecoloursInput | string[]
   craftingHours?: number | null
   isFeatured?: boolean
   sortOrder?: number
@@ -1365,6 +1404,7 @@ export type ProductUpdateWithoutImagesInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isEnquireOnly?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colours?: Prisma.ProductUpdatecoloursInput | string[]
   craftingHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1394,6 +1434,7 @@ export type ProductUncheckedUpdateWithoutImagesInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isEnquireOnly?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colours?: Prisma.ProductUpdatecoloursInput | string[]
   craftingHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1423,6 +1464,7 @@ export type ProductCreateWithoutVideosInput = {
   status?: $Enums.ProductStatus
   price?: number | null
   isEnquireOnly?: boolean
+  colours?: Prisma.ProductCreatecoloursInput | string[]
   craftingHours?: number | null
   isFeatured?: boolean
   sortOrder?: number
@@ -1452,6 +1494,7 @@ export type ProductUncheckedCreateWithoutVideosInput = {
   status?: $Enums.ProductStatus
   price?: number | null
   isEnquireOnly?: boolean
+  colours?: Prisma.ProductCreatecoloursInput | string[]
   craftingHours?: number | null
   isFeatured?: boolean
   sortOrder?: number
@@ -1497,6 +1540,7 @@ export type ProductUpdateWithoutVideosInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isEnquireOnly?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colours?: Prisma.ProductUpdatecoloursInput | string[]
   craftingHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1526,6 +1570,7 @@ export type ProductUncheckedUpdateWithoutVideosInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isEnquireOnly?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colours?: Prisma.ProductUpdatecoloursInput | string[]
   craftingHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1555,6 +1600,7 @@ export type ProductCreateWithoutWishlistItemsInput = {
   status?: $Enums.ProductStatus
   price?: number | null
   isEnquireOnly?: boolean
+  colours?: Prisma.ProductCreatecoloursInput | string[]
   craftingHours?: number | null
   isFeatured?: boolean
   sortOrder?: number
@@ -1584,6 +1630,7 @@ export type ProductUncheckedCreateWithoutWishlistItemsInput = {
   status?: $Enums.ProductStatus
   price?: number | null
   isEnquireOnly?: boolean
+  colours?: Prisma.ProductCreatecoloursInput | string[]
   craftingHours?: number | null
   isFeatured?: boolean
   sortOrder?: number
@@ -1629,6 +1676,7 @@ export type ProductUpdateWithoutWishlistItemsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isEnquireOnly?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colours?: Prisma.ProductUpdatecoloursInput | string[]
   craftingHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1658,6 +1706,7 @@ export type ProductUncheckedUpdateWithoutWishlistItemsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isEnquireOnly?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colours?: Prisma.ProductUpdatecoloursInput | string[]
   craftingHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1687,6 +1736,7 @@ export type ProductCreateWithoutCartItemsInput = {
   status?: $Enums.ProductStatus
   price?: number | null
   isEnquireOnly?: boolean
+  colours?: Prisma.ProductCreatecoloursInput | string[]
   craftingHours?: number | null
   isFeatured?: boolean
   sortOrder?: number
@@ -1716,6 +1766,7 @@ export type ProductUncheckedCreateWithoutCartItemsInput = {
   status?: $Enums.ProductStatus
   price?: number | null
   isEnquireOnly?: boolean
+  colours?: Prisma.ProductCreatecoloursInput | string[]
   craftingHours?: number | null
   isFeatured?: boolean
   sortOrder?: number
@@ -1761,6 +1812,7 @@ export type ProductUpdateWithoutCartItemsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isEnquireOnly?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colours?: Prisma.ProductUpdatecoloursInput | string[]
   craftingHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1790,6 +1842,7 @@ export type ProductUncheckedUpdateWithoutCartItemsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isEnquireOnly?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colours?: Prisma.ProductUpdatecoloursInput | string[]
   craftingHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1819,6 +1872,7 @@ export type ProductCreateWithoutOrderItemsInput = {
   status?: $Enums.ProductStatus
   price?: number | null
   isEnquireOnly?: boolean
+  colours?: Prisma.ProductCreatecoloursInput | string[]
   craftingHours?: number | null
   isFeatured?: boolean
   sortOrder?: number
@@ -1848,6 +1902,7 @@ export type ProductUncheckedCreateWithoutOrderItemsInput = {
   status?: $Enums.ProductStatus
   price?: number | null
   isEnquireOnly?: boolean
+  colours?: Prisma.ProductCreatecoloursInput | string[]
   craftingHours?: number | null
   isFeatured?: boolean
   sortOrder?: number
@@ -1893,6 +1948,7 @@ export type ProductUpdateWithoutOrderItemsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isEnquireOnly?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colours?: Prisma.ProductUpdatecoloursInput | string[]
   craftingHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
@@ -1922,6 +1978,7 @@ export type ProductUncheckedUpdateWithoutOrderItemsInput = {
   status?: Prisma.EnumProductStatusFieldUpdateOperationsInput | $Enums.ProductStatus
   price?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isEnquireOnly?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colours?: Prisma.ProductUpdatecoloursInput | string[]
   craftingHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
@@ -2045,6 +2102,7 @@ export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   status?: boolean
   price?: boolean
   isEnquireOnly?: boolean
+  colours?: boolean
   craftingHours?: boolean
   isFeatured?: boolean
   sortOrder?: boolean
@@ -2076,6 +2134,7 @@ export type ProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   status?: boolean
   price?: boolean
   isEnquireOnly?: boolean
+  colours?: boolean
   craftingHours?: boolean
   isFeatured?: boolean
   sortOrder?: boolean
@@ -2098,6 +2157,7 @@ export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   status?: boolean
   price?: boolean
   isEnquireOnly?: boolean
+  colours?: boolean
   craftingHours?: boolean
   isFeatured?: boolean
   sortOrder?: boolean
@@ -2120,6 +2180,7 @@ export type ProductSelectScalar = {
   status?: boolean
   price?: boolean
   isEnquireOnly?: boolean
+  colours?: boolean
   craftingHours?: boolean
   isFeatured?: boolean
   sortOrder?: boolean
@@ -2128,7 +2189,7 @@ export type ProductSelectScalar = {
   deletedAt?: boolean
 }
 
-export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "title" | "subTitle" | "description" | "fabric" | "embroidery" | "details" | "category" | "subCategory" | "status" | "price" | "isEnquireOnly" | "craftingHours" | "isFeatured" | "sortOrder" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["product"]>
+export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "title" | "subTitle" | "description" | "fabric" | "embroidery" | "details" | "category" | "subCategory" | "status" | "price" | "isEnquireOnly" | "colours" | "craftingHours" | "isFeatured" | "sortOrder" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["product"]>
 export type ProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   images?: boolean | Prisma.Product$imagesArgs<ExtArgs>
   videos?: boolean | Prisma.Product$videosArgs<ExtArgs>
@@ -2169,6 +2230,7 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     status: $Enums.ProductStatus
     price: number | null
     isEnquireOnly: boolean
+    colours: string[]
     craftingHours: number | null
     isFeatured: boolean
     sortOrder: number
@@ -2619,6 +2681,7 @@ export interface ProductFieldRefs {
   readonly status: Prisma.FieldRef<"Product", 'ProductStatus'>
   readonly price: Prisma.FieldRef<"Product", 'Int'>
   readonly isEnquireOnly: Prisma.FieldRef<"Product", 'Boolean'>
+  readonly colours: Prisma.FieldRef<"Product", 'String[]'>
   readonly craftingHours: Prisma.FieldRef<"Product", 'Int'>
   readonly isFeatured: Prisma.FieldRef<"Product", 'Boolean'>
   readonly sortOrder: Prisma.FieldRef<"Product", 'Int'>

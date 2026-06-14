@@ -122,6 +122,7 @@ export default function AdminDashboard() {
               id: item.id,
               title: item.productTitle,
               size: item.size || "Standard",
+              colour: item.colour,
               quantity: item.quantity,
               customTailoring: item.customTailoring,
             }))
@@ -358,11 +359,17 @@ export default function AdminDashboard() {
                         <span className="block text-[10px] text-white/40 tracking-wider uppercase font-semibold">Items Catalog Details</span>
                         <div className="space-y-2">
                           {order.items.map((item) => (
-                            <div key={`${item.id}-${item.size}`} className="p-3 bg-[#131313] border border-white/5 text-[12px] font-montserrat flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                            <div key={`${item.id}-${item.size}-${item.colour || "std"}`} className="p-3 bg-[#131313] border border-white/5 text-[12px] font-montserrat flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                               <div>
                                 <span className="text-white font-medium">{item.title}</span>
                                 <span className="mx-2 text-white/30">•</span>
                                 <span className="text-white/60">Size: {item.size}</span>
+                                {item.colour && (
+                                  <>
+                                    <span className="mx-2 text-white/30">•</span>
+                                    <span className="text-white/60">Colour: {item.colour}</span>
+                                  </>
+                                )}
                                 <span className="mx-2 text-white/30">•</span>
                                 <span className="text-white/60">Qty: {item.quantity}</span>
                               </div>

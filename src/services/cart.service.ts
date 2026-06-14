@@ -49,7 +49,12 @@ export const CartService = {
     const cart = await CartService.getOrCreate(user.id);
 
     const existing = await prisma.cartItem.findFirst({
-      where: { cartId: cart.id, productId: input.productId, size: input.size ?? null },
+      where: {
+        cartId: cart.id,
+        productId: input.productId,
+        size: input.size ?? null,
+        colour: input.colour ?? null,
+      },
     });
 
     if (existing) {
@@ -65,6 +70,7 @@ export const CartService = {
         productId:       input.productId,
         quantity:        input.quantity,
         size:            input.size ?? null,
+        colour:          input.colour ?? null,
         customTailoring: (input.customTailoring ?? undefined) as object | undefined,
       },
     });

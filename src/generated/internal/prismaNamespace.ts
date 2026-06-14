@@ -2153,6 +2153,7 @@ export const ProductScalarFieldEnum = {
   status: 'status',
   price: 'price',
   isEnquireOnly: 'isEnquireOnly',
+  colours: 'colours',
   craftingHours: 'craftingHours',
   isFeatured: 'isFeatured',
   sortOrder: 'sortOrder',
@@ -2265,6 +2266,7 @@ export const CartItemScalarFieldEnum = {
   productId: 'productId',
   quantity: 'quantity',
   size: 'size',
+  colour: 'colour',
   customTailoring: 'customTailoring',
   addedAt: 'addedAt',
   updatedAt: 'updatedAt'
@@ -2315,6 +2317,7 @@ export const OrderItemScalarFieldEnum = {
   unitPrice: 'unitPrice',
   quantity: 'quantity',
   size: 'size',
+  colour: 'colour',
   customTailoring: 'customTailoring',
   measurementProfileId: 'measurementProfileId',
   createdAt: 'createdAt'

@@ -15,6 +15,7 @@ export const OrderItemInputSchema = z.object({
   productId:           z.string().min(1),
   quantity:            z.number().int().positive().max(10),
   size:                z.string().max(20).optional(),
+  colour:              z.string().max(50).nullish(),
   customTailoring:     CustomTailoringSchema.optional(),
   measurementProfileId: z.string().cuid().optional(),
 });
