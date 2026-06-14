@@ -56,7 +56,7 @@ export default function ProductDetail({ initialProduct }) {
     setTimeout(() => setAddedNotice(false), 2000);
   };
 
-  const sizes = ["XS", "S", "M", "L"];
+  const sizes = ["XS", "S", "M", "L", "XL", "XXL", "3XL"];
 
   // Default accessories if product doesn't specify custom ones
   const defaultAccessories = DB.getProductById("noorani-anarkali")?.accessories || [];
