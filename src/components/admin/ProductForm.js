@@ -92,7 +92,7 @@ export default function ProductForm({ product, onSave, onCancel }) {
           category: product.category || "EVERYDAY",
           subCategory: product.subCategory || "KURTAS",
           price: product.price ? (product.price / 100).toString() : "",
-          mrp: product.price ? (product.price * 1.2 / 100).toString() : "", // fallback MRP visual
+          mrp: product.mrp ? (product.mrp / 100).toString() : "",
           isEnquireOnly: product.isEnquireOnly || false,
           craftingHours: product.craftingHours || 24,
           status: product.status || "DRAFT",
@@ -337,6 +337,7 @@ export default function ProductForm({ product, onSave, onCancel }) {
         category: formData.category,
         subCategory: formData.subCategory || undefined,
         price: formData.isEnquireOnly ? undefined : Math.round(parseFloat(formData.price) * 100),
+        mrp: formData.isEnquireOnly || !formData.mrp ? undefined : Math.round(parseFloat(formData.mrp) * 100),
         isEnquireOnly: formData.isEnquireOnly,
         craftingHours: formData.craftingHours ? parseInt(formData.craftingHours) : undefined,
         isFeatured: formData.isFeatured,

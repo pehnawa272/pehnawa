@@ -199,6 +199,7 @@ model Product {
 
   // Pricing — nullable for "Enquire" (bridal)
   price       Int?               // stored in paise (₹ × 100) for precision
+  mrp         Int?               // stored in paise (₹ × 100) for precision
   isEnquireOnly Boolean          @default(false)
 
   // Available colour variants for this design (e.g. ["Ivory White", "Midnight Black"])

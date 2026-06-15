@@ -151,6 +151,7 @@ export const ProductScalarFieldEnum = {
   subCategory: 'subCategory',
   status: 'status',
   price: 'price',
+  mrp: 'mrp',
   isEnquireOnly: 'isEnquireOnly',
   colours: 'colours',
   craftingHours: 'craftingHours',

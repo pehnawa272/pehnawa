@@ -75,6 +75,7 @@ function mapDbProduct(p) {
     category:    p.category?.toLowerCase(),
     subTitle:    p.subTitle || "",
     price:       p.price != null ? p.price / 100 : null,
+    mrp:         p.mrp != null ? p.mrp / 100 : null,
     description: p.description || "",
     fabric:      p.fabric || "",
     embroidery:  p.embroidery || "",

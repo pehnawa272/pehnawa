@@ -8,7 +8,7 @@ import type { CreateProductInput, UpdateProductInput, ProductFilterInput } from 
 
 const productCardSelect = {
   id: true, slug: true, title: true, subTitle: true,
-  price: true, isEnquireOnly: true, category: true, subCategory: true,
+  price: true, mrp: true, isEnquireOnly: true, category: true, subCategory: true,
   status: true, isFeatured: true, craftingHours: true, sortOrder: true,
   createdAt: true,
   images: { where: { isPrimary: true }, take: 1, select: { url: true, alt: true } },

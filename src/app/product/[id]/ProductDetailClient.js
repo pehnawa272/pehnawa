@@ -151,9 +151,21 @@ export default function ProductDetail({ initialProduct }) {
 
               {/* Pricing */}
               <div>
-                <span className="font-montserrat text-[22px] md:text-[26px] text-gold font-medium">
-                  {product.price ? `₹ ${product.price.toLocaleString()}` : "Enquire for Couture Price"}
-                </span>
+                <div className="block">
+                  <span className="font-montserrat text-[22px] md:text-[26px] text-gold font-medium">
+                    {product.price ? `₹ ${product.price.toLocaleString()}` : "Enquire for Couture Price"}
+                  </span>
+                </div>
+                {product.price && product.mrp && product.mrp > product.price && (
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="font-montserrat text-[14px] text-white/40 line-through">
+                      MRP: ₹{product.mrp.toLocaleString()}
+                    </span>
+                    <span className="font-montserrat text-[11px] text-emerald-500 font-semibold tracking-wider">
+                      ({Math.round(((product.mrp - product.price) / product.mrp) * 100)}% OFF)
+                    </span>
+                  </div>
+                )}
                 <p className="font-montserrat text-[10px] text-white/40 mt-1.5">
                   Inclusive of all taxes & global luxury logistics.
                 </p>

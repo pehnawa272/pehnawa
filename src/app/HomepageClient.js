@@ -48,19 +48,13 @@ export default function Homepage() {
               }`}>
               The Heritage of Modernity
             </h2>
-            <div className={`flex flex-col sm:flex-row gap-4 justify-center items-center w-full max-w-md mx-auto transition-all duration-1000 delay-500 ${revealActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            <div className={`transition-all duration-1000 delay-500 ${revealActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               }`}>
               <Link
                 href="/products"
-                className="w-full sm:w-auto inline-block bg-gold text-[#131313] hover:bg-white hover:scale-105 px-12 py-4 font-montserrat text-[12px] font-bold tracking-[0.25em] transition-all uppercase rounded-none border border-gold hover:border-white active:scale-95 text-center"
+                className="inline-block bg-gold text-[#131313] hover:bg-white hover:scale-105 px-12 py-4 font-montserrat text-[12px] font-bold tracking-[0.25em] transition-all uppercase rounded-none border border-gold hover:border-white active:scale-95 text-center"
               >
                 SHOP NOW
-              </Link>
-              <Link
-                href="/everyday"
-                className="w-full sm:w-auto inline-block border border-white/30 hover:border-gold hover:bg-gold/5 hover:scale-105 px-12 py-4 font-montserrat text-[12px] font-bold tracking-[0.25em] text-white hover:text-gold transition-all uppercase rounded-none active:scale-95 text-center"
-              >
-                EXPLORE THE EDITS
               </Link>
             </div>
           </div>

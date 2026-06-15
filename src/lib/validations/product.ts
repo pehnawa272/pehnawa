@@ -18,6 +18,7 @@ const ProductBaseSchema = z.object({
   category:      z.nativeEnum(ProductCategory),
   subCategory:   z.nativeEnum(ProductSubCategory).nullish(),
   price:         z.number().int().positive().nullish(),
+  mrp:           z.number().int().positive().nullish(),
   isEnquireOnly: z.boolean().default(false),
   craftingHours: z.number().int().positive().nullish(),
   isFeatured:    z.boolean().default(false),
