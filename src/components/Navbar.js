@@ -97,7 +97,7 @@ export default function Navbar() {
             rel="noopener noreferrer"
             className="hidden xl:inline-flex items-center gap-2 px-3 py-1.5 border border-gold/30 hover:border-gold hover:bg-gold/5 transition-all text-[10px] font-montserrat font-medium tracking-widest text-gold rounded-none"
           >
-            <SymbolIcon name="calendar_month" className="size-3.5" />
+            <SymbolIcon name="whatsapp" className="size-3.5" />
             BOOK CONSULTATION
           </a>
 
@@ -168,7 +168,7 @@ export default function Navbar() {
               onClick={() => setMobileMenuOpen(false)}
               className="font-montserrat text-[16px] text-gold font-medium tracking-[0.25em] uppercase flex items-center gap-2"
             >
-              <SymbolIcon name="calendar_month" className="size-5" />
+              <SymbolIcon name="whatsapp" className="size-5" />
               Book Consultation
             </a>
           </div>

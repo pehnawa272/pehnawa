@@ -224,7 +224,7 @@ export default function AboutUsPage() {
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-gold/45 hover:border-gold hover:bg-gold/5 hover:scale-105 px-10 py-4 font-montserrat text-[12px] font-bold tracking-[0.25em] text-gold transition-all uppercase rounded-none active:scale-95 text-center"
               >
-                <SymbolIcon name="calendar_month" className="size-4" />
+                <SymbolIcon name="whatsapp" className="size-4" />
                 Book Consultation
               </a>
             </div>
