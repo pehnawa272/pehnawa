@@ -16,7 +16,14 @@ export default function ProductDetail({ initialProduct }) {
   const { addToCart } = useCart();
   const product = initialProduct;
 
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const mediaItems = [
+    ...(product?.images || []).map((url) => ({ type: "image", url })),
+    ...(product?.videos || []).map((vid) => ({ type: "video", url: vid.url, thumbnail: vid.thumbnail })),
+  ];
+
+  const [activeMediaIndex, setActiveMediaIndex] = useState(0);
+  const activeMedia = mediaItems[activeMediaIndex] || mediaItems[0] || { type: "image", url: "" };
+
   const [selectedSize, setSelectedSize] = useState("S");
   const [selectedColour, setSelectedColour] = useState(() => {
     // Pre-select first colour if available
@@ -78,26 +85,38 @@ export default function ProductDetail({ initialProduct }) {
           <div className="lg:col-span-7 h-full border-r border-white/5">
             <div className="grid grid-cols-1 gap-1">
               <div className="relative aspect-[3/4] overflow-hidden bg-[#1a1a1a]">
-                <Image
-                  src={product.images[activeImageIndex] || product.images[0]}
-                  alt={`${product.title} detailed portrait`}
-                  fill
-                  priority
-                  className="object-cover transition-all duration-[2000ms]"
-                  sizes="(max-width: 1024px) 100vw, 58vw"
-                />
+                {activeMedia.type === "video" ? (
+                  <video
+                    src={activeMedia.url}
+                    controls
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <Image
+                    src={activeMedia.url}
+                    alt={`${product.title} detailed portrait`}
+                    fill
+                    priority
+                    className="object-cover transition-all duration-[2000ms]"
+                    sizes="(max-width: 1024px) 100vw, 58vw"
+                  />
+                )}
                 
                 {/* Small indicator dots */}
-                {product.images.length > 1 && (
-                  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-                    {product.images.map((img, idx) => (
+                {mediaItems.length > 1 && (
+                  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                    {mediaItems.map((item, idx) => (
                        <button
-                         key={img}
+                         key={item.url}
                          type="button"
-                         onClick={() => setActiveImageIndex(idx)}
-                         aria-label={`View Product Image ${idx + 1}`}
+                         onClick={() => setActiveMediaIndex(idx)}
+                         aria-label={`View Product Media ${idx + 1}`}
                          className={`w-2 h-2 rounded-full transition-all ${
-                           idx === activeImageIndex ? "bg-gold w-6" : "bg-white/40 hover:bg-white"
+                           idx === activeMediaIndex ? "bg-gold w-6" : "bg-white/40 hover:bg-white"
                          }`}
                        />
                      ))}
@@ -105,19 +124,37 @@ export default function ProductDetail({ initialProduct }) {
                 )}
               </div>
 
-              {/* Side thumbnail row if multiple photos are present */}
-              {product.images.length > 1 && (
-                <div className="grid grid-cols-3 gap-1">
-                  {product.images.map((img, idx) => (
+              {/* Side thumbnail row if multiple photos/videos are present */}
+              {mediaItems.length > 1 && (
+                <div className="grid grid-cols-3 md:grid-cols-4 gap-1">
+                  {mediaItems.map((item, idx) => (
                      <button
-                       key={img}
+                       key={item.url}
                        type="button"
-                       onClick={() => setActiveImageIndex(idx)}
+                       onClick={() => setActiveMediaIndex(idx)}
                        className={`relative aspect-[3/4] overflow-hidden bg-[#1F1F1F] transition-all border ${
-                         idx === activeImageIndex ? "border-gold" : "border-transparent"
+                         idx === activeMediaIndex ? "border-gold" : "border-transparent"
                        }`}
                      >
-                       <Image src={img} alt={`${product.title} view ${idx + 1}`} fill className="object-cover" sizes="(max-width: 1024px) 33vw, 19vw" />
+                       {item.type === "video" ? (
+                         <div className="w-full h-full relative">
+                           {item.thumbnail ? (
+                             <Image src={item.thumbnail} alt={`Video thumbnail ${idx + 1}`} fill className="object-cover" sizes="(max-width: 1024px) 33vw, 19vw" />
+                           ) : (
+                             <div className="w-full h-full bg-black/80 flex items-center justify-center">
+                               <SymbolIcon name="photo_camera" className="size-6 text-white/50" />
+                             </div>
+                           )}
+                           {/* Play button overlay */}
+                           <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                             <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                               <path d="M8 5v14l11-7z"/>
+                             </svg>
+                           </div>
+                         </div>
+                       ) : (
+                         <Image src={item.url} alt={`${product.title} view ${idx + 1}`} fill className="object-cover" sizes="(max-width: 1024px) 33vw, 19vw" />
+                       )}
                      </button>
                     ))}
                 </div>

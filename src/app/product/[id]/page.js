@@ -68,6 +68,7 @@ export async function generateMetadata({ params }) {
 
 function mapDbProduct(p) {
   const imgs = p.images?.map((img) => img.url).filter(Boolean) || [];
+  const vids = p.videos?.map((v) => ({ url: v.url, thumbnail: v.thumbnail || null })).filter((v) => v.url) || [];
   return {
     id:          p.slug || p.id,
     dbId:        p.id,
@@ -80,6 +81,7 @@ function mapDbProduct(p) {
     fabric:      p.fabric || "",
     embroidery:  p.embroidery || "",
     images:      imgs.length > 0 ? imgs : ["https://lh3.googleusercontent.com/aida-public/AB6AXuCQEdOybnVP46O-DFJtarqg5GFmzA0czzX6tV5p_SGKEfw38pMlpfNro4EnKG-HrHNr_zEKZw-THH7iMo4hBgRHNAIV8fXt7RGYSOSYNq7Ohn2iEHH-lqBTpLEaKX021NhpjpYpYFTl0EBrzyT7Drntg98T3_uSK6Npoi4EMLyh9xtv9SaoEaCh6H7yDQ-gV0MLdytw58tZpYs170gzsQxsFRE3gFGcfY-dvrd6-4S_GFwmsKG_zTOpkeINvVEIWbBWcRfq1L1xV-U"],
+    videos:      vids,
     details:     p.details || [],
     colours:     p.colours || [],
   };
