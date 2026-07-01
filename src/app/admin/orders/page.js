@@ -822,7 +822,7 @@ export default function AdminOrdersPage() {
 
   return (
     <AdminAuthWrapper>
-      <Navbar />
+      <Navbar admin />
 
       <main className="min-h-screen bg-[#131313] pt-28 pb-24 px-4 md:px-10 max-w-[1400px] mx-auto">
 

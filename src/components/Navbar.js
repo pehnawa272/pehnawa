@@ -6,12 +6,17 @@ import { usePathname } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import SymbolIcon from "@/components/SymbolIcon";
 
-export default function Navbar() {
+export default function Navbar({ admin = false }) {
   const pathname = usePathname();
   const { cartCount, toggleCart } = useCart();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+
+  const handleAdminLogout = async () => {
+    await fetch("/api/admin/logout", { method: "POST", credentials: "same-origin" }).catch(() => {});
+    window.location.href = "/admin";
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -91,29 +96,44 @@ export default function Navbar() {
         {/* Right Action Icons */}
         <div className="flex-1 flex justify-end gap-4 xl:gap-6 items-center">
           {/* Book Consultation — only visible at xl to avoid crowding */}
-          <a
-            href="https://wa.me/917309336575?text=Hello%20Pehnawa%2C%20I%20would%20like%20to%20book%20a%20styling%20consultation."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden xl:inline-flex items-center gap-2 px-3 py-1.5 border border-gold/30 hover:border-gold hover:bg-gold/5 transition-all text-[10px] font-montserrat font-medium tracking-widest text-gold rounded-none"
-          >
-            <SymbolIcon name="whatsapp" className="size-3.5" />
-            BOOK CONSULTATION
-          </a>
+          {!admin && (
+            <a
+              href="https://wa.me/917309336575?text=Hello%20Pehnawa%2C%20I%20would%20like%20to%20book%20a%20styling%20consultation."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden xl:inline-flex items-center gap-2 px-3 py-1.5 border border-gold/30 hover:border-gold hover:bg-gold/5 transition-all text-[10px] font-montserrat font-medium tracking-widest text-gold rounded-none"
+            >
+              <SymbolIcon name="whatsapp" className="size-3.5" />
+              BOOK CONSULTATION
+            </a>
+          )}
 
-          <button
-            type="button"
-            onClick={toggleCart}
-            aria-label="Open shopping bag"
-            className="relative flex items-center justify-center p-1.5 text-white hover:text-gold transition-colors"
-          >
-            <SymbolIcon name="shopping_bag" className="size-6" />
-            {mounted && cartCount > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 bg-gold text-[#131313] text-[9px] w-4.5 h-4.5 rounded-full flex items-center justify-center font-bold font-montserrat border border-[#131313]">
-                {cartCount}
-              </span>
-            )}
-          </button>
+          {!admin && (
+            <button
+              type="button"
+              onClick={toggleCart}
+              aria-label="Open shopping bag"
+              className="relative flex items-center justify-center p-1.5 text-white hover:text-gold transition-colors"
+            >
+              <SymbolIcon name="shopping_bag" className="size-6" />
+              {mounted && cartCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 bg-gold text-[#131313] text-[9px] w-4.5 h-4.5 rounded-full flex items-center justify-center font-bold font-montserrat border border-[#131313]">
+                  {cartCount}
+                </span>
+              )}
+            </button>
+          )}
+
+          {admin && (
+            <button
+              type="button"
+              onClick={handleAdminLogout}
+              className="font-montserrat text-[10px] text-white/50 hover:text-gold uppercase tracking-widest flex items-center gap-1.5 transition-colors cursor-pointer"
+            >
+              <SymbolIcon name="lock" className="size-4" />
+              Sign out
+            </button>
+          )}
         </div>
       </nav>
 
@@ -161,16 +181,18 @@ export default function Navbar() {
                 </Link>
               );
             })}
-            <a
-              href="https://wa.me/917309336575?text=Hello%20Pehnawa%2C%20I%20would%20like%20to%20book%20a%20styling%20consultation."
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setMobileMenuOpen(false)}
-              className="font-montserrat text-[16px] text-gold font-medium tracking-[0.25em] uppercase flex items-center gap-2"
-            >
-              <SymbolIcon name="whatsapp" className="size-5" />
-              Book Consultation
-            </a>
+            {!admin && (
+              <a
+                href="https://wa.me/917309336575?text=Hello%20Pehnawa%2C%20I%20would%20like%20to%20book%20a%20styling%20consultation."
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMobileMenuOpen(false)}
+                className="font-montserrat text-[16px] text-gold font-medium tracking-[0.25em] uppercase flex items-center gap-2"
+              >
+                <SymbolIcon name="whatsapp" className="size-5" />
+                Book Consultation
+              </a>
+            )}
           </div>
 
           {/* Footer inside mobile nav */}

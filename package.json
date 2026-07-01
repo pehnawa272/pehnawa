@@ -13,6 +13,7 @@
     "db:studio": "prisma studio",
     "db:seed": "tsx prisma/seed.ts",
     "db:reset": "prisma migrate reset",
+    "admin:set-password": "tsx scripts/set-admin-password.ts",
     "doctor": "npx react-doctor@latest"
   },
   "dependencies": {

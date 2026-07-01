@@ -3,35 +3,59 @@
 import React, { useState, useEffect } from "react";
 import SymbolIcon from "@/components/SymbolIcon";
 
-// Hardcoded Credentials (stored as simple constants)
-const ADMIN_USERNAME = "admin";
-const ADMIN_PASSWORD = "pehnawa_admin_couture";
-
+/**
+ * Client gate for the admin area. This is a UX convenience only — real
+ * authorization is enforced server-side by requireAdmin() on every /api/admin/*
+ * route and by proxy.ts on /admin pages. The httpOnly session cookie set by
+ * /api/admin/login is not readable from JS by design.
+ */
 export default function AdminAuthWrapper({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [checking, setChecking] = useState(true);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    // Check if user is already authenticated in this session
-    const authStatus = sessionStorage.getItem("admin_authenticated");
-    if (authStatus === "true") {
-      setIsAuthenticated(true);
-    }
-    setChecking(false);
+    let active = true;
+    // Ask the server whether we already have a valid session.
+    fetch("/api/admin/me", { credentials: "same-origin" })
+      .then((res) => {
+        if (active) setIsAuthenticated(res.ok);
+      })
+      .catch(() => {
+        if (active) setIsAuthenticated(false);
+      })
+      .finally(() => {
+        if (active) setChecking(false);
+      });
+    return () => {
+      active = false;
+    };
   }, []);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
-
-    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-      sessionStorage.setItem("admin_authenticated", "true");
-      setIsAuthenticated(true);
-    } else {
-      setError("Invalid credential signatures. Access denied.");
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "same-origin",
+        body: JSON.stringify({ username, password }),
+      });
+      if (res.ok) {
+        setPassword("");
+        setIsAuthenticated(true);
+      } else {
+        setError("Invalid credential signatures. Access denied.");
+      }
+    } catch {
+      setError("Connection failed. Please try again.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -101,9 +125,10 @@ export default function AdminAuthWrapper({ children }) {
 
             <button
               type="submit"
-              className="w-full py-4.5 bg-gold hover:bg-[#C5A028] text-[#121212] font-montserrat text-[12px] font-bold tracking-[0.25em] transition-all uppercase rounded-none mt-2 cursor-pointer"
+              disabled={submitting}
+              className="w-full py-4.5 bg-gold hover:bg-[#C5A028] text-[#121212] font-montserrat text-[12px] font-bold tracking-[0.25em] transition-all uppercase rounded-none mt-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              AUTHENTICATE VAULT
+              {submitting ? "AUTHENTICATING…" : "AUTHENTICATE VAULT"}
             </button>
           </form>
         </div>
@@ -111,5 +136,7 @@ export default function AdminAuthWrapper({ children }) {
     );
   }
 
-  return children;
+  // Sign out is handled by the Navbar (admin prop) to avoid z-index conflicts
+  // with the fixed navbar covering this wrapper's elements.
+  return <>{children}</>;
 }

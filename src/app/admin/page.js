@@ -195,7 +195,7 @@ export default function AdminDashboard() {
 
   return (
     <AdminAuthWrapper>
-      <Navbar />
+      <Navbar admin />
 
       <main className="min-h-screen bg-[#131313] pt-32 pb-24 px-6 md:px-16 max-w-[1440px] mx-auto space-y-12">
         {/* Panel Header */}

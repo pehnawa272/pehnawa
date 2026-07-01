@@ -1,11 +1,14 @@
+-- CreateSchema
+CREATE SCHEMA IF NOT EXISTS "public";
+
 -- CreateEnum
 CREATE TYPE "ProductStatus" AS ENUM ('DRAFT', 'PUBLISHED', 'ARCHIVED', 'DELETED');
 
 -- CreateEnum
-CREATE TYPE "ProductCategory" AS ENUM ('EVERYDAY', 'SIGNATURE', 'BRIDAL');
+CREATE TYPE "ProductCategory" AS ENUM ('EVERYDAY', 'SIGNATURE', 'BRIDAL', 'OTHERS', 'BOTTOMWEAR');
 
 -- CreateEnum
-CREATE TYPE "ProductSubCategory" AS ENUM ('KURTAS', 'CO_ORDS', 'DUPATTAS', 'LEHENGAS', 'ANARKALIS', 'SAREES', 'ACCESSORIES');
+CREATE TYPE "ProductSubCategory" AS ENUM ('KURTAS', 'CO_ORDS', 'DUPATTAS', 'LEHENGAS', 'ANARKALIS', 'SAREES', 'ACCESSORIES', 'BOTTOMWEAR');
 
 -- CreateEnum
 CREATE TYPE "OrderStatus" AS ENUM ('NEW', 'ACCEPTED', 'IN_STITCHING', 'QUALITY_CHECK', 'READY_TO_SHIP', 'SHIPPED', 'DELIVERED', 'CANCELLED');
@@ -43,6 +46,7 @@ CREATE TABLE "User" (
     "name" TEXT,
     "avatarUrl" TEXT,
     "role" "UserRole" NOT NULL DEFAULT 'CUSTOMER',
+    "passwordHash" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
     "deletedAt" TIMESTAMP(3),
@@ -95,7 +99,9 @@ CREATE TABLE "Product" (
     "subCategory" "ProductSubCategory",
     "status" "ProductStatus" NOT NULL DEFAULT 'DRAFT',
     "price" INTEGER,
+    "mrp" INTEGER,
     "isEnquireOnly" BOOLEAN NOT NULL DEFAULT false,
+    "colours" TEXT[] DEFAULT ARRAY[]::TEXT[],
     "craftingHours" INTEGER,
     "isFeatured" BOOLEAN NOT NULL DEFAULT false,
     "sortOrder" INTEGER NOT NULL DEFAULT 0,
@@ -208,6 +214,7 @@ CREATE TABLE "CartItem" (
     "productId" TEXT NOT NULL,
     "quantity" INTEGER NOT NULL DEFAULT 1,
     "size" TEXT,
+    "colour" TEXT,
     "customTailoring" JSONB,
     "addedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -230,6 +237,7 @@ CREATE TABLE "Order" (
     "giftMessage" TEXT,
     "trackingCode" TEXT,
     "shippingCarrier" TEXT,
+    "trackingUrl" TEXT,
     "estimatedDelivery" TIMESTAMP(3),
     "acceptedAt" TIMESTAMP(3),
     "stitchingAt" TIMESTAMP(3),
@@ -257,6 +265,7 @@ CREATE TABLE "OrderItem" (
     "unitPrice" INTEGER NOT NULL,
     "quantity" INTEGER NOT NULL DEFAULT 1,
     "size" TEXT,
+    "colour" TEXT,
     "customTailoring" JSONB,
     "measurementProfileId" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -366,6 +375,16 @@ CREATE TABLE "ConsultationRequest" (
     CONSTRAINT "ConsultationRequest_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "PendingOrder" (
+    "id" TEXT NOT NULL,
+    "razorpayOrderId" TEXT NOT NULL,
+    "payload" JSONB NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "PendingOrder_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_clerkId_key" ON "User"("clerkId");
 
@@ -445,7 +464,7 @@ CREATE UNIQUE INDEX "Cart_userId_key" ON "Cart"("userId");
 CREATE INDEX "CartItem_cartId_idx" ON "CartItem"("cartId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "CartItem_cartId_productId_size_key" ON "CartItem"("cartId", "productId", "size");
+CREATE UNIQUE INDEX "CartItem_cartId_productId_size_colour_key" ON "CartItem"("cartId", "productId", "size", "colour");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Order_orderNumber_key" ON "Order"("orderNumber");
@@ -530,6 +549,9 @@ CREATE INDEX "ConsultationRequest_clientEmail_idx" ON "ConsultationRequest"("cli
 
 -- CreateIndex
 CREATE INDEX "ConsultationRequest_scheduledAt_idx" ON "ConsultationRequest"("scheduledAt");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "PendingOrder_razorpayOrderId_key" ON "PendingOrder"("razorpayOrderId");
 
 -- AddForeignKey
 ALTER TABLE "Address" ADD CONSTRAINT "Address_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

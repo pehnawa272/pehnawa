@@ -381,7 +381,9 @@ export default function ProductDetail({ initialProduct }) {
                 <div className="flex items-center gap-2 text-white/70">
                   <SymbolIcon name="local_shipping" className="size-5 text-gold" />
                   <span className="font-montserrat text-[11px] tracking-wider uppercase font-semibold">
-                    Delivery in 12-14 days
+                    {product.craftingHours 
+                      ? `Delivery in ${product.craftingHours}-${Number(product.craftingHours) + 2} days` 
+                      : "Delivery in 12-14 days"}
                   </span>
                 </div>
                 <div className="flex items-center gap-2 bg-gold/10 px-4 py-1.5 border border-gold/20">
