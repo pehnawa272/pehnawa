@@ -13,7 +13,7 @@ import { successResponse, errorResponse, handleError } from "@/lib/errors";
 // The login form sends username "admin"; map it to the admin user's email.
 // Configurable via ADMIN_LOGIN_EMAIL for future flexibility.
 const ADMIN_USERNAME = "admin";
-const ADMIN_EMAIL = process.env.ADMIN_LOGIN_EMAIL ?? "admin@pehnawa.com";
+const ADMIN_EMAIL = (process.env.ADMIN_LOGIN_EMAIL ?? "admin@pehnawa.com").trim();
 
 const loginSchema = z.object({
   username: z.string().min(1).max(100),
@@ -37,23 +37,11 @@ export async function POST(req: NextRequest) {
       ? await prisma.user.findUnique({ where: { email } })
       : null;
 
-    // Temporary debug — remove after diagnosing production failure
-    console.error("[admin/login debug]", {
-      emailResolved: email,
-      userFound: !!user,
-      role: user?.role,
-      deletedAt: user?.deletedAt ?? null,
-      hashStatus: user?.passwordHash ? "SET" : "NULL",
-      hashPrefix: user?.passwordHash?.slice(0, 20) ?? null,
-    });
-
     const ok =
       !!user &&
       user.role === "ADMIN" &&
       !user.deletedAt &&
       (await verifyPassword(password, user.passwordHash));
-
-    console.error("[admin/login debug] verifyPassword result:", ok);
 
     if (!ok || !user) {
       // Burn some time even on unknown user to keep timing uniform.
