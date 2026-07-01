@@ -37,11 +37,23 @@ export async function POST(req: NextRequest) {
       ? await prisma.user.findUnique({ where: { email } })
       : null;
 
+    // Temporary debug — remove after diagnosing production failure
+    console.error("[admin/login debug]", {
+      emailResolved: email,
+      userFound: !!user,
+      role: user?.role,
+      deletedAt: user?.deletedAt ?? null,
+      hashStatus: user?.passwordHash ? "SET" : "NULL",
+      hashPrefix: user?.passwordHash?.slice(0, 20) ?? null,
+    });
+
     const ok =
       !!user &&
       user.role === "ADMIN" &&
       !user.deletedAt &&
       (await verifyPassword(password, user.passwordHash));
+
+    console.error("[admin/login debug] verifyPassword result:", ok);
 
     if (!ok || !user) {
       // Burn some time even on unknown user to keep timing uniform.
