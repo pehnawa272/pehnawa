@@ -25,13 +25,13 @@ function scryptAsync(
   });
 }
 
-// scrypt cost parameter. 2^17 = 131072 — OWASP-recommended for password storage.
-// Memory use ≈ 128 * N * r bytes (~134MB at r=8), so maxmem must be raised above
-// Node's 32MB default; keep it in sync for hash and verify.
-const N = 131072;
+// scrypt cost parameter. 2^14 = 16384 — strong enough for a low-traffic admin
+// login and safe for serverless (memory ≈ 128 * N * r bytes ≈ 16MB at r=8,
+// runtime ~50ms). maxmem must exceed that; 64MB gives comfortable headroom.
+const N = 16384;
 const KEY_LEN = 64;
 const SALT_LEN = 16;
-const MAXMEM = 256 * 1024 * 1024; // 256MB headroom
+const MAXMEM = 64 * 1024 * 1024; // 64MB
 
 export async function hashPassword(password: string): Promise<string> {
   if (!password || password.length < 8) {
