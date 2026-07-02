@@ -70,8 +70,8 @@ export default function BookConsultation() {
       <Navbar />
       <CartDrawer />
 
-      <main className="min-h-screen bg-[#131313] pt-32 pb-24 px-6 md:px-16 flex flex-col justify-center items-center">
-        <div className="w-full max-w-2xl bg-[#1F1F1F] border border-white/10 p-8 md:p-12 relative z-10 space-y-8 gold-glow">
+      <main className="min-h-screen bg-[#131313] pt-24 md:pt-32 pb-16 md:pb-24 px-4 sm:px-6 md:px-16 flex flex-col justify-center items-center">
+        <div className="w-full max-w-2xl bg-[#1F1F1F] border border-white/10 p-5 sm:p-8 md:p-12 relative z-10 space-y-8 gold-glow">
           
           {success && bookingDetails ? (
             <div className="py-12 text-center space-y-6 animate-fade-in-up">
@@ -84,23 +84,18 @@ export default function BookConsultation() {
                   BOOKING ID: {bookingDetails.id}
                 </p>
               </div>
-              <div className="max-w-md mx-auto p-6 bg-[#131313] border border-white/5 space-y-4 text-left font-montserrat text-[13px]">
-                <div className="flex justify-between text-white/50">
-                  <span>Client Name:</span>
-                  <span className="text-white font-medium">{bookingDetails.clientName}</span>
-                </div>
-                <div className="flex justify-between text-white/50">
-                  <span>Consultation Type:</span>
-                  <span className="text-gold font-medium">{bookingDetails.type === "VIRTUAL" ? "VIRTUAL ATELIER" : "IN-PERSON BOUTIQUE"}</span>
-                </div>
-                <div className="flex justify-between text-white/50">
-                  <span>Scheduled Date:</span>
-                  <span className="text-white font-medium">{bookingDetails.requestedDate ? new Date(bookingDetails.requestedDate).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" }) : "N/A"}</span>
-                </div>
-                <div className="flex justify-between text-white/50">
-                  <span>Scheduled Time:</span>
-                  <span className="text-white font-medium">{bookingDetails.requestedTime || "N/A"}</span>
-                </div>
+              <div className="max-w-md mx-auto p-5 sm:p-6 bg-[#131313] border border-white/5 space-y-3 text-left font-montserrat text-[13px]">
+                {[
+                  { label: "Client Name", value: bookingDetails.clientName },
+                  { label: "Type", value: bookingDetails.type === "VIRTUAL" ? "Virtual Atelier" : "In-Person Boutique", gold: true },
+                  { label: "Date", value: bookingDetails.requestedDate ? new Date(bookingDetails.requestedDate).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" }) : "N/A" },
+                  { label: "Time", value: bookingDetails.requestedTime || "N/A" },
+                ].map(({ label, value, gold }) => (
+                  <div key={label} className="flex flex-col sm:flex-row sm:justify-between gap-0.5 sm:gap-4 text-white/50">
+                    <span className="shrink-0">{label}:</span>
+                    <span className={`font-medium text-right ${gold ? "text-gold" : "text-white"}`}>{value}</span>
+                  </div>
+                ))}
               </div>
               <p className="font-montserrat text-[12px] text-white/50 max-w-sm mx-auto leading-relaxed">
                 A calendar invitation with digital boutique credentials has been dispatched to <span className="text-white font-semibold">{bookingDetails.clientEmail}</span>.
@@ -196,7 +191,7 @@ export default function BookConsultation() {
                   <span className="block text-[11px] font-montserrat text-white/50 tracking-widest uppercase font-semibold text-center">
                     SELECT PREFERRED TIME SLOT
                   </span>
-                  <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
                     {timeSlots.map((slot) => (
                       <button
                         key={slot}

@@ -224,7 +224,7 @@ export default function Checkout() {
     return (
       <>
         <Navbar />
-        <main className="min-h-screen bg-[#131313] pt-32 pb-24 px-6 flex flex-col justify-center items-center text-center space-y-6">
+        <main className="min-h-screen bg-[#131313] pt-24 md:pt-32 pb-16 md:pb-24 px-4 sm:px-6 flex flex-col justify-center items-center text-center space-y-6">
           <SymbolIcon name="shopping_bag" className="size-16 text-white/20" />
           <h2 className="font-playfair text-[24px] text-white tracking-widest uppercase">
             Your bag is empty
@@ -248,14 +248,23 @@ export default function Checkout() {
     <>
       <Navbar />
       
-      <main className="min-h-screen bg-[#131313] pt-32 pb-24 px-6 md:px-16 max-w-[1440px] mx-auto">
+      <main className="min-h-screen bg-[#131313] pt-24 md:pt-32 pb-16 md:pb-24 px-4 sm:px-6 md:px-16 max-w-[1440px] mx-auto">
         {/* Checkout Header Progress Bar */}
         {step < 4 && (
-          <div className="max-w-3xl mx-auto mb-16 space-y-4">
-            <div className="flex justify-between font-montserrat text-[10px] md:text-[11px] text-white/40 tracking-[0.15em] uppercase font-semibold">
-              <span className={step >= 1 ? "text-gold" : ""}>1. SHIPPING DETAILS</span>
-              <span className={step >= 2 ? "text-gold" : ""}>2. FITTING SUMMARY</span>
-              <span className={step >= 3 ? "text-gold" : ""}>3. SECURE PAYMENT</span>
+          <div className="max-w-3xl mx-auto mb-10 md:mb-16 space-y-3">
+            <div className="flex justify-between font-montserrat text-[10px] md:text-[11px] text-white/40 tracking-[0.1em] md:tracking-[0.15em] uppercase font-semibold">
+              <span className={step >= 1 ? "text-gold" : ""}>
+                <span className="hidden sm:inline">1. Shipping</span>
+                <span className="sm:hidden">① Ship</span>
+              </span>
+              <span className={step >= 2 ? "text-gold" : ""}>
+                <span className="hidden sm:inline">2. Fitting</span>
+                <span className="sm:hidden">② Fit</span>
+              </span>
+              <span className={step >= 3 ? "text-gold" : ""}>
+                <span className="hidden sm:inline">3. Payment</span>
+                <span className="sm:hidden">③ Pay</span>
+              </span>
             </div>
             <div className="h-[2px] bg-white/5 w-full relative">
               <div
@@ -278,13 +287,13 @@ export default function Checkout() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            {/* Steps Canvas (Left - 7 columns) */}
-            <div className="lg:col-span-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+            {/* Steps Canvas — renders second on mobile (order-2), first on lg (default) */}
+            <div className="lg:col-span-8 order-2 lg:order-1">
               
               {/* Step 1: Shipping */}
               {step === 1 && (
-                <div className="bg-[#1F1F1F] border border-white/10 p-8 md:p-12 space-y-8 animate-fade-in-up">
+                <div className="bg-[#1F1F1F] border border-white/10 p-5 sm:p-8 md:p-12 space-y-8 animate-fade-in-up">
                   <h3 className="font-playfair text-[22px] md:text-[26px] text-white tracking-wide">
                     Luxury Shipping Address
                   </h3>
@@ -424,7 +433,7 @@ export default function Checkout() {
 
               {/* Step 2: Custom Fitting Verification */}
               {step === 2 && (
-                <div className="bg-[#1F1F1F] border border-white/10 p-8 md:p-12 space-y-8 animate-fade-in-up">
+                <div className="bg-[#1F1F1F] border border-white/10 p-5 sm:p-8 md:p-12 space-y-8 animate-fade-in-up">
                   <div className="flex justify-between items-center border-b border-white/10 pb-4">
                     <h3 className="font-playfair text-[22px] md:text-[26px] text-white tracking-wide">
                       Fitting & Tailoring Dossier
@@ -446,7 +455,7 @@ export default function Checkout() {
                     {cartItems.map((item) => (
                       <div
                         key={item.key}
-                        className="p-6 bg-[#131313] border border-white/5 flex flex-col md:flex-row gap-6 items-start justify-between"
+                        className="p-4 sm:p-6 bg-[#131313] border border-white/5 flex flex-col md:flex-row gap-3 md:gap-6 items-start justify-between"
                       >
                         <div className="space-y-2">
                           <h4 className="font-playfair text-[16px] text-white font-medium">
@@ -505,7 +514,7 @@ export default function Checkout() {
 
               {/* Step 3: Payments */}
               {step === 3 && (
-                <div className="bg-[#1F1F1F] border border-white/10 p-8 md:p-12 space-y-8 animate-fade-in-up">
+                <div className="bg-[#1F1F1F] border border-white/10 p-5 sm:p-8 md:p-12 space-y-8 animate-fade-in-up">
                   <div className="flex justify-between items-center border-b border-white/10 pb-4">
                     <h3 className="font-playfair text-[22px] md:text-[26px] text-white tracking-wide">
                       Secure Atelier Payment
@@ -569,7 +578,7 @@ export default function Checkout() {
 
               {/* Step 4: Invoice Success Screen */}
               {step === 4 && orderResult && (
-                <div className="bg-[#1F1F1F] border border-white/10 p-8 md:p-12 space-y-10 animate-fade-in-up text-center max-w-2xl mx-auto shadow-2xl">
+                <div className="bg-[#1F1F1F] border border-white/10 p-5 sm:p-8 md:p-12 space-y-10 animate-fade-in-up text-center max-w-2xl mx-auto shadow-2xl">
                   <div className="space-y-4">
                     <SymbolIcon name="check_circle" className="size-20 text-gold mx-auto" />
                     <h2 className="font-playfair text-[28px] md:text-[36px] font-medium text-white tracking-wide">
@@ -593,9 +602,9 @@ export default function Checkout() {
                       <span>Dossier client:</span>
                       <span className="text-white font-medium">{orderResult.customer.name}</span>
                     </div>
-                    <div className="flex justify-between text-white/50">
-                      <span>Recipient Address:</span>
-                      <span className="text-white text-right font-medium max-w-[250px] truncate">{orderResult.customer.address}</span>
+                    <div className="flex flex-col sm:flex-row sm:justify-between gap-0.5 sm:gap-4 text-white/50">
+                      <span className="shrink-0">Recipient Address:</span>
+                      <span className="text-white sm:text-right font-medium max-w-full sm:max-w-[260px] break-words">{orderResult.customer.address}</span>
                     </div>
                     
                     {/* Items loop */}
@@ -645,9 +654,9 @@ export default function Checkout() {
               )}
             </div>
 
-            {/* Cart Summary Drawer Panel (Right - 4 columns) */}
+            {/* Cart Summary — renders first on mobile (order-1), right col on lg */}
             {step < 4 && (
-              <div className="lg:col-span-4 bg-[#1F1F1F] border border-white/10 p-6 md:p-8 space-y-6 h-fit sticky top-24">
+              <div className="lg:col-span-4 order-1 lg:order-2 bg-[#1F1F1F] border border-white/10 p-5 sm:p-6 md:p-8 space-y-6 h-fit lg:sticky lg:top-24">
                 <h3 className="font-playfair text-[18px] text-white tracking-wider uppercase border-b border-white/10 pb-2">
                   Atelier Bag
                 </h3>

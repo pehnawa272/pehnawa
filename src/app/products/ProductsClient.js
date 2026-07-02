@@ -45,15 +45,14 @@ export default function ProductsClient({ initialProducts = [] }) {
 
       <main className="min-h-screen bg-[#131313] pt-20">
         {/* Editorial Hero Banner */}
-        <header className="relative h-[650px] w-full overflow-hidden flex items-center px-6 md:px-16 border-b border-white/5">
+        <header className="relative h-[420px] sm:h-[520px] md:h-[650px] w-full overflow-hidden flex items-center px-6 md:px-16 border-b border-white/5">
           <div className="absolute inset-0 z-0">
             <Image
               src="/pic3.jpeg"
               alt="Pehnawa Atelier Collection"
               fill
               priority
-              quality={100}
-              unoptimized={true}
+              quality={85}
               className="object-cover object-top opacity-90 scale-105 hover:scale-100 transition-transform duration-[3000ms]"
               sizes="100vw"
             />
@@ -64,23 +63,27 @@ export default function ProductsClient({ initialProducts = [] }) {
             <p className="font-montserrat text-[11px] tracking-[0.3em] uppercase text-gold">
               The Entire Atelier Shop
             </p>
-            <h1 className="font-playfair text-[38px] md:text-[56px] font-bold leading-tight tracking-wider">
+            <h1 className="font-playfair text-[28px] sm:text-[38px] md:text-[56px] font-bold leading-tight tracking-wider">
               Bespoke Luxury <br />For Every Occasion.
             </h1>
             <p className="font-montserrat text-[14px] md:text-[16px] max-w-md opacity-90 font-light leading-relaxed">
               Explore our complete curated catalog of handcrafted Indian couture. Every single piece is customizable to your exact measurements.
             </p>
-            <div className="pt-2">
+            <div className="pt-2 flex flex-col gap-3">
               <button
                 type="button"
                 onClick={() => {
                   const el = document.getElementById("catalog-section");
                   el?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="px-10 py-4 bg-gold hover:bg-white hover:text-[#121212] text-[#121212] font-montserrat text-[12px] font-bold tracking-[0.2em] transition-all duration-300 rounded-none border border-gold"
+                className="btn-shimmer group inline-flex items-center gap-3 px-8 sm:px-12 py-4 sm:py-5 bg-gold hover:bg-white hover:text-[#121212] text-[#121212] font-montserrat text-[12px] font-bold tracking-[0.2em] sm:tracking-[0.25em] transition-all duration-300 rounded-none border border-gold hover:shadow-[0_8px_30px_rgba(212,175,55,0.35)] active:scale-[0.98] uppercase"
               >
                 BROWSE ATELIER CATALOG
+                <SymbolIcon name="expand_more" className="size-4 bounce-slow" />
               </button>
+              <p className="font-montserrat text-[10px] text-white/50 uppercase tracking-[0.15em]">
+                Every piece customizable to your exact measurements
+              </p>
             </div>
           </div>
         </header>
@@ -88,37 +91,41 @@ export default function ProductsClient({ initialProducts = [] }) {
         {/* Catalog Section with Sticky Filter Bar */}
         <section id="catalog-section" className="relative">
           {/* Filter Bar */}
-          <div className="sticky top-16 z-40 bg-[#131313]/90 backdrop-blur-md border-b border-white/10 px-6 md:px-16 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 text-white">
-            <div className="flex flex-wrap justify-center gap-6 md:gap-8">
-              {categories.map((cat) => (
-                <button
-                  key={cat.value}
-                  type="button"
-                  onClick={() => setActiveCategory(cat.value)}
-                  className={`font-montserrat text-[11px] font-semibold tracking-widest pb-1 transition-all border-b-2 ${activeCategory === cat.value
-                    ? "border-gold text-gold"
-                    : "border-transparent opacity-60 hover:opacity-100 hover:text-gold"
-                    }`}
-                >
-                  {cat.name}
-                </button>
-              ))}
+          <div className="sticky top-16 z-40 bg-[#131313]/90 backdrop-blur-md border-b border-white/10 text-white">
+            {/* Category pills — horizontally scrollable on mobile */}
+            <div className="overflow-x-auto hide-scrollbar border-b border-white/5 sm:border-none">
+              <div className="flex items-center gap-6 md:gap-8 px-6 md:px-16 py-3.5 min-w-max sm:min-w-0 sm:flex-wrap sm:justify-center">
+                {categories.map((cat) => (
+                  <button
+                    key={cat.value}
+                    type="button"
+                    onClick={() => setActiveCategory(cat.value)}
+                    className={`font-montserrat text-[11px] font-semibold tracking-widest pb-1 transition-all border-b-2 whitespace-nowrap ${activeCategory === cat.value
+                      ? "border-gold text-gold"
+                      : "border-transparent opacity-60 hover:opacity-100 hover:text-gold"
+                      }`}
+                  >
+                    {cat.name}
+                  </button>
+                ))}
+              </div>
             </div>
 
-            <div className="flex items-center gap-3">
+            {/* Sort row */}
+            <div className="flex items-center justify-end gap-3 px-6 md:px-16 py-2.5 sm:py-3">
               <label htmlFor="shop-all-sort-by" className="font-montserrat text-[11px] opacity-60 uppercase tracking-wider cursor-pointer">
-                Sort By:
+                Sort:
               </label>
               <select
                 id="shop-all-sort-by"
                 name="sortBy"
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-transparent border-b border-white/20 text-white font-montserrat text-[11px] tracking-wider py-1 pr-8 pl-1 outline-none focus:border-gold cursor-pointer rounded-none appearance-none"
+                className="bg-transparent border-b border-white/20 text-white font-montserrat text-[11px] tracking-wider py-1 pr-6 pl-1 outline-none focus:border-gold cursor-pointer rounded-none appearance-none"
               >
                 <option value="default" className="bg-[#131313] text-white">Featured</option>
-                <option value="price-low" className="bg-[#131313] text-white">Price: Low to High</option>
-                <option value="price-high" className="bg-[#131313] text-white">Price: High to Low</option>
+                <option value="price-low" className="bg-[#131313] text-white">Price: Low–High</option>
+                <option value="price-high" className="bg-[#131313] text-white">Price: High–Low</option>
               </select>
               <SymbolIcon name="tune" className="size-4 text-gold" />
             </div>
@@ -134,7 +141,7 @@ export default function ProductsClient({ initialProducts = [] }) {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-20">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 md:gap-y-20">
                 {filteredProducts.map((product) => (
                   <div
                     key={product.id}
@@ -154,16 +161,17 @@ export default function ProductsClient({ initialProducts = [] }) {
                       </Link>
 
                       {/* Premium Quick Add Trigger */}
-                      <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 bg-[#1F1F1F]/90 backdrop-blur-md border-t border-white/5">
+                      <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 bg-[#131313]/95 backdrop-blur-md border-t border-gold/20">
                         <button
                           type="button"
                           onClick={(e) => {
                             e.preventDefault();
                             addToCart(product, "S", null);
                           }}
-                          className="w-full py-3 border border-gold hover:bg-gold hover:text-[#131313] text-gold font-montserrat text-[11px] font-semibold tracking-[0.15em] transition-all uppercase rounded-none"
+                          className="btn-shimmer w-full py-3.5 bg-gold hover:bg-white text-[#131313] font-montserrat text-[11px] font-bold tracking-[0.2em] transition-all duration-300 uppercase rounded-none flex items-center justify-center gap-2 hover:shadow-[0_4px_20px_rgba(212,175,55,0.3)] active:scale-[0.98]"
                         >
-                          QUICK ADD +
+                          <SymbolIcon name="shopping_bag" className="size-3.5" />
+                          ADD TO BAG
                         </button>
                       </div>
                     </div>
@@ -190,14 +198,14 @@ export default function ProductsClient({ initialProducts = [] }) {
         </section>
 
         {/* Luxury Newsletter Section */}
-        <section className="text-white py-32 px-6 md:px-16 text-center bg-[#0e0e0e] border-t border-white/5">
+        <section className="text-white py-16 md:py-32 px-6 md:px-16 text-center bg-[#0e0e0e] border-t border-white/5">
           <div className="max-w-xl mx-auto space-y-6">
-            <span className="font-montserrat text-[11px] tracking-[0.2em] text-gold uppercase block">THE CLUB</span>
+            <span className="font-montserrat text-[11px] tracking-[0.2em] text-gold uppercase block">THE INNER CIRCLE</span>
             <h2 className="font-playfair text-[28px] md:text-[36px] font-medium text-white tracking-wide">
               Join the Atelier
             </h2>
-            <p className="font-montserrat text-[13px] md:text-[14px] opacity-70 leading-relaxed font-light">
-              Be the first to discover our latest edits, artisanal stories, and exclusive previews.
+            <p className="font-montserrat text-[13px] md:text-[15px] opacity-70 leading-relaxed font-light">
+              Be the first to discover our latest edits, private sale access, artisanal stories, and exclusive member previews.
             </p>
             <form
               onSubmit={(e) => {
@@ -205,7 +213,7 @@ export default function ProductsClient({ initialProducts = [] }) {
                 alert("Thank you for joining the Pehnawa Atelier club.");
                 e.target.reset();
               }}
-              className="pt-6 flex flex-col sm:flex-row gap-4"
+              className="pt-6 flex flex-col sm:flex-row gap-0 border border-white/10 overflow-hidden"
             >
               <label htmlFor="newsletter-email" className="sr-only">
                 Email Address
@@ -214,17 +222,21 @@ export default function ProductsClient({ initialProducts = [] }) {
                 id="newsletter-email"
                 name="email"
                 required
-                className="flex-1 bg-transparent border-b border-white/20 px-0 py-2.5 font-montserrat text-[12px] text-white focus:border-gold transition-colors outline-none rounded-none placeholder-white/30"
-                placeholder="Email Address"
+                className="flex-1 bg-transparent px-5 py-4 font-montserrat text-[12px] text-white focus:outline-none placeholder-white/30 border-r-0 border-white/10"
+                placeholder="Your email address"
                 type="email"
               />
               <button
                 type="submit"
-                className="font-montserrat text-[11px] font-bold tracking-[0.2em] text-gold hover:text-white uppercase py-2.5 transition-colors border-b border-gold sm:border-b-0"
+                className="btn-shimmer shrink-0 bg-gold hover:bg-white text-[#131313] font-montserrat text-[11px] font-bold tracking-[0.25em] uppercase px-8 py-4 transition-all duration-300 flex items-center gap-2 active:scale-[0.98]"
               >
-                SUBSCRIBE
+                <SymbolIcon name="sparkles" className="size-3.5" />
+                JOIN NOW
               </button>
             </form>
+            <p className="font-montserrat text-[10px] text-white/30 tracking-widest uppercase">
+              No spam · Unsubscribe anytime · Members-only access
+            </p>
           </div>
         </section>
       </main>

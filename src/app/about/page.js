@@ -114,7 +114,6 @@ export default function AboutUsPage() {
                   fill
                   priority
                   quality={95}
-                  unoptimized={true}
                   className="object-cover transition-transform duration-1000 group-hover:scale-105"
                   sizes="(max-width: 1024px) 100vw, 40vw"
                 />
@@ -140,7 +139,6 @@ export default function AboutUsPage() {
                   fill
                   priority
                   quality={95}
-                  unoptimized={true}
                   className="object-cover transition-transform duration-1000 group-hover:scale-105"
                   sizes="(max-width: 1024px) 100vw, 40vw"
                 />

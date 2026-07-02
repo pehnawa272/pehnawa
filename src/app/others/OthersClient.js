@@ -46,15 +46,14 @@ export default function OthersClient({ initialProducts = [] }) {
 
       <main className="min-h-screen bg-[#131313] pt-20">
         {/* Editorial Hero Banner */}
-        <header className="relative h-[650px] w-full overflow-hidden flex items-center px-6 md:px-16 border-b border-white/5">
+        <header className="relative h-[420px] sm:h-[520px] md:h-[650px] w-full overflow-hidden flex items-center px-6 md:px-16 border-b border-white/5">
           <div className="absolute inset-0 z-0">
             <Image
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDFrcCQuwbZm63vHnuYuhNCOnADWPeqa_zmtLEjtr407ZjQa50TAvYThgFiJW7_tTxGWDTMnfg8O0J8kwnoiT5Y9hmGx81xGLhME1MKPqj5B-anBTziMXzs-SsuSq5OfSBrYIltXgB5rWp8FxygJOWoz14gGNKfIZxBf1zd2Y4AgmmthhXvqm4rqKvjjdmmMa9Ru0FLWfvgoe0JWhK0HnJ38nwjXS9guqeNJZvyzqfNlrlLBgkC2Q9bn1-UexOeoUmzHxzQcjdEi0"
               alt="Pehnawa Others Collection"
               fill
               priority
-              quality={100}
-              unoptimized={true}
+              quality={85}
               className="object-cover object-top opacity-90 scale-105 hover:scale-100 transition-transform duration-[3000ms]"
               sizes="100vw"
             />
@@ -65,7 +64,7 @@ export default function OthersClient({ initialProducts = [] }) {
             <p className="font-montserrat text-[11px] tracking-[0.3em] uppercase text-gold">
               The Edit
             </p>
-            <h1 className="font-playfair text-[38px] md:text-[56px] font-bold leading-tight tracking-wider">
+            <h1 className="font-playfair text-[28px] sm:text-[38px] md:text-[56px] font-bold leading-tight tracking-wider">
               Beyond <br />Categories.
             </h1>
             <p className="font-montserrat text-[14px] md:text-[16px] max-w-md opacity-90 font-light leading-relaxed">
@@ -135,7 +134,7 @@ export default function OthersClient({ initialProducts = [] }) {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-20">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 md:gap-y-20">
                 {filteredProducts.map((product) => (
                   <div
                     key={product.id}

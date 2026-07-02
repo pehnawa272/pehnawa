@@ -67,15 +67,14 @@ export default function BridalAtelier({ initialProducts = [] }) {
 
       <main className="min-h-screen bg-[#131313] pt-20">
         {/* Luxury Bridal Hero Section */}
-        <header className="relative h-[780px] w-full flex items-center justify-center overflow-hidden border-b border-white/5">
+        <header className="relative h-[480px] sm:h-[600px] md:h-[780px] w-full flex items-center justify-center overflow-hidden border-b border-white/5">
           <div className="absolute inset-0 z-0">
             <Image
               src="/pic5.png"
               alt="PEHNAWA Golden Era — Timeless Elegant Ethnic Wear"
               fill
               priority
-              quality={100}
-              unoptimized={true}
+              quality={85}
               className="object-cover brightness-[0.45] scale-100 hover:scale-105 transition-transform duration-[4000ms]"
               sizes="100vw"
             />
@@ -84,7 +83,7 @@ export default function BridalAtelier({ initialProducts = [] }) {
 
           <div className="relative z-10 text-center max-w-4xl px-6 space-y-6">
             <span className="font-montserrat text-[11px] tracking-[0.3em] text-gold uppercase block">THE GOLDEN ERA</span>
-            <h2 className="font-playfair text-[38px] md:text-[64px] font-bold text-white tracking-widest leading-none">
+            <h2 className="font-playfair text-[28px] sm:text-[38px] md:text-[64px] font-bold text-white tracking-widest leading-none">
               Golden Era
             </h2>
             <p className="font-montserrat text-[15px] md:text-[18px] text-white/70 max-w-2xl mx-auto leading-relaxed italic font-light">
@@ -107,7 +106,7 @@ export default function BridalAtelier({ initialProducts = [] }) {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-20">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 md:gap-y-20">
               {initialProducts.map((product) => (
                 <div key={product.id} className="asymmetric-grid-item group flex flex-col">
                   <div className="relative aspect-[3/4] overflow-hidden mb-6 bg-[#1F1F1F] border border-white/5 group-hover:border-gold/30 transition-colors">
@@ -153,7 +152,7 @@ export default function BridalAtelier({ initialProducts = [] }) {
         </section>
 
         {/* Artisanal Focus Counters CTA */}
-        <section className="bg-[#0e0e0e] py-32 px-6 border-y border-white/5 text-center">
+        <section className="bg-[#0e0e0e] py-16 md:py-32 px-6 border-y border-white/5 text-center">
           <div className="max-w-4xl mx-auto space-y-12">
             <div className="space-y-4">
               <span className="font-montserrat text-[11px] text-gold tracking-[0.2em] uppercase block">

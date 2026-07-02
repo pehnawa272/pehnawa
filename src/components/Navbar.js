@@ -101,8 +101,13 @@ export default function Navbar({ admin = false }) {
               href="https://wa.me/917309336575?text=Hello%20Pehnawa%2C%20I%20would%20like%20to%20book%20a%20styling%20consultation."
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden xl:inline-flex items-center gap-2 px-3 py-1.5 border border-gold/30 hover:border-gold hover:bg-gold/5 transition-all text-[10px] font-montserrat font-medium tracking-widest text-gold rounded-none"
+              className="hidden xl:inline-flex items-center gap-2 px-4 py-2 border border-gold/50 hover:border-gold hover:bg-gold hover:text-[#131313] transition-all duration-300 text-[10px] font-montserrat font-bold tracking-widest text-gold rounded-none group"
             >
+              {/* Live-availability dot */}
+              <span className="relative flex size-1.5 shrink-0">
+                <span className="dot-live absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full size-1.5 bg-emerald-400"></span>
+              </span>
               <SymbolIcon name="whatsapp" className="size-3.5" />
               BOOK CONSULTATION
             </a>
@@ -145,9 +150,9 @@ export default function Navbar({ admin = false }) {
             : "opacity-0 pointer-events-none"
         }`}
       >
-        <div className="flex flex-col h-full px-8 py-12">
+        <div className="flex flex-col h-full px-6 py-8 sm:px-8 sm:py-12">
           {/* Header */}
-          <div className="flex justify-between items-center mb-16">
+          <div className="flex justify-between items-center mb-10 sm:mb-16">
             <h2 className="font-playfair text-[24px] text-white tracking-widest leading-[1.1] flex flex-col items-start">
               <span>PEHNAWA</span>
               <span className="block font-montserrat text-[9px] tracking-[0.25em] font-light text-white/50 mt-1 uppercase">
@@ -165,7 +170,7 @@ export default function Navbar({ admin = false }) {
           </div>
 
           {/* Links */}
-          <div className="flex flex-col gap-8 mb-auto">
+          <div className="flex flex-col gap-6 sm:gap-8 mb-auto">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
@@ -187,10 +192,11 @@ export default function Navbar({ admin = false }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setMobileMenuOpen(false)}
-                className="font-montserrat text-[16px] text-gold font-medium tracking-[0.25em] uppercase flex items-center gap-2"
+                className="btn-shimmer w-full flex items-center gap-3 px-6 py-4 bg-gold text-[#131313] font-montserrat text-[13px] font-bold tracking-[0.2em] uppercase transition-all duration-300 active:scale-[0.98]"
               >
                 <SymbolIcon name="whatsapp" className="size-5" />
-                Book Consultation
+                Book a Free Consultation
+                <SymbolIcon name="arrow_forward" className="size-4 ml-auto" />
               </a>
             )}
           </div>

@@ -54,15 +54,14 @@ export default function EverydayEdit({ initialProducts = [] }) {
 
       <main className="min-h-screen bg-[#131313] pt-20">
         {/* Editorial Hero Banner */}
-        <header className="relative h-[650px] w-full overflow-hidden flex items-center px-6 md:px-16 border-b border-white/5">
+        <header className="relative h-[420px] sm:h-[520px] md:h-[650px] w-full overflow-hidden flex items-center px-6 md:px-16 border-b border-white/5">
           <div className="absolute inset-0 z-0">
             <Image
               src="/everydayhero.jpeg"
               alt="Pehnawa Everyday Collection Kurta"
               fill
               priority
-              quality={100}
-              unoptimized={true}
+              quality={85}
               className="object-cover object-top opacity-90 scale-105 hover:scale-100 transition-transform duration-[3000ms]"
               sizes="100vw"
             />
@@ -73,7 +72,7 @@ export default function EverydayEdit({ initialProducts = [] }) {
             <p className="font-montserrat text-[11px] tracking-[0.3em] uppercase text-gold">
               Professional Ethnic
             </p>
-            <h1 className="font-playfair text-[38px] md:text-[56px] font-bold leading-tight tracking-wider">
+            <h1 className="font-playfair text-[28px] sm:text-[38px] md:text-[56px] font-bold leading-tight tracking-wider">
               Modern Indian <br />Identity.
             </h1>
             <p className="font-montserrat text-[14px] md:text-[16px] max-w-md opacity-90 font-light leading-relaxed">
@@ -143,7 +142,7 @@ export default function EverydayEdit({ initialProducts = [] }) {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-20">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 md:gap-y-20">
                 {filteredProducts.map((product) => (
                   <div
                     key={product.id}
@@ -199,7 +198,7 @@ export default function EverydayEdit({ initialProducts = [] }) {
         </section>
 
         {/* Luxury Newsletter Section */}
-        <section className="text-white py-32 px-6 md:px-16 text-center bg-[#0e0e0e] border-t border-white/5">
+        <section className="text-white py-16 md:py-32 px-6 md:px-16 text-center bg-[#0e0e0e] border-t border-white/5">
           <div className="max-w-xl mx-auto space-y-6">
             <span className="font-montserrat text-[11px] tracking-[0.2em] text-gold uppercase block">THE CLUB</span>
             <h2 className="font-playfair text-[28px] md:text-[36px] font-medium text-white tracking-wide">

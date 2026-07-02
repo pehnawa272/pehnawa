@@ -34,14 +34,22 @@ export default function CartDrawer() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [cartOpen, toggleCart]);
 
-  if (!cartOpen) return null;
-
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden bg-black/60 backdrop-blur-sm transition-opacity duration-300">
+    /* Backdrop — always in the DOM, fades in/out so the panel can animate */
+    <div
+      className={`fixed inset-0 z-50 overflow-hidden transition-colors duration-300 ${
+        cartOpen
+          ? "bg-black/60 backdrop-blur-sm pointer-events-auto"
+          : "bg-transparent pointer-events-none"
+      }`}
+    >
       <div className="absolute inset-y-0 right-0 max-w-full flex">
+        {/* Panel — slides in from the right with a luxury deceleration curve */}
         <div
           ref={drawerRef}
-          className="w-screen max-w-md bg-[#131313]/95 backdrop-blur-2xl border-l border-white/10 flex flex-col shadow-2xl h-full"
+          className={`w-screen max-w-md bg-[#131313]/95 backdrop-blur-2xl border-l border-white/10 flex flex-col shadow-2xl h-full
+            transition-transform duration-[420ms] ease-[cubic-bezier(0.32,0.72,0,1)]
+            ${cartOpen ? "translate-x-0" : "translate-x-full"}`}
         >
           {/* Header */}
           <div className="px-6 py-6 border-b border-white/10 flex justify-between items-center bg-[#0e0e0e]/80">
@@ -62,7 +70,7 @@ export default function CartDrawer() {
           {/* Cart Items List */}
           <div className="flex-1 overflow-y-auto py-6 px-6 space-y-6 hide-scrollbar">
             {cartItems.length === 0 ? (
-              <div className="h-full flex flex-col justify-center items-center text-center space-y-6">
+              <div className="h-full flex flex-col justify-center items-center text-center space-y-6 animate-fade-in-up-fast">
                 <SymbolIcon name="shopping_bag" className="size-16 text-white/20" />
                 <div>
                   <h3 className="font-playfair text-[18px] text-white tracking-widest uppercase mb-2">
@@ -72,19 +80,21 @@ export default function CartDrawer() {
                     Allow us to curate your wardrobe. Begin exploring our unique designs.
                   </p>
                 </div>
-                <button
-                  type="button"
+                <Link
+                  href="/products"
                   onClick={toggleCart}
-                  className="px-8 py-3 border border-gold text-gold font-montserrat text-[12px] font-semibold tracking-widest uppercase hover:bg-gold/5 transition-all"
+                  className="btn-shimmer inline-flex items-center gap-2 px-10 py-4 bg-gold hover:bg-white text-[#131313] font-montserrat text-[12px] font-bold tracking-[0.2em] uppercase transition-all duration-300 active:scale-[0.98] hover:shadow-[0_4px_20px_rgba(212,175,55,0.3)]"
                 >
-                  DISCOVER PIECES
-                </button>
+                  <SymbolIcon name="sparkles" className="size-3.5" />
+                  EXPLORE THE ATELIER
+                </Link>
               </div>
             ) : (
-              cartItems.map((item) => (
+              cartItems.map((item, idx) => (
                 <div
                   key={item.key}
-                  className="flex gap-4 pb-6 border-b border-white/5 last:border-b-0"
+                  className="flex gap-4 pb-6 border-b border-white/5 last:border-b-0 animate-fade-in-up-fast"
+                  style={{ animationDelay: `${idx * 60}ms`, animationFillMode: "both" }}
                 >
                   {/* Image */}
                   <div className="w-20 h-28 flex-shrink-0 bg-[#1F1F1F] border border-white/5 overflow-hidden relative">
@@ -158,18 +168,18 @@ export default function CartDrawer() {
                           type="button"
                           onClick={() => updateQuantity(item.key, -1)}
                           aria-label={`Decrease quantity of ${item.title}`}
-                          className="px-2.5 py-1 text-white/60 hover:text-gold text-[12px] font-bold"
+                          className="w-10 h-10 flex items-center justify-center text-white/60 hover:text-gold text-[16px] font-bold touch-manipulation"
                         >
-                          -
+                          −
                         </button>
-                        <span className="px-3 py-1 font-montserrat text-[12px] text-white font-medium select-none">
+                        <span className="px-3 font-montserrat text-[12px] text-white font-medium select-none min-w-[2rem] text-center">
                           {item.quantity}
                         </span>
                         <button
                           type="button"
                           onClick={() => updateQuantity(item.key, 1)}
                           aria-label={`Increase quantity of ${item.title}`}
-                          className="px-2.5 py-1 text-white/60 hover:text-gold text-[12px] font-bold"
+                          className="w-10 h-10 flex items-center justify-center text-white/60 hover:text-gold text-[16px] font-bold touch-manipulation"
                         >
                           +
                         </button>
@@ -211,13 +221,18 @@ export default function CartDrawer() {
                 <Link
                   href="/checkout"
                   onClick={toggleCart}
-                  className="w-full block py-4 bg-gold hover:bg-[#C5A028] text-[#121212] font-montserrat text-[13px] font-bold tracking-[0.2em] text-center uppercase active:scale-[0.99] transition-all"
+                  className="btn-shimmer btn-pulse-glow group w-full flex items-center justify-center gap-3 py-4 bg-gold hover:bg-[#e8c840] text-[#121212] font-montserrat text-[13px] font-bold tracking-[0.2em] uppercase active:scale-[0.99] transition-all duration-300 hover:shadow-[0_6px_28px_rgba(212,175,55,0.40)]"
                 >
-                  PROCEED TO CHECKOUT
+                  <SymbolIcon name="lock" className="size-3.5" />
+                  SECURE CHECKOUT
+                  <SymbolIcon name="arrow_forward" className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
-                <p className="text-[10px] font-montserrat text-white/40 text-center italic">
-                  * Complimentary global delivery & bespoke fit consulting on every order.
-                </p>
+                <div className="flex items-center justify-center gap-2">
+                  <SymbolIcon name="verified" className="size-3.5 text-gold/60" />
+                  <p className="text-[10px] font-montserrat text-white/40 text-center">
+                    Complimentary delivery · Free bespoke tailoring · Secure payment
+                  </p>
+                </div>
               </div>
             </div>
           )}

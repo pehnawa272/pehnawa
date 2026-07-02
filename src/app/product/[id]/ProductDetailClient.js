@@ -80,7 +80,7 @@ export default function ProductDetail({ initialProduct }) {
 
       <main className="min-h-screen bg-[#131313] pt-20">
         {/* Editorial Product Section */}
-        <section className="grid grid-cols-1 lg:grid-cols-12 min-h-[920px] max-w-[1440px] mx-auto border-b border-white/5">
+        <section className="grid grid-cols-1 lg:grid-cols-12 max-w-[1440px] mx-auto border-b border-white/5">
           {/* Gallery Canvas (Left - 7 columns) */}
           <div className="lg:col-span-7 h-full border-r border-white/5">
             <div className="grid grid-cols-1 gap-1">
@@ -163,7 +163,7 @@ export default function ProductDetail({ initialProduct }) {
           </div>
 
           {/* Sticky Details Canvas (Right - 5 columns) */}
-          <div className="lg:col-span-5 px-6 md:px-12 py-12 lg:py-24 bg-[#131313] self-start lg:sticky lg:top-20">
+          <div className="lg:col-span-5 px-4 sm:px-6 md:px-12 py-8 sm:py-12 lg:py-24 bg-[#131313] self-start lg:sticky lg:top-20">
             <div className="max-w-md mx-auto space-y-8">
               {/* Category Breadcrumbs */}
               <div className="flex items-center gap-4">
@@ -222,7 +222,7 @@ export default function ProductDetail({ initialProduct }) {
                       key={sz}
                       type="button"
                       onClick={() => setSelectedSize(sz)}
-                      className={`py-3 text-[11px] font-montserrat font-bold tracking-widest transition-all ${
+                      className={`py-3 min-h-[44px] text-[11px] font-montserrat font-bold tracking-widest transition-all ${
                         selectedSize === sz
                           ? "bg-gold text-[#131313] border border-gold"
                           : "border border-white/20 hover:border-gold text-white"
@@ -250,7 +250,7 @@ export default function ProductDetail({ initialProduct }) {
                         type="button"
                         onClick={() => setSelectedColour(colour)}
                         title={colour}
-                        className={`px-4 py-2 text-[11px] font-montserrat font-semibold tracking-wider transition-all border ${
+                        className={`px-4 py-2.5 min-h-[44px] text-[11px] font-montserrat font-semibold tracking-wider transition-all border ${
                           selectedColour === colour
                             ? "bg-gold text-[#131313] border-gold"
                             : "border-white/20 hover:border-gold text-white"
@@ -363,16 +363,31 @@ export default function ProductDetail({ initialProduct }) {
                 <button
                   type="button"
                   onClick={handleAddToBag}
-                  className="w-full py-5 bg-gold hover:bg-[#C5A028] text-[#121212] font-montserrat text-[13px] font-bold tracking-[0.2em] transition-transform active:scale-[0.98] uppercase rounded-none"
+                  className={`btn-shimmer w-full py-5 font-montserrat text-[13px] font-bold tracking-[0.2em] transition-all duration-300 uppercase rounded-none flex items-center justify-center gap-3 active:scale-[0.98] ${
+                    addedNotice
+                      ? "bg-emerald-600 hover:bg-emerald-500 text-white border border-emerald-600"
+                      : "bg-gold hover:bg-[#e8c840] text-[#121212] hover:shadow-[0_8px_32px_rgba(212,175,55,0.40)]"
+                  }`}
                 >
-                  {addedNotice ? "ADDED TO ATELIER BAG" : "ADD TO BAG"}
+                  {addedNotice ? (
+                    <>
+                      <SymbolIcon name="check" className="size-4" />
+                      ADDED TO YOUR BAG
+                    </>
+                  ) : (
+                    <>
+                      <SymbolIcon name="shopping_bag" className="size-4" />
+                      ADD TO ATELIER BAG
+                    </>
+                  )}
                 </button>
                 <button
                   type="button"
                   onClick={() => alert("Added to your atelier wishlist.")}
-                  className="w-full py-5 border border-white/20 hover:border-white hover:bg-white/5 text-white font-montserrat text-[13px] font-bold tracking-[0.2em] transition-all uppercase rounded-none"
+                  className="group w-full py-5 border border-white/20 hover:border-gold/60 hover:bg-gold/5 text-white/80 hover:text-gold font-montserrat text-[13px] font-bold tracking-[0.2em] transition-all duration-300 uppercase rounded-none flex items-center justify-center gap-3"
                 >
-                  WISHLIST
+                  <SymbolIcon name="heart" className="size-4 transition-transform duration-300 group-hover:scale-110" />
+                  SAVE TO WISHLIST
                 </button>
               </div>
 
@@ -398,7 +413,7 @@ export default function ProductDetail({ initialProduct }) {
         </section>
 
         {/* Detailed Storytelling Section */}
-        <section className="py-32 px-6 md:px-16 bg-[#0e0e0e] border-b border-white/5 relative">
+        <section className="py-16 md:py-32 px-6 md:px-16 bg-[#0e0e0e] border-b border-white/5 relative">
           <div className="max-w-4xl mx-auto space-y-16">
             <h3 className="font-playfair text-[26px] md:text-[36px] font-medium text-white tracking-wide text-center">
               The Soul of the Craft
