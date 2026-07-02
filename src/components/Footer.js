@@ -22,14 +22,13 @@ export default function Footer() {
           About Us
         </Link>
         <Link
-          href="/"
+          href="/craftsmanship"
           className="font-montserrat text-[13px] text-white/50 hover:text-gold transition-colors tracking-widest uppercase"
         >
           Craftsmanship
         </Link>
-
         <Link
-          href="/"
+          href="/privacy-policy"
           className="font-montserrat text-[13px] text-white/50 hover:text-gold transition-colors tracking-widest uppercase"
         >
           Privacy Policy

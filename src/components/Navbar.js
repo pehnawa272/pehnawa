@@ -35,11 +35,10 @@ export default function Navbar({ admin = false }) {
   }, []);
 
   const navLinks = [
-    { name: "All Products", href: "/products" },
+    { name: "Shop", href: "/products" },
     { name: "Professional Ethnic", href: "/everyday" },
     { name: "Signature Edit", href: "/signature" },
     { name: "Golden Era", href: "/bridal" },
-    { name: "Others", href: "/others" },
   ];
 
   return (
