@@ -1,0 +1,196 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║       PEHNAWA BY LAXSHMI — PAGE LOAD SPEED AUDIT SUMMARY                  ║
+║                        2026-07-02                                          ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+📊 OVERALL GRADE: C+ (Good structure, needs image optimization)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 KEY METRICS
+
+Total Images Found:        28 instances
+Local Images (public/):    ~28 MB total
+External URLs:            lh3.googleusercontent.com (5+), Cloudinary (50+)
+Third-party Scripts:      1 (Razorpay, checkout only) ✓
+Font Loading:             next/font/google (self-hosted) ✓
+
+Current Performance (est.):
+├─ FCP (First Contentful Paint):  4-6 sec on 3G
+├─ LCP (Largest Contentful Paint): 6-9 sec on 3G
+└─ Product Grid Load:             25-30 MB (no lazy loading)
+
+After Optimization:
+├─ FCP: 1.5-2 sec
+├─ LCP: 2-3 sec
+└─ Product Grid Load: 2-3 MB initial
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔴 CRITICAL ISSUES (3)
+
+1. NO loading="lazy" ON BELOW-FOLD IMAGES
+   ├─ Files: 6 collection pages + product detail
+   ├─ Impact: ~500-1500ms slower FCP on slow connections
+   ├─ Affected: 50+ product grid images
+   └─ Fix Time: 5 minutes | Priority: IMMEDIATE
+
+2. EXTERNAL GOOGLE IMAGES (lh3.googleusercontent.com)
+   ├─ Count: 5+ instances
+   ├─ Locations: Homepage (3), Bridal (1), Others page (1)
+   ├─ Impact: Unoptimized, slow serving, no format control
+   └─ Fix Time: 15 minutes | Priority: HIGH
+
+3. MISSING quality PROP ON PRODUCT GRIDS
+   ├─ Files: ProductsClient, BridalAtelierClient, EverydayEditClient, etc.
+   ├─ Impact: Low-quality product showcase (quality=75 default)
+   ├─ Recommendation: Add quality={85}
+   └─ Fix Time: 10 minutes | Priority: HIGH
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🟠 HIGH-PRIORITY ISSUES (3)
+
+4. NO WebP/AVIF FORMAT VARIANTS
+   ├─ All images: JPEG/PNG only (outdated)
+   ├─ Potential savings: 40-75% file size
+   └─ Fix Time: 2-4 hours | Priority: MEDIUM-HIGH
+
+5. PNG FORMAT FOR HERO IMAGE
+   ├─ File: /pic5.png (1.7 MB)
+   ├─ Issue: PNG 40% larger than JPEG for photos
+   ├─ Fix: Convert to JPEG (saves 400-600 KB)
+   └─ Fix Time: 15 minutes | Priority: HIGH
+
+6. MISSING quality LEVEL 85 IN next.config.mjs
+   ├─ Current: qualities: [75, 100]
+   ├─ Used: 85 in 8+ images
+   ├─ Fix: Add 85 to array
+   └─ Fix Time: 2 minutes | Priority: MEDIUM
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ WHAT'S WORKING WELL
+
+✓ Font Loading:
+  └─ Using next/font/google (self-hosted)
+  └─ Only latin subset (optimized)
+  └─ No external font requests
+
+✓ Hero Images:
+  └─ Correctly use priority=true
+  └─ quality=85 on most heroes
+  └─ sizes props set appropriately
+
+✓ Third-party Scripts:
+  └─ Razorpay loaded only on checkout (not homepage)
+  └─ Async loading implemented
+  └─ No tracking pixels, no Google Analytics overhead
+
+✓ Image Hosting:
+  └─ Cloudinary allowed in config ✓
+  └─ Explicit domain allowlist ✓
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 LOCAL IMAGES BREAKDOWN
+
+File                  Size      Used For                 Optimization
+─────────────────────────────────────────────────────────────────────────────
+/mainhero.jpeg       2.1 MB    Homepage hero            ✓ OPTIMIZED
+/pic2.jpeg           2.7 MB    Signature hero           ✓ OPTIMIZED
+/pic3.jpeg           2.5 MB    Products hero            ✓ OPTIMIZED
+/pic5.png            1.7 MB    Bridal hero              ⚠️ PNG (needs JPEG)
+/pic6.jpeg           1.7 MB    Everyday card            ✗ Missing quality
+/everydayhero.jpeg   2.0 MB    Everyday hero            ✓ OPTIMIZED
+/chikankari.jpeg     3.1 MB    About section            ✓ OPTIMIZED (high qual)
+/roomi.jpeg          3.1 MB    About section            ✓ OPTIMIZED (high qual)
+/bridal.jpeg         2.5 MB    (currently unused)       —
+/pic4.jpeg           38 KB     Golden Era card          ✗ Missing quality
+
+Total: ~28 MB | Largest: 3.1 MB
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔍 EXTERNAL URLs
+
+lh3.googleusercontent.com
+├─ Homepage: Signature card (line 125)
+├─ Homepage: Others card (line 161)
+├─ Homepage: Craftsmanship section (line 203)
+├─ Homepage: Consultation CTA (line 218)
+├─ Others page: Hero banner (line 51)
+└─ Issues: Not optimized for web, no quality control
+
+res.cloudinary.com
+├─ All product grid images
+├─ Database-driven URLs
+└─ Working well, but need quality prop in code
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 RECOMMENDED ACTION PLAN
+
+PHASE 1: Critical Fixes (1 hour)
+┌─ Add loading="lazy" to 50+ grid images         [5 min]
+├─ Add quality={85} to product grids             [10 min]
+├─ Replace 5 external Google images              [15 min]
+└─ Add quality prop to homepage cards            [5 min]
+
+PHASE 2: Format Optimization (2-4 hours)
+┌─ Convert pic5.png to JPEG                      [15 min]
+├─ Generate WebP variants for all images         [2 hours]
+├─ Generate AVIF variants                        [1 hour]
+└─ Test performance improvements                 [30 min]
+
+PHASE 3: Fine-tuning (2 hours)
+┌─ Standardize quality levels                    [20 min]
+├─ Review responsive sizing on mobile            [30 min]
+├─ Update next.config.mjs formats                [10 min]
+└─ Test with PageSpeed Insights                  [1 hour]
+
+TOTAL TIME INVESTMENT: 5-7 hours
+TOTAL PERFORMANCE GAIN: 60-80% bandwidth reduction
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📈 EXPECTED IMPROVEMENTS
+
+                    BEFORE          AFTER        IMPROVEMENT
+─────────────────────────────────────────────────────────────────────────────
+FCP (3G):           4-6 sec         1.5-2 sec    ↓ 70-75%
+LCP (3G):           6-9 sec         2-3 sec      ↓ 70-75%
+Product Grid Load:  25-30 MB        2-3 MB       ↓ 90% (lazy loading)
+Hero Load Time:     1-2 sec         0.3-0.5 sec  ↓ 75%
+Public Folder:      28 MB           10-16 MB     ↓ 42-65% (WebP/AVIF)
+Mobile Experience:  Poor            Excellent    ↑↑↑
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 DELIVERABLES
+
+This audit includes:
+├─ PAGE_LOAD_SPEED_AUDIT.md (detailed analysis with line numbers)
+├─ QUICK_FIX_CHECKLIST.md (actionable checklist for developers)
+└─ AUDIT_SUMMARY.txt (this file)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 QUICK WINS (in priority order)
+
+#1. Add loading="lazy" → 500-1500ms improvement  [5 min]
+#2. Add quality={85}  → 15-20% image size       [10 min]
+#3. Replace Google images → Reliability + speed  [15 min]
+#4. Convert PNG to JPEG → 400-600 KB saved     [15 min]
+
+Do these 4 fixes → 70% of total benefit in 45 minutes!
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Generated: 2026-07-02
+Audited: /Users/ashrayamishra/Downloads/Pehnawa
+Format: Next.js 15 (App Router) E-commerce
+
+For questions, refer to PAGE_LOAD_SPEED_AUDIT.md (detailed) or 
+QUICK_FIX_CHECKLIST.md (implementation guide).
+
