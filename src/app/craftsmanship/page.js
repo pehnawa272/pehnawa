@@ -23,7 +23,7 @@ export default function CraftsmanshipPage() {
           <div className="absolute inset-0 bg-gradient-to-b from-[#0e0e0e]/80 via-transparent to-[#0e0e0e]" />
 
           <div className="relative z-10 max-w-3xl mx-auto space-y-6">
-            <span className="font-montserrat text-[11px] tracking-[0.35em] text-gold uppercase block">
+            <span className="font-montserrat text-[11px] tracking-[0.3em] text-gold uppercase block">
               The Art of Detail
             </span>
             <h1 className="font-playfair text-[36px] sm:text-[48px] md:text-[64px] font-bold text-white leading-tight tracking-wide">
@@ -42,7 +42,7 @@ export default function CraftsmanshipPage() {
               <span className="font-montserrat text-[10px] tracking-[0.3em] text-gold uppercase block">
                 The Craft
               </span>
-              <h2 className="font-playfair text-[26px] md:text-[36px] font-medium text-white leading-snug tracking-wide">
+              <h2 className="font-playfair text-[28px] md:text-[40px] font-medium text-white leading-snug tracking-wide">
                 Every Stitch Is a Prayer
               </h2>
               <div className="h-[1px] w-12 bg-gold/30 mt-4" />
@@ -82,7 +82,7 @@ export default function CraftsmanshipPage() {
               <span className="font-montserrat text-[10px] tracking-[0.3em] text-gold uppercase block">
                 Our Philosophy
               </span>
-              <h2 className="font-playfair text-[26px] md:text-[36px] font-medium text-white leading-snug tracking-wide">
+              <h2 className="font-playfair text-[28px] md:text-[40px] font-medium text-white leading-snug tracking-wide">
                 Why We Keep It Slow
               </h2>
               <div className="h-[1px] w-12 bg-gold/30 mt-4" />
@@ -131,7 +131,7 @@ export default function CraftsmanshipPage() {
               <span className="font-montserrat text-[10px] tracking-[0.3em] text-gold uppercase block">
                 Heritage &amp; Modernity
               </span>
-              <h2 className="font-playfair text-[26px] md:text-[36px] font-medium text-white leading-snug tracking-wide">
+              <h2 className="font-playfair text-[28px] md:text-[40px] font-medium text-white leading-snug tracking-wide">
                 Tradition, Tailored for Today
               </h2>
               <div className="h-[1px] w-12 bg-gold/30 mt-4" />

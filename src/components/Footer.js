@@ -14,7 +14,7 @@ export default function Footer() {
       </h2>
 
       {/* Navigation Directory */}
-      <div className="flex flex-wrap justify-center gap-x-12 gap-y-4 mb-12">
+      <div className="flex flex-wrap justify-center gap-x-6 sm:gap-x-12 gap-y-3 mb-12">
         <Link
           href="/about"
           className="font-montserrat text-[13px] text-white/50 hover:text-gold transition-colors tracking-widest uppercase"
@@ -59,11 +59,15 @@ export default function Footer() {
       </div>
 
       {/* Social Indicators */}
-      <div className="flex gap-8 mb-12">
-        <SymbolIcon name="public" className="size-5.5 text-white/40 hover:text-gold cursor-pointer transition-colors" />
-        <SymbolIcon name="photo_camera" className="size-5.5 text-white/40 hover:text-gold cursor-pointer transition-colors" />
-        <a href="tel:+917309336575" aria-label="Call Us">
-          <SymbolIcon name="phone" className="size-5.5 text-white/40 hover:text-gold cursor-pointer transition-colors" />
+      <div className="flex gap-2 mb-12">
+        <button type="button" aria-label="Website" className="p-3 text-white/40 hover:text-gold transition-colors">
+          <SymbolIcon name="public" className="size-5" />
+        </button>
+        <button type="button" aria-label="Instagram" className="p-3 text-white/40 hover:text-gold transition-colors">
+          <SymbolIcon name="photo_camera" className="size-5" />
+        </button>
+        <a href="tel:+917309336575" aria-label="Call Us" className="p-3 text-white/40 hover:text-gold transition-colors">
+          <SymbolIcon name="phone" className="size-5" />
         </a>
       </div>
 

@@ -64,17 +64,14 @@ export default function Homepage() {
         </section>
 
         {/* Brand Philosophy Section */}
-        <section className="py-16 md:py-32 px-6 md:px-16 text-center bg-[#0e0e0e] border-y border-white/5 relative">
-          <div className="max-w-3xl mx-auto space-y-8 animate-fade-in-up">
-            <span className="font-montserrat text-[11px] tracking-[0.2em] text-gold uppercase block">THE PHILOSOPHY</span>
-            <h3 className="font-playfair text-[28px] md:text-[40px] font-medium text-white tracking-wide">
-              Desi Vibes, Modern Soul
-            </h3>
-            <p className="font-montserrat text-[15px] md:text-[18px] text-white/70 leading-relaxed font-light">
-              At Pehnawa by Laxshmi, we bridge the gap between ancestral craftsmanship and the contemporary global spirit. Each piece is a meticulously curated narrative, celebrating the intricate soul of Indian textiles through a lens of minimalist luxury. We do not just dress bodies; we drape stories.
+        <section className="py-16 md:py-24 px-6 md:px-16 text-center bg-[#0e0e0e] border-y border-white/5 relative">
+          <div className="max-w-2xl mx-auto space-y-6 animate-fade-in-up">
+            <span className="font-montserrat text-[11px] tracking-[0.3em] text-gold uppercase block">THE PHILOSOPHY</span>
+            <p className="font-playfair text-[22px] md:text-[30px] font-medium text-white/90 leading-snug tracking-wide italic">
+              "We do not just dress bodies. We drape stories."
             </p>
-            <div className="pt-4 flex justify-center">
-              <div className="h-[1px] w-24 bg-gold/30"></div>
+            <div className="flex justify-center">
+              <div className="h-[1px] w-16 bg-gold/30"></div>
             </div>
           </div>
         </section>
@@ -83,13 +80,10 @@ export default function Homepage() {
         <section className="py-16 md:py-32 bg-[#131313]">
           <div className="px-6 md:px-16 mb-10 md:mb-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
             <div>
-              <span className="font-montserrat text-[11px] tracking-[0.2em] text-gold uppercase block mb-2">CURATED SELECTIONS</span>
+              <span className="font-montserrat text-[11px] tracking-[0.3em] text-gold uppercase block mb-2">CURATED SELECTIONS</span>
               <h2 className="font-playfair text-[28px] md:text-[40px] font-medium text-white tracking-wide">
                 The Collections
               </h2>
-              <p className="font-montserrat text-[14px] text-white/50 mt-2 italic font-light">
-                Curated edits for every silhouette
-              </p>
             </div>
             <Link
               href="/everyday"
@@ -100,7 +94,7 @@ export default function Homepage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8 px-6 md:px-16 max-w-[1440px] mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-8 px-6 md:px-16 max-w-[1440px] mx-auto">
             {/* Everyday Edit */}
             <Link href="/everyday" className="group cursor-pointer flex flex-col">
               <div className="relative aspect-[3/4] overflow-hidden bg-[#1F1F1F] mb-6 border border-white/5 cinematic-zoom">
@@ -183,15 +177,15 @@ export default function Homepage() {
               <h2 className="font-playfair text-[28px] md:text-[40px] font-medium text-white leading-tight">
                 Handcrafted in Lucknow
               </h2>
-              <p className="font-montserrat text-[16px] text-white/70 leading-relaxed font-light">
-                Centuries of Chikankari and Zardosi traditions are kept alive by our master artisans. Every stitch is a prayer, every bead a testament to a lineage of skill. We preserve the purity of handwork while tailoring it for the discerning global wardrobe.
+              <p className="font-montserrat text-[15px] md:text-[16px] text-white/70 leading-relaxed font-light">
+                Every stitch is a prayer. Chikankari and Zardosi traditions — alive in old Lucknow since the Mughal courts — woven into every garment we make.
               </p>
               <div className="pt-4">
                 <Link
-                  href="/product/noorani-anarkali"
+                  href="/craftsmanship"
                   className="group inline-flex items-center gap-3 px-10 py-4 border border-white/25 hover:border-gold hover:bg-gold hover:text-[#121212] text-white font-montserrat text-[12px] tracking-[0.2em] font-medium transition-all duration-300 uppercase rounded-none"
                 >
-                  EXPLORE THE CRAFT
+                  THE CRAFT STORY
                   <SymbolIcon name="arrow_forward" className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
                 </Link>
               </div>
@@ -225,37 +219,24 @@ export default function Homepage() {
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent"></div>
           </div>
 
-          <div className="relative z-10 text-center px-6 max-w-4xl mx-auto space-y-8">
+          <div className="relative z-10 text-center px-6 max-w-3xl mx-auto space-y-8">
             <span className="font-montserrat text-[11px] tracking-[0.3em] text-gold uppercase block">BESPOKE SERVICES</span>
             <h2 className="font-playfair text-[28px] md:text-[40px] font-medium text-white tracking-wide">
               Your Personal Style Concierge
             </h2>
-            <p className="font-montserrat text-[15px] md:text-[17px] text-white/80 max-w-2xl mx-auto leading-relaxed font-light">
-              Allow our expert stylists to curate a collection that speaks to your unique aesthetic. Experience the Pehnawa by Laxshmi House of Couture service — virtually or in-person, completely complimentary.
+            <p className="font-montserrat text-[15px] md:text-[16px] text-white/70 max-w-xl mx-auto leading-relaxed font-light">
+              Speak with our master stylists — virtually or in-person, completely complimentary.
             </p>
-
-            {/* Trust proof row */}
-            <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-x-6 gap-y-1.5 font-montserrat text-[10px] tracking-[0.12em] text-white/50 uppercase">
-              <span>✦ Complimentary</span>
-              <span>✦ Virtual &amp; In-Person</span>
-              <span>✦ Response within 2 hours</span>
-            </div>
-
-            <div className="pt-2 flex flex-col items-center gap-4">
-              <a
-                href="https://wa.me/917309336575?text=Hello%20Pehnawa%2C%20I%20would%20like%20to%20book%20a%20styling%20consultation."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-shimmer btn-pulse-glow group inline-flex items-center gap-3 bg-gold text-[#121212] hover:bg-white hover:text-[#121212] px-8 sm:px-14 py-4 sm:py-5 font-montserrat text-[12px] font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase transition-all duration-300 rounded-none border border-gold hover:border-white active:scale-95 hover:shadow-[0_8px_40px_rgba(212,175,55,0.40)]"
-              >
-                <SymbolIcon name="whatsapp" className="size-4.5" />
-                BOOK YOUR FREE CONSULTATION
-                <SymbolIcon name="arrow_forward" className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
-              <p className="font-montserrat text-[10px] text-white/35 tracking-widest uppercase">
-                No commitment · Cancel anytime
-              </p>
-            </div>
+            <a
+              href="https://wa.me/917309336575?text=Hello%20Pehnawa%2C%20I%20would%20like%20to%20book%20a%20styling%20consultation."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-shimmer btn-pulse-glow group inline-flex items-center gap-3 bg-gold text-[#121212] hover:bg-white hover:text-[#121212] px-8 sm:px-14 py-4 sm:py-5 font-montserrat text-[12px] font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase transition-all duration-300 rounded-none border border-gold hover:border-white active:scale-95 hover:shadow-[0_8px_40px_rgba(212,175,55,0.40)]"
+            >
+              <SymbolIcon name="whatsapp" className="size-4.5" />
+              BOOK A CONSULTATION
+              <SymbolIcon name="arrow_forward" className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
           </div>
         </section>
       </main>

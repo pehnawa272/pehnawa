@@ -111,7 +111,7 @@ export default function CartDrawer() {
                   <div className="flex-grow flex flex-col">
                     <div className="flex justify-between items-start">
                       <div>
-                        <h4 className="font-playfair text-[14px] text-white tracking-wide">
+                        <h4 className="font-playfair text-[14px] text-white tracking-wide line-clamp-2">
                           {item.title}
                         </h4>
                         <span className="inline-block mt-1 font-montserrat text-[11px] uppercase tracking-wider text-gold font-medium">

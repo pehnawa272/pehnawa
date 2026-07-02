@@ -309,9 +309,9 @@ export default function ProductDetail({ initialProduct }) {
                       <span className="block text-[11px] font-montserrat text-white/50 tracking-wider uppercase font-semibold">
                         Body Measurements (Optional - Inches)
                       </span>
-                      <div className="grid grid-cols-3 gap-2">
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                         <div>
-                          <label htmlFor="product-bust" className="block text-[10px] font-montserrat text-white/40 uppercase mb-1">
+                          <label htmlFor="product-bust" className="block text-[11px] font-montserrat text-white/40 uppercase mb-1">
                             Bust
                           </label>
                           <input
@@ -321,11 +321,11 @@ export default function ProductDetail({ initialProduct }) {
                             value={bust}
                             onChange={(e) => setBust(e.target.value)}
                             placeholder='34"'
-                            className="w-full bg-[#131313] border border-white/10 px-3 py-2 text-[11px] font-montserrat text-white focus:border-gold outline-none rounded-none text-center"
+                            className="w-full bg-[#131313] border border-white/10 px-3 py-3 min-h-[44px] text-[11px] font-montserrat text-white focus:border-gold outline-none rounded-none text-center"
                           />
                         </div>
                         <div>
-                          <label htmlFor="product-waist" className="block text-[10px] font-montserrat text-white/40 uppercase mb-1">
+                          <label htmlFor="product-waist" className="block text-[11px] font-montserrat text-white/40 uppercase mb-1">
                             Waist
                           </label>
                           <input
@@ -335,11 +335,11 @@ export default function ProductDetail({ initialProduct }) {
                             value={waist}
                             onChange={(e) => setWaist(e.target.value)}
                             placeholder='28"'
-                            className="w-full bg-[#131313] border border-white/10 px-3 py-2 text-[11px] font-montserrat text-white focus:border-gold outline-none rounded-none text-center"
+                            className="w-full bg-[#131313] border border-white/10 px-3 py-3 min-h-[44px] text-[11px] font-montserrat text-white focus:border-gold outline-none rounded-none text-center"
                           />
                         </div>
                         <div>
-                          <label htmlFor="product-height" className="block text-[10px] font-montserrat text-white/40 uppercase mb-1">
+                          <label htmlFor="product-height" className="block text-[11px] font-montserrat text-white/40 uppercase mb-1">
                             Height
                           </label>
                           <input
@@ -349,7 +349,7 @@ export default function ProductDetail({ initialProduct }) {
                             value={height}
                             onChange={(e) => setHeight(e.target.value)}
                             placeholder='65"'
-                            className="w-full bg-[#131313] border border-white/10 px-3 py-2 text-[11px] font-montserrat text-white focus:border-gold outline-none rounded-none text-center"
+                            className="w-full bg-[#131313] border border-white/10 px-3 py-3 min-h-[44px] text-[11px] font-montserrat text-white focus:border-gold outline-none rounded-none text-center"
                           />
                         </div>
                       </div>

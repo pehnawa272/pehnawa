@@ -39,9 +39,9 @@ export default function AboutUsPage() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
 
           <div className={`relative z-10 max-w-4xl space-y-6 transition-all duration-1000 ${revealActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-            <span className="font-montserrat text-[11px] tracking-[0.4em] text-gold uppercase block">HOUSE OF COUTURE</span>
-            <h1 className="font-playfair text-[36px] md:text-[54px] font-semibold text-white leading-[1.15] tracking-wide">
-              About Us – Pehnawa by Laxshmi
+            <span className="font-montserrat text-[11px] tracking-[0.3em] text-gold uppercase block">Our Story</span>
+            <h1 className="font-playfair text-[36px] md:text-[54px] font-bold text-white leading-[1.15] tracking-wide">
+              Every Woman Has a Story Worth Wearing.
             </h1>
 
             {/* Elegant Gold Divider */}
@@ -51,8 +51,8 @@ export default function AboutUsPage() {
               </div>
             </div>
 
-            <p className="font-montserrat text-[15px] md:text-[19px] text-white/80 max-w-2xl mx-auto leading-relaxed font-light tracking-wide">
-              Celebrating Confidence, Comfort, and Style for Women at Every Stage of Life.
+            <p className="font-montserrat text-[15px] md:text-[17px] text-white/80 max-w-2xl mx-auto leading-relaxed font-light tracking-wide">
+              You are not too old, not too full, not too settled for fashion that truly sees you. Pehnawa was created for exactly the woman you are — at every age, every size, every chapter of life.
             </p>
           </div>
         </section>
@@ -64,16 +64,16 @@ export default function AboutUsPage() {
             {/* Text Left (55% / 7 cols) */}
             <div className="lg:col-span-7 space-y-8 order-1">
               <div className="space-y-3">
-                <span className="font-montserrat text-[11px] tracking-[0.25em] text-gold uppercase font-semibold block">
+                <span className="font-montserrat text-[11px] tracking-[0.3em] text-gold uppercase font-semibold block">
                   English
                 </span>
-                <h2 className="font-playfair text-[28px] md:text-[36px] font-medium text-white tracking-wide leading-tight">
+                <h2 className="font-playfair text-[28px] md:text-[40px] font-medium text-white tracking-wide leading-tight">
                   Our Journey & Philosophy
                 </h2>
                 <div className="h-[1px] w-12 bg-gold/30"></div>
               </div>
 
-              <div className="font-montserrat text-[14px] md:text-[15px] text-white/70 space-y-6 leading-relaxed font-light tracking-wide">
+              <div className="font-montserrat text-[15px] md:text-[16px] text-white/70 space-y-6 leading-relaxed font-light tracking-wide">
                 <p>
                   At <strong className="text-white font-medium">Pehnawa by Laxshmi</strong>, we believe that fashion is more than just clothing—it is a reflection of a woman's journey, confidence, and individuality. Inspired by the real-life experiences of women, our brand is dedicated to creating ethnic wear that supports and empowers women through every phase of life.
                 </p>
@@ -151,10 +151,10 @@ export default function AboutUsPage() {
             {/* Text Right (55% / 7 cols) */}
             <div className="lg:col-span-7 space-y-8 order-1 lg:order-2">
               <div className="space-y-3">
-                <span className="font-montserrat text-[11px] tracking-[0.25em] text-gold uppercase font-semibold block">
+                <span className="font-montserrat text-[11px] tracking-[0.3em] text-gold uppercase font-semibold block">
                   हिंदी
                 </span>
-                <h2 className="font-playfair text-[28px] md:text-[36px] font-medium text-white tracking-wide leading-tight">
+                <h2 className="font-playfair text-[28px] md:text-[40px] font-medium text-white tracking-wide leading-tight">
                   हमारी कहानी और विरासत
                 </h2>
                 <div className="h-[1px] w-12 bg-gold/30"></div>
@@ -202,7 +202,7 @@ export default function AboutUsPage() {
 
           <div className="relative z-10 max-w-3xl space-y-8">
             <span className="font-montserrat text-[11px] tracking-[0.3em] text-gold uppercase block">THE COLLECTION</span>
-            <h2 className="font-playfair text-[32px] md:text-[48px] font-semibold text-white tracking-wide leading-tight">
+            <h2 className="font-playfair text-[28px] md:text-[40px] font-medium text-white tracking-wide leading-tight">
               Every Woman Has A Story.<br />Dress Yours Beautifully.
             </h2>
             <p className="font-montserrat text-[14px] md:text-[16px] text-white/60 max-w-xl mx-auto leading-relaxed font-light">
@@ -212,18 +212,18 @@ export default function AboutUsPage() {
             <div className="pt-4 flex flex-col sm:flex-row justify-center items-center gap-6">
               <Link
                 href="/products"
-                className="w-full sm:w-auto inline-block bg-gold text-[#131313] hover:bg-white hover:scale-105 px-10 py-4 font-montserrat text-[12px] font-bold tracking-[0.25em] transition-all uppercase rounded-none border border-gold hover:border-white active:scale-95 text-center"
+                className="btn-shimmer w-full sm:w-auto inline-block bg-gold text-[#131313] hover:bg-white px-10 py-4 font-montserrat text-[12px] font-bold tracking-[0.25em] transition-all duration-300 uppercase rounded-none border border-gold hover:border-white active:scale-95 text-center"
               >
-                Explore Collections
+                EXPLORE COLLECTIONS
               </Link>
               <a
                 href="https://wa.me/917309336575?text=Hello%20Pehnawa%2C%20I%20would%20like%20to%20book%20a%20styling%20consultation."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-gold/45 hover:border-gold hover:bg-gold/5 hover:scale-105 px-10 py-4 font-montserrat text-[12px] font-bold tracking-[0.25em] text-gold transition-all uppercase rounded-none active:scale-95 text-center"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-gold/50 hover:border-gold hover:bg-gold hover:text-[#131313] px-10 py-4 font-montserrat text-[12px] font-bold tracking-[0.25em] text-gold transition-all duration-300 uppercase rounded-none active:scale-95 text-center"
               >
                 <SymbolIcon name="whatsapp" className="size-4" />
-                Book Consultation
+                BOOK CONSULTATION
               </a>
             </div>
           </div>

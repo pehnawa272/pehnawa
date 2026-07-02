@@ -173,7 +173,7 @@ export default function BookConsultation() {
                         key={d.full}
                         type="button"
                         onClick={() => setSelectedDate(d.full)}
-                        className={`p-3 flex flex-col items-center justify-center border transition-all ${
+                        className={`p-2 sm:p-3 flex flex-col items-center justify-center border transition-all ${
                           selectedDate === d.full
                             ? "border-gold bg-gold/5 text-gold"
                             : "border-white/10 text-white/50 hover:border-white/30"
@@ -197,7 +197,7 @@ export default function BookConsultation() {
                         key={slot}
                         type="button"
                         onClick={() => setSelectedTime(slot)}
-                        className={`py-3 text-[11px] font-montserrat tracking-wider transition-all ${
+                        className={`py-3 min-h-[44px] text-[11px] font-montserrat tracking-wider transition-all ${
                           selectedTime === slot
                             ? "bg-gold text-[#131313] border border-gold font-bold"
                             : "border border-white/10 text-white/50 hover:border-white/30"
@@ -226,7 +226,7 @@ export default function BookConsultation() {
                         type="text"
                         value={form.name}
                         onChange={(e) => setForm({ ...form, name: e.target.value })}
-                        className="w-full bg-[#131313] border border-white/10 px-4 py-3 text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
+                        className="w-full bg-[#131313] border border-white/10 px-4 py-3.5 min-h-[44px] text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
                       />
                     </div>
                     <div>
@@ -240,7 +240,7 @@ export default function BookConsultation() {
                         type="tel"
                         value={form.phone}
                         onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                        className="w-full bg-[#131313] border border-white/10 px-4 py-3 text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
+                        className="w-full bg-[#131313] border border-white/10 px-4 py-3.5 min-h-[44px] text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
                       />
                     </div>
                   </div>
@@ -256,7 +256,7 @@ export default function BookConsultation() {
                       type="email"
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
-                      className="w-full bg-[#131313] border border-white/10 px-4 py-3 text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
+                      className="w-full bg-[#131313] border border-white/10 px-4 py-3.5 min-h-[44px] text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
                     />
                   </div>
 
@@ -271,7 +271,7 @@ export default function BookConsultation() {
                       value={form.message}
                       onChange={(e) => setForm({ ...form, message: e.target.value })}
                       placeholder="E.g., discussing custom sizing, exploring custom embroidery collections..."
-                      className="w-full bg-[#131313] border border-white/10 px-4 py-3 text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none placeholder-white/10 resize-none"
+                      className="w-full bg-[#131313] border border-white/10 px-4 py-3.5 text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none placeholder-white/10 resize-none"
                     />
                   </div>
                 </div>

@@ -252,7 +252,7 @@ export default function Checkout() {
         {/* Checkout Header Progress Bar */}
         {step < 4 && (
           <div className="max-w-3xl mx-auto mb-10 md:mb-16 space-y-3">
-            <div className="flex justify-between font-montserrat text-[10px] md:text-[11px] text-white/40 tracking-[0.1em] md:tracking-[0.15em] uppercase font-semibold">
+            <div className="flex justify-between font-montserrat text-[11px] md:text-[12px] text-white/40 tracking-[0.1em] md:tracking-[0.15em] uppercase font-semibold">
               <span className={step >= 1 ? "text-gold" : ""}>
                 <span className="hidden sm:inline">1. Shipping</span>
                 <span className="sm:hidden">① Ship</span>
@@ -311,7 +311,7 @@ export default function Checkout() {
                           type="text"
                           value={shippingForm.name}
                           onChange={(e) => setShippingForm({ ...shippingForm, name: e.target.value })}
-                          className="w-full bg-[#131313] border border-white/10 px-4 py-3 text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
+                          className="w-full bg-[#131313] border border-white/10 px-4 py-3.5 min-h-[44px] text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
                         />
                       </div>
                       <div>
@@ -325,7 +325,7 @@ export default function Checkout() {
                           type="tel"
                           value={shippingForm.phone}
                           onChange={(e) => setShippingForm({ ...shippingForm, phone: e.target.value })}
-                          className="w-full bg-[#131313] border border-white/10 px-4 py-3 text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
+                          className="w-full bg-[#131313] border border-white/10 px-4 py-3.5 min-h-[44px] text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
                         />
                       </div>
                     </div>
@@ -341,7 +341,7 @@ export default function Checkout() {
                         type="email"
                         value={shippingForm.email}
                         onChange={(e) => setShippingForm({ ...shippingForm, email: e.target.value })}
-                        className="w-full bg-[#131313] border border-white/10 px-4 py-3 text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
+                        className="w-full bg-[#131313] border border-white/10 px-4 py-3.5 min-h-[44px] text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
                       />
                     </div>
 
@@ -356,7 +356,7 @@ export default function Checkout() {
                         type="text"
                         value={shippingForm.address}
                         onChange={(e) => setShippingForm({ ...shippingForm, address: e.target.value })}
-                        className="w-full bg-[#131313] border border-white/10 px-4 py-3 text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
+                        className="w-full bg-[#131313] border border-white/10 px-4 py-3.5 min-h-[44px] text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
                       />
                     </div>
 
@@ -372,7 +372,7 @@ export default function Checkout() {
                           type="text"
                           value={shippingForm.city}
                           onChange={(e) => setShippingForm({ ...shippingForm, city: e.target.value })}
-                          className="w-full bg-[#131313] border border-white/10 px-4 py-3 text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
+                          className="w-full bg-[#131313] border border-white/10 px-4 py-3.5 min-h-[44px] text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
                         />
                       </div>
                       <div>
@@ -386,7 +386,7 @@ export default function Checkout() {
                           type="text"
                           value={shippingForm.state}
                           onChange={(e) => setShippingForm({ ...shippingForm, state: e.target.value })}
-                          className="w-full bg-[#131313] border border-white/10 px-4 py-3 text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
+                          className="w-full bg-[#131313] border border-white/10 px-4 py-3.5 min-h-[44px] text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
                         />
                       </div>
                       <div>
@@ -400,7 +400,7 @@ export default function Checkout() {
                           type="text"
                           value={shippingForm.zip}
                           onChange={(e) => setShippingForm({ ...shippingForm, zip: e.target.value })}
-                          className="w-full bg-[#131313] border border-white/10 px-4 py-3 text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
+                          className="w-full bg-[#131313] border border-white/10 px-4 py-3.5 min-h-[44px] text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
                         />
                       </div>
                     </div>
@@ -664,14 +664,14 @@ export default function Checkout() {
                 <div className="space-y-4 max-h-[300px] overflow-y-auto hide-scrollbar">
                   {cartItems.map((item) => (
                     <div key={item.key} className="flex gap-4 border-b border-white/5 pb-4 last:border-0 last:pb-0">
-                      <div className="w-12 h-16 bg-[#131313] flex-shrink-0 overflow-hidden border border-white/5 relative">
+                      <div className="w-16 h-20 sm:w-12 sm:h-16 bg-[#131313] flex-shrink-0 overflow-hidden border border-white/5 relative">
                         <Image src={item.image} alt={item.title} fill className="object-cover" sizes="48px" />
                       </div>
                       <div className="flex-grow space-y-1">
-                        <h4 className="font-playfair text-[12px] text-white/90 truncate max-w-[150px]">
+                        <h4 className="font-playfair text-[12px] text-white/90 line-clamp-1">
                           {item.title}
                         </h4>
-                        <p className="font-montserrat text-[10px] text-white/40 uppercase">
+                        <p className="font-montserrat text-[11px] text-white/40 uppercase">
                           Size: {item.size} {item.colour ? `• Colour: ${item.colour}` : ""} • Qty: {item.quantity}
                         </p>
                         {item.customTailoring && (

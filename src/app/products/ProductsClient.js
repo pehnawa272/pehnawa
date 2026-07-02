@@ -141,7 +141,7 @@ export default function ProductsClient({ initialProducts = [] }) {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 md:gap-y-20">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 sm:gap-x-8 gap-y-8 sm:gap-y-12 md:gap-y-20">
                 {filteredProducts.map((product) => (
                   <div
                     key={product.id}
@@ -162,7 +162,7 @@ export default function ProductsClient({ initialProducts = [] }) {
                       </Link>
 
                       {/* Premium Quick Add Trigger */}
-                      <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 bg-[#131313]/95 backdrop-blur-md border-t border-gold/20">
+                      <div className="absolute inset-x-0 bottom-0 p-4 quick-add-panel translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 bg-[#131313]/95 backdrop-blur-md border-t border-gold/20">
                         <button
                           type="button"
                           onClick={(e) => {
@@ -200,21 +200,22 @@ export default function ProductsClient({ initialProducts = [] }) {
 
         {/* Luxury Newsletter Section */}
         <section className="text-white py-16 md:py-32 px-6 md:px-16 text-center bg-[#0e0e0e] border-t border-white/5">
-          <div className="max-w-xl mx-auto space-y-6">
-            <span className="font-montserrat text-[11px] tracking-[0.2em] text-gold uppercase block">THE INNER CIRCLE</span>
+          <div className="max-w-md mx-auto space-y-6">
+            <span className="font-montserrat text-[11px] tracking-[0.3em] text-gold uppercase block">THE INNER CIRCLE</span>
             <h2 className="font-playfair text-[28px] md:text-[36px] font-medium text-white tracking-wide">
               Join the Atelier
             </h2>
-            <p className="font-montserrat text-[13px] md:text-[15px] opacity-70 leading-relaxed font-light">
+            <p className="font-montserrat text-[13px] md:text-[15px] text-white/60 leading-relaxed font-light">
               Be the first to discover our latest edits, private sale access, artisanal stories, and exclusive member previews.
             </p>
+
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 alert("Thank you for joining the Pehnawa Atelier club.");
                 e.target.reset();
               }}
-              className="pt-6 flex flex-col sm:flex-row gap-0 border border-white/10 overflow-hidden"
+              className="pt-4 space-y-4"
             >
               <label htmlFor="newsletter-email" className="sr-only">
                 Email Address
@@ -223,20 +224,21 @@ export default function ProductsClient({ initialProducts = [] }) {
                 id="newsletter-email"
                 name="email"
                 required
-                className="flex-1 bg-transparent px-5 py-4 font-montserrat text-[12px] text-white focus:outline-none placeholder-white/30 border-r-0 border-white/10"
-                placeholder="Your email address"
                 type="email"
+                className="w-full bg-transparent border-b border-white/20 focus:border-gold px-0 py-3 font-montserrat text-[13px] text-white placeholder-white/30 focus:outline-none transition-colors duration-300 text-center"
+                placeholder="Your email address"
               />
               <button
                 type="submit"
-                className="btn-shimmer shrink-0 bg-gold hover:bg-white text-[#131313] font-montserrat text-[11px] font-bold tracking-[0.25em] uppercase px-8 py-4 transition-all duration-300 flex items-center gap-2 active:scale-[0.98]"
+                className="btn-shimmer w-full flex items-center justify-center gap-2 bg-gold hover:bg-white text-[#131313] font-montserrat text-[11px] font-bold tracking-[0.3em] uppercase py-4 transition-all duration-300 active:scale-[0.98]"
               >
                 <SymbolIcon name="sparkles" className="size-3.5" />
-                JOIN NOW
+                JOIN THE INNER CIRCLE
               </button>
             </form>
-            <p className="font-montserrat text-[10px] text-white/30 tracking-widest uppercase">
-              No spam · Unsubscribe anytime · Members-only access
+
+            <p className="font-montserrat text-[10px] text-white/25 tracking-widest uppercase">
+              No spam · Unsubscribe anytime
             </p>
           </div>
         </section>

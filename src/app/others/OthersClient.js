@@ -88,34 +88,35 @@ export default function OthersClient({ initialProducts = [] }) {
         {/* Catalog Section with Sticky Filter Bar */}
         <section id="catalog-section" className="relative">
           {/* Filter Bar */}
-          <div className="sticky top-16 z-40 bg-[#131313]/90 backdrop-blur-md border-b border-white/10 px-6 md:px-16 py-4 flex flex-col sm:flex-row justify-between items-center gap-4 text-white">
-            <div className="flex flex-wrap justify-center gap-6 md:gap-8">
-              {categories.map((cat) => (
-                <button
-                  key={cat.value}
-                  type="button"
-                  onClick={() => setActiveCategory(cat.value)}
-                  className={`font-montserrat text-[11px] font-semibold tracking-widest pb-1 transition-all border-b-2 ${
-                    activeCategory === cat.value
-                      ? "border-gold text-gold"
-                      : "border-transparent opacity-60 hover:opacity-100 hover:text-gold"
-                  }`}
-                >
-                  {cat.name}
-                </button>
-              ))}
+          <div className="sticky top-16 z-40 bg-[#131313]/90 backdrop-blur-md border-b border-white/10 text-white">
+            <div className="overflow-x-auto hide-scrollbar border-b border-white/5 sm:border-none">
+              <div className="flex items-center gap-5 md:gap-8 px-6 md:px-16 py-3.5 min-w-max sm:min-w-0 sm:flex-wrap sm:justify-center">
+                {categories.map((cat) => (
+                  <button
+                    key={cat.value}
+                    type="button"
+                    onClick={() => setActiveCategory(cat.value)}
+                    className={`font-montserrat text-[11px] font-semibold tracking-widest pb-1 transition-all border-b-2 whitespace-nowrap ${
+                      activeCategory === cat.value
+                        ? "border-gold text-gold"
+                        : "border-transparent opacity-60 hover:opacity-100 hover:text-gold"
+                    }`}
+                  >
+                    {cat.name}
+                  </button>
+                ))}
+              </div>
             </div>
-
-            <div className="flex items-center gap-2">
-              <span className="font-montserrat text-[10px] tracking-wider text-white/40 uppercase">Sort By:</span>
+            <div className="flex items-center justify-end gap-3 px-6 md:px-16 py-2.5 sm:py-3">
+              <span className="font-montserrat text-[11px] opacity-60 uppercase tracking-wider">Sort:</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-transparent border-b border-white/20 text-white font-montserrat text-[11px] tracking-wider py-1 pr-8 pl-1 outline-none focus:border-gold cursor-pointer rounded-none appearance-none"
+                className="bg-transparent border-b border-white/20 text-white font-montserrat text-[11px] tracking-wider py-1 pr-6 pl-1 outline-none focus:border-gold cursor-pointer rounded-none appearance-none"
               >
                 <option value="default" className="bg-[#131313] text-white">Featured</option>
-                <option value="price-low" className="bg-[#131313] text-white">Price: Low to High</option>
-                <option value="price-high" className="bg-[#131313] text-white">Price: High to Low</option>
+                <option value="price-low" className="bg-[#131313] text-white">Price: Low–High</option>
+                <option value="price-high" className="bg-[#131313] text-white">Price: High–Low</option>
               </select>
               <SymbolIcon name="tune" className="size-4 text-gold" />
             </div>
@@ -134,7 +135,7 @@ export default function OthersClient({ initialProducts = [] }) {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12 md:gap-y-20">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 sm:gap-x-8 gap-y-8 sm:gap-y-12 md:gap-y-20">
                 {filteredProducts.map((product) => (
                   <div
                     key={product.id}
@@ -155,7 +156,7 @@ export default function OthersClient({ initialProducts = [] }) {
                       </Link>
 
                       {/* Quick Add Trigger */}
-                      <div className="absolute inset-x-0 bottom-0 p-4 translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 bg-[#1F1F1F]/90 backdrop-blur-md border-t border-white/5">
+                      <div className="absolute inset-x-0 bottom-0 p-4 quick-add-panel translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 bg-[#131313]/95 backdrop-blur-md border-t border-gold/20">
                         <button
                           type="button"
                           onClick={(e) => {

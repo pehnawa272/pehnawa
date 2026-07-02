@@ -110,6 +110,21 @@ body {
 }
 
 /* ============================================================
+   TOUCH DEVICE UTILITIES
+   ============================================================ */
+
+/**
+ * Quick-add panel: hidden behind hover on desktop, always visible on touch.
+ * Touch screens don't have hover state, so the panel would never appear.
+ */
+@media (hover: none) {
+  .quick-add-panel {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
    CTA ANIMATIONS
    ============================================================ */
 

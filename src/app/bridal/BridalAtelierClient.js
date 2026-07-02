@@ -83,13 +83,12 @@ export default function BridalAtelier({ initialProducts = [] }) {
 
           <div className="relative z-10 text-center max-w-4xl px-6 space-y-6">
             <span className="font-montserrat text-[11px] tracking-[0.3em] text-gold uppercase block">THE GOLDEN ERA</span>
-            <h2 className="font-playfair text-[28px] sm:text-[38px] md:text-[64px] font-bold text-white tracking-widest leading-none">
-              Golden Era
+            <h2 className="font-playfair text-[28px] sm:text-[42px] md:text-[64px] font-bold text-white tracking-widest leading-tight">
+              This Is Your Era.
             </h2>
-            <p className="font-montserrat text-[15px] md:text-[18px] text-white/70 max-w-2xl mx-auto leading-relaxed italic font-light">
-              &quot;Timeless elegance crafted for women who carry grace through every chapter of life. Each piece in the Golden Era is a testament to heritage, refined by master artisans who weave sophistication into every thread.&quot;
+            <p className="font-montserrat text-[15px] md:text-[17px] text-white/75 max-w-xl mx-auto leading-relaxed font-light">
+              The chapter where you stop dressing to be seen — and start dressing because you know exactly who you are.
             </p>
-
           </div>
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
             <SymbolIcon name="expand_more" className="size-7 text-gold" />
@@ -152,47 +151,72 @@ export default function BridalAtelier({ initialProducts = [] }) {
           )}
         </section>
 
-        {/* Artisanal Focus Counters CTA */}
-        <section className="bg-[#0e0e0e] py-16 md:py-32 px-6 border-y border-white/5 text-center">
-          <div className="max-w-4xl mx-auto space-y-12">
-            <div className="space-y-4">
-              <span className="font-montserrat text-[11px] text-gold tracking-[0.2em] uppercase block">
-                The PEHNAWA Legacy
+        {/* Golden Era — Emotional Identity Section */}
+        <section className="bg-[#0e0e0e] py-16 md:py-32 px-6 md:px-16 border-y border-white/5">
+          <div className="max-w-3xl mx-auto space-y-14">
+
+            {/* Manifesto */}
+            <div className="text-center space-y-6">
+              <span className="font-montserrat text-[11px] tracking-[0.3em] text-gold uppercase block">
+                For the Golden Era Woman
               </span>
-              <h2 className="font-playfair text-[28px] md:text-[40px] text-white font-medium">
-                Crafting Forever
+              <h2 className="font-playfair text-[28px] md:text-[40px] font-medium text-white leading-snug tracking-wide">
+                You Have Earned Every Thread of This.
               </h2>
-              <p className="font-montserrat text-[15px] md:text-[18px] text-white/70 italic leading-relaxed font-light max-w-2xl mx-auto">
-                Every piece in the Golden Era demands between 600 to 2,000 man-hours of intricate handwork. We honour the imperfection of the hand-made, for that is where timeless soul resides.
+              <div className="space-y-5 max-w-2xl mx-auto text-left">
+                <p className="font-montserrat text-[15px] md:text-[16px] text-white/70 leading-relaxed font-light">
+                  There comes a chapter of life when you stop dressing for everyone else. When elegance is no longer something you try on — it is something you carry. When comfort and beauty are not a compromise, but a quiet, non-negotiable demand.
+                </p>
+                <p className="font-montserrat text-[15px] md:text-[16px] text-white/70 leading-relaxed font-light">
+                  The Golden Era collection was made for exactly this chapter. For the woman who has built something — a career, a family, a life full of meaning — and deserves clothing that reflects the full weight of who she has become.
+                </p>
+              </div>
+            </div>
+
+            {/* Three promises — editorial column layout */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 md:gap-10 pt-2">
+              {[
+                {
+                  heading: "Silhouettes That Move With You",
+                  body: "Cuts and drapes designed for real bodies at every stage — not the body you once had, but the one you are magnificently in right now.",
+                },
+                {
+                  heading: "For Every Occasion You Have Earned",
+                  body: "A daughter's wedding. A milestone birthday. A Sunday that simply deserves silk. Each piece is built to rise to the occasion you name.",
+                },
+                {
+                  heading: "Tailored to You, Exactly",
+                  body: "Every Golden Era piece is bespoke-ready. Your measurements, your preferred sleeve, your fit — adjusted until it feels like it was made with no one else in mind.",
+                },
+              ].map(({ heading, body }) => (
+                <div key={heading} className="space-y-3 border-t border-gold/25 pt-6">
+                  <h3 className="font-playfair text-[17px] md:text-[18px] font-medium text-white leading-snug">
+                    {heading}
+                  </h3>
+                  <p className="font-montserrat text-[13px] text-white/55 leading-relaxed font-light">
+                    {body}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <div className="text-center pt-4">
+              <a
+                href="https://wa.me/917309336575?text=Hello%20Pehnawa%2C%20I%20would%20like%20to%20enquire%20about%20the%20Golden%20Era%20collection."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-shimmer group inline-flex items-center gap-3 border border-gold/50 hover:border-gold hover:bg-gold hover:text-[#131313] text-gold px-10 py-4 font-montserrat text-[11px] font-bold tracking-[0.3em] uppercase transition-all duration-300"
+              >
+                <SymbolIcon name="whatsapp" className="size-4" />
+                Speak With a Stylist
+                <SymbolIcon name="arrow_forward" className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
+              <p className="font-montserrat text-[10px] text-white/30 tracking-widest uppercase mt-4">
+                Complimentary · Virtual &amp; In-Person
               </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8">
-              <div className="flex flex-col items-center p-6 border border-white/5 bg-[#131313]/40">
-                <span className="font-playfair text-[32px] md:text-[48px] text-gold font-semibold mb-2">12</span>
-                <span className="font-montserrat text-[10px] text-white/50 uppercase tracking-widest leading-none">
-                  Generations of Craft
-                </span>
-              </div>
-              <div className="flex flex-col items-center p-6 border border-white/5 bg-[#131313]/40">
-                <span className="font-playfair text-[32px] md:text-[48px] text-gold font-semibold mb-2">2k+</span>
-                <span className="font-montserrat text-[10px] text-white/50 uppercase tracking-widest leading-none">
-                  Hours Per Piece
-                </span>
-              </div>
-              <div className="flex flex-col items-center p-6 border border-white/5 bg-[#131313]/40">
-                <span className="font-playfair text-[32px] md:text-[48px] text-gold font-semibold mb-2">0%</span>
-                <span className="font-montserrat text-[10px] text-white/50 uppercase tracking-widest leading-none">
-                  Machine Finish
-                </span>
-              </div>
-              <div className="flex flex-col items-center p-6 border border-white/5 bg-[#131313]/40">
-                <span className="font-playfair text-[32px] md:text-[48px] text-gold font-semibold mb-2">100</span>
-                <span className="font-montserrat text-[10px] text-white/50 uppercase tracking-widest leading-none">
-                  Heirloom Quality
-                </span>
-              </div>
-            </div>
           </div>
         </section>
       </main>
@@ -202,7 +226,7 @@ export default function BridalAtelier({ initialProducts = [] }) {
       {/* Luxury Bridal Inquiry Popup Modal */}
       {inquiryModalOpen && inquiryProduct && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-          <div className="relative w-full max-w-lg bg-[#1F1F1F] border border-white/10 p-8 flex flex-col shadow-2xl animate-fade-in-up">
+          <div className="relative w-full max-w-lg bg-[#1F1F1F] border border-white/10 p-4 sm:p-8 flex flex-col shadow-2xl animate-fade-in-up">
             <button
               type="button"
               onClick={() => setInquiryModalOpen(false)}
@@ -249,7 +273,7 @@ export default function BridalAtelier({ initialProducts = [] }) {
                         type="text"
                         value={inquiryForm.name}
                         onChange={(e) => setInquiryForm({ ...inquiryForm, name: e.target.value })}
-                        className="w-full bg-[#131313] border border-white/10 px-4 py-2.5 text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
+                        className="w-full bg-[#131313] border border-white/10 px-4 py-3 min-h-[44px] text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
                       />
                     </div>
                     <div>
@@ -263,7 +287,7 @@ export default function BridalAtelier({ initialProducts = [] }) {
                         type="tel"
                         value={inquiryForm.phone}
                         onChange={(e) => setInquiryForm({ ...inquiryForm, phone: e.target.value })}
-                        className="w-full bg-[#131313] border border-white/10 px-4 py-2.5 text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
+                        className="w-full bg-[#131313] border border-white/10 px-4 py-3 min-h-[44px] text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
                       />
                     </div>
                   </div>
@@ -279,7 +303,7 @@ export default function BridalAtelier({ initialProducts = [] }) {
                       type="email"
                       value={inquiryForm.email}
                       onChange={(e) => setInquiryForm({ ...inquiryForm, email: e.target.value })}
-                      className="w-full bg-[#131313] border border-white/10 px-4 py-2.5 text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
+                      className="w-full bg-[#131313] border border-white/10 px-4 py-3 min-h-[44px] text-[12px] font-montserrat text-white focus:border-gold outline-none rounded-none"
                     />
                   </div>
 

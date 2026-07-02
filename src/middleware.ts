@@ -10,8 +10,13 @@ import { verifySessionToken, SESSION_COOKIE } from "@/lib/session";
  * The login form is rendered at /admin itself (AdminAuthWrapper), so /admin is
  * always allowed through. Deeper links (/admin/orders, …) require a valid
  * session cookie, otherwise we redirect back to /admin to sign in.
+ *
+ * IMPORTANT: this file MUST be named middleware.ts (not proxy.ts) and MUST
+ * export a function named `middleware` — Next.js only auto-invokes middleware
+ * matching that exact filename + export name. A file named proxy.ts exporting
+ * `proxy` is silently never called.
  */
-export function proxy(req: NextRequest) {
+export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // Gate admin *sub-pages* only; /admin hosts the login UI itself.
