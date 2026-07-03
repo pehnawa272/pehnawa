@@ -56,12 +56,17 @@ const nextConfig = {
               "img-src 'self' data: https://res.cloudinary.com https://lh3.googleusercontent.com;",
               "connect-src 'self' ws: wss: https://api.razorpay.com https://va.vercel-insights.com;",
               "frame-src 'self' https://checkout.razorpay.com;",
+              "frame-ancestors 'none';",
               "font-src 'self';",
               "media-src 'self' https://res.cloudinary.com;",
               "object-src 'none';",
               "base-uri 'self';",
               "form-action 'self';",
             ].join(" "),
+          },
+          {
+            key: "X-Frame-Options",
+            value: "DENY",
           },
           {
             key: "X-Content-Type-Options",
