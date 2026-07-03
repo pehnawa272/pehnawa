@@ -41,6 +41,44 @@ const nextConfig = {
     deviceSizes: [390, 640, 750, 828, 1080, 1200, 1440, 1920],
     imageSizes: [16, 32, 64, 96, 128, 256],
   },
+
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Content-Security-Policy",
+            value: [
+              "default-src 'self';",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://checkout.razorpay.com https://va.vercel-insights.com;",
+              "style-src 'self' 'unsafe-inline';",
+              "img-src 'self' data: https://res.cloudinary.com https://lh3.googleusercontent.com;",
+              "connect-src 'self' ws: wss: https://api.razorpay.com https://va.vercel-insights.com;",
+              "frame-src 'self' https://checkout.razorpay.com;",
+              "font-src 'self';",
+              "media-src 'self' https://res.cloudinary.com;",
+              "object-src 'none';",
+              "base-uri 'self';",
+              "form-action 'self';",
+            ].join(" "),
+          },
+          {
+            key: "X-Content-Type-Options",
+            value: "nosniff",
+          },
+          {
+            key: "Referrer-Policy",
+            value: "strict-origin-when-cross-origin",
+          },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=()",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
