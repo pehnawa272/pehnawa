@@ -295,9 +295,10 @@ export default function ProductForm({ product, onSave, onCancel }) {
       if (!formData.slug || !/^[a-z0-9-]+$/.test(formData.slug)) {
         throw new Error("Slug must contain lowercase letters, numbers, and hyphens only");
       }
-      if (!formData.isEnquireOnly && (!formData.price || isNaN(formData.price))) {
-        throw new Error("Active price is required unless Enquire Only is enabled");
+      if (!formData.isEnquireOnly && (!formData.price || !/^\d+(\.\d+)?$/.test(String(formData.price).trim()) || Number(formData.price) <= 0)) {
+        throw new Error("Active price must be a valid positive number (e.g. 3399)");
       }
+
 
       // 2. Serialize Storytelling and Customization/SEO into product payload
       let finalDescription = formData.description;
@@ -336,8 +337,8 @@ export default function ProductForm({ product, onSave, onCancel }) {
         embroidery: formData.embroidery || undefined,
         category: formData.category,
         subCategory: formData.subCategory || undefined,
-        price: formData.isEnquireOnly ? undefined : Math.round(parseFloat(formData.price) * 100),
-        mrp: formData.isEnquireOnly || !formData.mrp ? undefined : Math.round(parseFloat(formData.mrp) * 100),
+        price: formData.isEnquireOnly ? undefined : Math.round(Number(String(formData.price).trim()) * 100),
+        mrp: formData.isEnquireOnly || !formData.mrp ? undefined : Math.round(Number(String(formData.mrp).trim()) * 100),
         isEnquireOnly: formData.isEnquireOnly,
         craftingHours: formData.craftingHours ? parseInt(formData.craftingHours) : undefined,
         isFeatured: formData.isFeatured,
@@ -731,10 +732,13 @@ export default function ProductForm({ product, onSave, onCancel }) {
                 Sale Price (₹) *
               </label>
               <input
-                type="number"
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 name="price"
                 value={formData.price}
                 onChange={handleInputChange}
+                placeholder="e.g. 3399"
                 className="w-full bg-[#131313] border border-white/10 p-3 text-[13px] font-montserrat text-white focus:border-gold outline-none transition-colors"
                 required={!formData.isEnquireOnly}
               />
@@ -745,10 +749,13 @@ export default function ProductForm({ product, onSave, onCancel }) {
                 MRP (Original Retail Price ₹)
               </label>
               <input
-                type="number"
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 name="mrp"
                 value={formData.mrp}
                 onChange={handleInputChange}
+                placeholder="e.g. 4999"
                 className="w-full bg-[#131313] border border-white/10 p-3 text-[13px] font-montserrat text-white focus:border-gold outline-none transition-colors"
               />
             </div>

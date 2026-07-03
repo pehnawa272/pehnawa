@@ -197,7 +197,7 @@ export default function AdminDashboard() {
     <AdminAuthWrapper>
       <Navbar admin />
 
-      <main className="min-h-screen bg-[#131313] pt-32 pb-24 px-6 md:px-16 max-w-[1440px] mx-auto space-y-12">
+      <main className="min-h-screen bg-[#131313] pt-20 md:pt-28 pb-16 md:pb-24 px-4 md:px-16 max-w-[1440px] mx-auto space-y-8 md:space-y-12">
         {/* Panel Header */}
         <div className="border-b border-white/10 pb-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
           <div className="space-y-2">

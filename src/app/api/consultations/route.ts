@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
     const { status, page, limit } = z.object({
       status: z.nativeEnum(ConsultationStatus).optional(),
       page:   z.coerce.number().int().positive().default(1),
-      limit:  z.coerce.number().int().positive().max(100).default(20),
+      limit:  z.coerce.number().int().positive().max(500).default(20),
     }).parse(Object.fromEntries(searchParams.entries()));
 
     const result = await ConsultationService.list(page, limit, status);

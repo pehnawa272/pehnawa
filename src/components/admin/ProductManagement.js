@@ -267,29 +267,31 @@ export default function ProductManagement() {
   return (
     <div className="space-y-8 animate-fade-in-up">
       {/* Controls: Search, Filters & Add Product */}
-      <div className="flex flex-col lg:flex-row justify-between items-stretch lg:items-center gap-4 bg-[#1F1F1F]/30 p-4 border border-white/5">
-        <form onSubmit={handleSearchSubmit} className="flex flex-1 gap-2">
+      <div className="flex flex-col gap-3 bg-[#1F1F1F]/30 p-4 border border-white/5">
+        {/* Search row */}
+        <form onSubmit={handleSearchSubmit} className="flex gap-2">
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search products by name, fabric, embroidery..."
-            className="flex-1 bg-[#131313] border border-white/10 p-2.5 text-[12px] font-montserrat text-white outline-none focus:border-gold transition-colors"
+            placeholder="Search products..."
+            className="flex-1 min-w-0 bg-[#131313] border border-white/10 p-2.5 text-[12px] font-montserrat text-white outline-none focus:border-gold transition-colors"
           />
           <button
             type="submit"
-            className="px-4 py-2 bg-gold border border-gold text-[#131313] font-montserrat text-[11px] font-bold tracking-widest uppercase hover:bg-transparent hover:text-gold transition-all"
+            className="shrink-0 px-4 py-2 bg-gold border border-gold text-[#131313] font-montserrat text-[11px] font-bold tracking-widest uppercase hover:bg-transparent hover:text-gold transition-all"
           >
             SEARCH
           </button>
         </form>
 
-        <div className="flex flex-wrap items-center gap-3">
+        {/* Filter + Add row */}
+        <div className="flex flex-wrap items-center gap-2">
           {/* Collection Filter */}
           <select
             value={collectionFilter}
             onChange={(e) => { setCollectionFilter(e.target.value); setPagination((prev) => ({ ...prev, page: 1 })); }}
-            className="bg-[#131313] border border-white/10 p-2.5 text-[11px] font-montserrat text-white outline-none hover:border-gold transition-colors"
+            className="flex-1 min-w-[130px] bg-[#131313] border border-white/10 p-2.5 text-[11px] font-montserrat text-white outline-none hover:border-gold transition-colors"
           >
             <option value="">All Collections</option>
             <option value="EVERYDAY">Professional Ethnic</option>
@@ -302,33 +304,33 @@ export default function ProductManagement() {
           <select
             value={sortOption}
             onChange={(e) => { setSortOption(e.target.value); setPagination((prev) => ({ ...prev, page: 1 })); }}
-            className="bg-[#131313] border border-white/10 p-2.5 text-[11px] font-montserrat text-white outline-none hover:border-gold transition-colors"
+            className="flex-1 min-w-[130px] bg-[#131313] border border-white/10 p-2.5 text-[11px] font-montserrat text-white outline-none hover:border-gold transition-colors"
           >
             <option value="newest">Newest First</option>
             <option value="oldest">Oldest First</option>
-            <option value="price_low">Price: Low to High</option>
-            <option value="price_high">Price: High to Low</option>
+            <option value="price_low">Price ↑</option>
+            <option value="price_high">Price ↓</option>
           </select>
 
           <button
             onClick={() => setView("add")}
-            className="flex items-center gap-1.5 px-5 py-2.5 bg-gold border border-gold text-[#131313] font-montserrat text-[11px] font-bold tracking-widest uppercase hover:bg-transparent hover:text-gold transition-all"
+            className="shrink-0 flex items-center gap-1.5 px-4 py-2.5 bg-gold border border-gold text-[#131313] font-montserrat text-[11px] font-bold tracking-widest uppercase hover:bg-transparent hover:text-gold transition-all"
           >
-            <SymbolIcon name="add" className="size-4" /> ADD GARMENT
+            <SymbolIcon name="add" className="size-4" /> ADD
           </button>
         </div>
       </div>
 
       {/* Sub-Filters Tabs: ALL, PUBLISHED, DRAFT, ARCHIVED, DELETED */}
-      <div className="flex gap-2 border-b border-white/5 pb-2">
+      <div className="flex overflow-x-auto hide-scrollbar gap-1 border-b border-white/5 pb-0">
         {["ALL", "PUBLISHED", "DRAFT", "ARCHIVED", "DELETED"].map((filter) => (
           <button
             key={filter}
             onClick={() => { setStatusFilter(filter); setPagination((prev) => ({ ...prev, page: 1 })); }}
-            className={`px-4 py-2 font-montserrat text-[10px] tracking-widest uppercase font-semibold transition-all ${
+            className={`shrink-0 px-3 py-2.5 font-montserrat text-[10px] tracking-widest uppercase font-semibold transition-all border-b-2 ${
               statusFilter === filter
-                ? "text-gold border-b-2 border-gold"
-                : "text-white/40 hover:text-gold"
+                ? "text-gold border-gold"
+                : "text-white/40 hover:text-gold border-transparent"
             }`}
           >
             {filter}
@@ -336,188 +338,190 @@ export default function ProductManagement() {
         ))}
       </div>
 
-      {/* Table listing */}
-      <div className="overflow-x-auto border border-white/5 bg-[#1F1F1F]/10">
-        <table className="w-full text-left border-collapse text-[12px] font-montserrat">
-          <thead>
-            <tr className="border-b border-white/10 bg-[#131313]/60 text-white/40 text-[10px] tracking-wider uppercase font-semibold">
-              <th className="p-4">Image</th>
-              <th className="p-4">Name</th>
-              <th className="p-4">Collection</th>
-              <th className="p-4">Category</th>
-              <th className="p-4">Price</th>
-              <th className="p-4">Status</th>
-              <th className="p-4">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading ? (
-              <tr>
-                <td colSpan={7} className="py-24 text-center">
-                  <div className="size-8 border-2 border-gold border-t-transparent animate-spin rounded-full mx-auto"></div>
-                  <span className="block text-[11px] text-white/40 tracking-wider uppercase font-semibold mt-4">
-                    Fetching Pehnawa Atelier Catalogue...
-                  </span>
-                </td>
-              </tr>
-            ) : products.length === 0 ? (
-              <tr>
-                <td colSpan={7} className="py-24 text-center">
-                  <SymbolIcon name="inventory" className="size-12 text-white/10 mb-4 mx-auto" />
-                  <p className="font-playfair text-[18px] text-white/40 uppercase tracking-widest">
-                    No products matching search filters.
-                  </p>
-                </td>
-              </tr>
-            ) : (
-              products.map((p) => {
-                const priceText = p.isEnquireOnly
-                  ? "Enquire Only"
-                  : `₹ ${(p.price / 100).toLocaleString()}`;
-                
-                return (
-                  <tr key={p.id} className="border-b border-white/5 hover:bg-white/2 transition-colors">
-                    {/* Image */}
-                    <td className="p-4">
-                      {p.primaryImage ? (
-                        <div className="size-14 relative overflow-hidden border border-white/5">
-                          <Image src={p.primaryImage} alt="" fill className="object-cover" sizes="56px" />
-                        </div>
-                      ) : (
-                        <div className="size-14 bg-black/40 border border-white/5 flex items-center justify-center">
-                          <SymbolIcon name="image" className="size-6 text-white/10" />
-                        </div>
-                      )}
-                    </td>
+      {/* Product listing — card on mobile, table on desktop */}
+      <div className="border border-white/5 bg-[#1F1F1F]/10">
 
-                    {/* Title */}
-                    <td className="p-4 font-playfair text-[14px] text-white font-medium">
+        {/* ── Desktop Table (md+) ───────────────────────────────── */}
+        <div className="hidden md:block overflow-x-auto">
+          <table className="w-full text-left border-collapse text-[12px] font-montserrat">
+            <thead>
+              <tr className="border-b border-white/10 bg-[#131313]/60 text-white/40 text-[10px] tracking-wider uppercase font-semibold">
+                <th className="p-4">Image</th>
+                <th className="p-4">Name</th>
+                <th className="p-4">Collection</th>
+                <th className="p-4">Price</th>
+                <th className="p-4">Status</th>
+                <th className="p-4">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {isLoading ? (
+                <tr>
+                  <td colSpan={6} className="py-24 text-center">
+                    <div className="size-8 border-2 border-gold border-t-transparent animate-spin rounded-full mx-auto"></div>
+                    <span className="block text-[11px] text-white/40 tracking-wider uppercase font-semibold mt-4">Fetching Catalogue...</span>
+                  </td>
+                </tr>
+              ) : products.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="py-24 text-center">
+                    <SymbolIcon name="inventory" className="size-12 text-white/10 mb-4 mx-auto" />
+                    <p className="font-playfair text-[18px] text-white/40 uppercase tracking-widest">No products found.</p>
+                  </td>
+                </tr>
+              ) : (
+                products.map((p) => {
+                  const priceText = p.isEnquireOnly ? "Enquire Only" : `₹ ${(p.price / 100).toLocaleString()}`;
+                  return (
+                    <tr key={p.id} className="border-b border-white/5 hover:bg-white/2 transition-colors">
+                      <td className="p-4">
+                        {p.primaryImage ? (
+                          <div className="size-14 relative overflow-hidden border border-white/5">
+                            <Image src={p.primaryImage} alt="" fill loading="lazy" quality={85} className="object-cover" sizes="56px" />
+                          </div>
+                        ) : (
+                          <div className="size-14 bg-black/40 border border-white/5 flex items-center justify-center">
+                            <SymbolIcon name="image" className="size-6 text-white/10" />
+                          </div>
+                        )}
+                      </td>
+                      <td className="p-4 font-playfair text-[14px] text-white font-medium">
+                        {p.title}
+                        {p.isFeatured && (
+                          <span className="ml-2 bg-gold/10 text-gold text-[9px] font-bold px-1.5 py-0.5 tracking-wider uppercase">Featured</span>
+                        )}
+                      </td>
+                      <td className="p-4 text-white/70 text-[11px]">{p.category}</td>
+                      <td className="p-4 text-gold font-bold">{priceText}</td>
+                      <td className="p-4">
+                        <span className={`text-[9px] font-bold px-2.5 py-1 tracking-wider uppercase ${
+                          p.status === "PUBLISHED" ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" :
+                          p.status === "DRAFT" ? "bg-amber-500/10 text-amber-400 border border-amber-500/20" :
+                          p.status === "ARCHIVED" ? "bg-stone-500/10 text-stone-400 border border-stone-500/20" :
+                          "bg-red-500/10 text-red-400 border border-red-500/20"
+                        }`}>{p.status}</span>
+                      </td>
+                      <td className="p-4">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          {p.status !== "DELETED" && (
+                            <button onClick={() => handleEditClick(p.id)} className="px-3 py-1 text-[11px] font-semibold font-montserrat tracking-wider uppercase border border-gold/30 text-gold hover:bg-gold/10 transition-colors rounded-sm">Edit</button>
+                          )}
+                          {p.status === "PUBLISHED" && (
+                            <button onClick={() => triggerConfirm("archive", p)} className="px-3 py-1 text-[11px] font-semibold font-montserrat tracking-wider uppercase border border-stone-500/30 text-stone-400 hover:bg-stone-500/10 transition-colors rounded-sm">Archive</button>
+                          )}
+                          {(p.status === "ARCHIVED" || p.status === "DRAFT") && (
+                            <button onClick={() => triggerConfirm("publish", p)} className="px-3 py-1 text-[11px] font-semibold font-montserrat tracking-wider uppercase border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 transition-colors rounded-sm">Publish</button>
+                          )}
+                          {p.status !== "DELETED" ? (
+                            <button onClick={() => triggerConfirm("delete", p)} className="px-3 py-1 text-[11px] font-semibold font-montserrat tracking-wider uppercase border border-red-500/30 text-red-400 hover:bg-red-500/10 transition-colors rounded-sm">Delete</button>
+                          ) : (
+                            <button onClick={() => triggerConfirm("restore", p)} className="px-3 py-1 text-[11px] font-semibold font-montserrat tracking-wider uppercase border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 transition-colors rounded-sm">Restore</button>
+                          )}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        {/* ── Mobile Card List (< md) ───────────────────────────── */}
+        <div className="md:hidden divide-y divide-white/5">
+          {isLoading ? (
+            <div className="py-16 text-center">
+              <div className="size-8 border-2 border-gold border-t-transparent animate-spin rounded-full mx-auto"></div>
+              <span className="block text-[11px] text-white/40 tracking-wider uppercase font-semibold mt-4">Loading...</span>
+            </div>
+          ) : products.length === 0 ? (
+            <div className="py-16 text-center">
+              <SymbolIcon name="inventory" className="size-12 text-white/10 mb-4 mx-auto" />
+              <p className="font-playfair text-[16px] text-white/40 uppercase tracking-widest">No products found.</p>
+            </div>
+          ) : (
+            products.map((p) => {
+              const priceText = p.isEnquireOnly ? "Enquire Only" : `₹ ${(p.price / 100).toLocaleString()}`;
+              return (
+                <div key={p.id} className="p-4 flex gap-4">
+                  {/* Thumbnail */}
+                  <div className="shrink-0">
+                    {p.primaryImage ? (
+                      <div className="size-16 relative overflow-hidden border border-white/5">
+                        <Image src={p.primaryImage} alt="" fill loading="lazy" quality={85} className="object-cover" sizes="64px" />
+                      </div>
+                    ) : (
+                      <div className="size-16 bg-black/40 border border-white/5 flex items-center justify-center">
+                        <SymbolIcon name="image" className="size-6 text-white/10" />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Info */}
+                  <div className="flex-1 min-w-0 space-y-1.5">
+                    <p className="font-playfair text-[14px] text-white font-medium leading-snug line-clamp-2">
                       {p.title}
                       {p.isFeatured && (
-                        <span className="ml-2 bg-gold/10 text-gold text-[9px] font-bold px-1.5 py-0.5 tracking-wider uppercase">
-                          Featured
-                        </span>
+                        <span className="ml-2 bg-gold/10 text-gold text-[9px] font-bold px-1.5 py-0.5 tracking-wider uppercase align-middle">★</span>
                       )}
-                    </td>
-
-                    {/* Collection */}
-                    <td className="p-4 text-white/70">{p.category}</td>
-
-                    {/* Category */}
-                    <td className="p-4 text-white/70">{p.subCategory || "None"}</td>
-
-                    {/* Price */}
-                    <td className="p-4 text-gold font-bold">{priceText}</td>
-
-                    {/* Status badge */}
-                    <td className="p-4">
-                      <span className={`text-[9px] font-bold px-2.5 py-1 tracking-wider uppercase ${
+                    </p>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="font-montserrat text-[10px] text-white/40 uppercase tracking-wider">{p.category}</span>
+                      <span className="text-white/20">·</span>
+                      <span className="font-montserrat text-[11px] text-gold font-bold">{priceText}</span>
+                      <span className={`text-[9px] font-bold px-2 py-0.5 tracking-wider uppercase ${
                         p.status === "PUBLISHED" ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" :
                         p.status === "DRAFT" ? "bg-amber-500/10 text-amber-400 border border-amber-500/20" :
                         p.status === "ARCHIVED" ? "bg-stone-500/10 text-stone-400 border border-stone-500/20" :
                         "bg-red-500/10 text-red-400 border border-red-500/20"
-                      }`}>
-                        {p.status}
-                      </span>
-                    </td>
+                      }`}>{p.status}</span>
+                    </div>
 
-                    {/* Actions */}
-                    <td className="p-4">
-                      <div className="flex items-center gap-1">
-                        <button
-                          title="View Details"
-                          onClick={() => handleViewDetails(p.id)}
-                          className="p-1.5 text-white/50 hover:text-gold transition-colors"
-                        >
-                          <SymbolIcon name="visibility" className="size-4.5" />
-                        </button>
-                        
-                        {p.status !== "DELETED" && (
-                          <>
-                            <button
-                              title="Edit Garment"
-                              onClick={() => handleEditClick(p.id)}
-                              className="p-1.5 text-white/50 hover:text-gold transition-colors"
-                            >
-                              <SymbolIcon name="edit" className="size-4.5" />
-                            </button>
-                            <button
-                              title="Duplicate Garment"
-                              onClick={() => handleDuplicate(p)}
-                              className="p-1.5 text-white/50 hover:text-gold transition-colors"
-                            >
-                              <SymbolIcon name="content_copy" className="size-4.5" />
-                            </button>
-                          </>
-                        )}
-
-                        {p.status === "PUBLISHED" && (
-                          <button
-                            title="Archive Garment"
-                            onClick={() => triggerConfirm("archive", p)}
-                            className="p-1.5 text-white/50 hover:text-stone-400 transition-colors"
-                          >
-                            <SymbolIcon name="archive" className="size-4.5" />
-                          </button>
-                        )}
-
-                        {(p.status === "ARCHIVED" || p.status === "DRAFT") && (
-                          <button
-                            title="Publish Garment"
-                            onClick={() => triggerConfirm("publish", p)}
-                            className="p-1.5 text-white/50 hover:text-emerald-400 transition-colors"
-                          >
-                            <SymbolIcon name="publish" className="size-4.5" />
-                          </button>
-                        )}
-
-                        {p.status !== "DELETED" ? (
-                          <button
-                            title="Soft Delete"
-                            onClick={() => triggerConfirm("delete", p)}
-                            className="p-1.5 text-white/50 hover:text-red-400 transition-colors"
-                          >
-                            <SymbolIcon name="delete" className="size-4.5" />
-                          </button>
-                        ) : (
-                          <button
-                            title="Restore Garment"
-                            onClick={() => triggerConfirm("restore", p)}
-                            className="p-1.5 text-white/50 hover:text-emerald-400 transition-colors"
-                          >
-                            <SymbolIcon name="settings_backup_restore" className="size-4.5" />
-                          </button>
-                        )}
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })
-            )}
-          </tbody>
-        </table>
+                    {/* Action buttons */}
+                    <div className="flex flex-wrap gap-2 pt-1">
+                      {p.status !== "DELETED" && (
+                        <button onClick={() => handleEditClick(p.id)} className="px-3 py-1 text-[10px] font-semibold font-montserrat tracking-wider uppercase border border-gold/30 text-gold hover:bg-gold/10 transition-colors rounded-sm">Edit</button>
+                      )}
+                      {p.status === "PUBLISHED" && (
+                        <button onClick={() => triggerConfirm("archive", p)} className="px-3 py-1 text-[10px] font-semibold font-montserrat tracking-wider uppercase border border-stone-500/30 text-stone-400 hover:bg-stone-500/10 transition-colors rounded-sm">Archive</button>
+                      )}
+                      {(p.status === "ARCHIVED" || p.status === "DRAFT") && (
+                        <button onClick={() => triggerConfirm("publish", p)} className="px-3 py-1 text-[10px] font-semibold font-montserrat tracking-wider uppercase border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 transition-colors rounded-sm">Publish</button>
+                      )}
+                      {p.status !== "DELETED" ? (
+                        <button onClick={() => triggerConfirm("delete", p)} className="px-3 py-1 text-[10px] font-semibold font-montserrat tracking-wider uppercase border border-red-500/30 text-red-400 hover:bg-red-500/10 transition-colors rounded-sm">Delete</button>
+                      ) : (
+                        <button onClick={() => triggerConfirm("restore", p)} className="px-3 py-1 text-[10px] font-semibold font-montserrat tracking-wider uppercase border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/10 transition-colors rounded-sm">Restore</button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
       </div>
 
       {/* Pagination Row */}
       {pagination.pages > 1 && (
-        <div className="flex justify-between items-center text-[11px] font-montserrat text-white/50 bg-[#1F1F1F]/20 p-4 border border-white/5">
-          <span>
-            Displaying Page {pagination.page} of {pagination.pages} ({pagination.total} Garments Total)
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-3 text-[11px] font-montserrat text-white/50 bg-[#1F1F1F]/20 p-4 border border-white/5">
+          <span className="text-center sm:text-left">
+            Page {pagination.page} of {pagination.pages} &nbsp;·&nbsp; {pagination.total} total
           </span>
           <div className="flex gap-2">
             <button
               onClick={() => setPagination((prev) => ({ ...prev, page: Math.max(1, prev.page - 1) }))}
               disabled={pagination.page === 1 || isLoading}
-              className="px-3 py-1.5 border border-white/10 hover:border-gold hover:text-gold disabled:opacity-20 transition-all font-bold"
+              className="px-4 py-2 border border-white/10 hover:border-gold hover:text-gold disabled:opacity-20 transition-all font-bold"
             >
-              PREVIOUS
+              ← Prev
             </button>
             <button
               onClick={() => setPagination((prev) => ({ ...prev, page: Math.min(prev.pages, prev.page + 1) }))}
               disabled={pagination.page === pagination.pages || isLoading}
-              className="px-3 py-1.5 border border-white/10 hover:border-gold hover:text-gold disabled:opacity-20 transition-all font-bold"
+              className="px-4 py-2 border border-white/10 hover:border-gold hover:text-gold disabled:opacity-20 transition-all font-bold"
             >
-              NEXT
+              Next →
             </button>
           </div>
         </div>
