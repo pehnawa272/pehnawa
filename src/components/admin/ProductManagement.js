@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import SymbolIcon from "@/components/SymbolIcon";
 import ProductForm from "./ProductForm";
 import ProductDetailView from "./ProductDetailView";
@@ -26,7 +26,7 @@ export default function ProductManagement() {
   const [confirmDialog, setConfirmDialog] = useState(null); // { action, productId, title }
 
   // Fetch products based on current filters, sorting, and pagination page
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     setIsLoading(true);
     setError("");
     try {
@@ -77,17 +77,16 @@ export default function ProductManagement() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [collectionFilter, pagination.page, searchQuery, sortOption, statusFilter]);
 
   // Re-fetch products when filters/page changes
   useEffect(() => {
     fetchProducts();
-  }, [statusFilter, collectionFilter, sortOption, pagination.page]);
+  }, [fetchProducts]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     setPagination((prev) => ({ ...prev, page: 1 }));
-    fetchProducts();
   };
 
   // Actions

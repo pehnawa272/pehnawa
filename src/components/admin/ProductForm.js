@@ -6,6 +6,51 @@ import CloudinaryUpload from "./CloudinaryUpload";
 import { getOccasions } from "@/app/admin/actions";
 import Image from "next/image";
 
+function parseStories(desc) {
+  const stories = { description: desc, craftsmanship: "", fabric: "", inspiration: "" };
+  if (!desc) return stories;
+
+  const craftIndex = desc.indexOf("### Craftsmanship Story");
+  const fabricIndex = desc.indexOf("### Fabric Story");
+  const inspIndex = desc.indexOf("### Inspiration Story");
+
+  if (craftIndex === -1 && fabricIndex === -1 && inspIndex === -1) {
+    return stories;
+  }
+
+  let description = desc;
+  let craftsmanship = "";
+  let fabric = "";
+  let inspiration = "";
+
+  const indexes = [
+    { key: "desc", index: 0 },
+    { key: "craft", index: craftIndex },
+    { key: "fabric", index: fabricIndex },
+    { key: "insp", index: inspIndex },
+  ].filter((item) => item.index !== -1).sort((a, b) => a.index - b.index);
+
+  for (let i = 0; i < indexes.length; i++) {
+    const current = indexes[i];
+    const next = indexes[i + 1];
+    const start = current.index;
+    const end = next ? next.index : desc.length;
+    let text = desc.substring(start, end).trim();
+
+    if (current.key === "desc") {
+      description = text;
+    } else if (current.key === "craft") {
+      craftsmanship = text.replace("### Craftsmanship Story", "").trim();
+    } else if (current.key === "fabric") {
+      fabric = text.replace("### Fabric Story", "").trim();
+    } else if (current.key === "insp") {
+      inspiration = text.replace("### Inspiration Story", "").trim();
+    }
+  }
+
+  return { description, craftsmanship, fabric, inspiration };
+}
+
 export default function ProductForm({ product, onSave, onCancel }) {
   const isEditMode = !!product;
 
@@ -118,51 +163,6 @@ export default function ProductForm({ product, onSave, onCancel }) {
 
     loadData();
   }, [isEditMode, product]);
-
-  const parseStories = (desc) => {
-    const stories = { description: desc, craftsmanship: "", fabric: "", inspiration: "" };
-    if (!desc) return stories;
-
-    const craftIndex = desc.indexOf("### Craftsmanship Story");
-    const fabricIndex = desc.indexOf("### Fabric Story");
-    const inspIndex = desc.indexOf("### Inspiration Story");
-
-    if (craftIndex === -1 && fabricIndex === -1 && inspIndex === -1) {
-      return stories;
-    }
-
-    let description = desc;
-    let craftsmanship = "";
-    let fabric = "";
-    let inspiration = "";
-
-    const indexes = [
-      { key: "desc", index: 0 },
-      { key: "craft", index: craftIndex },
-      { key: "fabric", index: fabricIndex },
-      { key: "insp", index: inspIndex },
-    ].filter((item) => item.index !== -1).sort((a, b) => a.index - b.index);
-
-    for (let i = 0; i < indexes.length; i++) {
-      const current = indexes[i];
-      const next = indexes[i + 1];
-      const start = current.index;
-      const end = next ? next.index : desc.length;
-      let text = desc.substring(start, end).trim();
-
-      if (current.key === "desc") {
-        description = text;
-      } else if (current.key === "craft") {
-        craftsmanship = text.replace("### Craftsmanship Story", "").trim();
-      } else if (current.key === "fabric") {
-        fabric = text.replace("### Fabric Story", "").trim();
-      } else if (current.key === "insp") {
-        inspiration = text.replace("### Inspiration Story", "").trim();
-      }
-    }
-
-    return { description, craftsmanship, fabric, inspiration };
-  };
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;

@@ -1,5 +1,16 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const projectRoot = path.dirname(fileURLToPath(import.meta.url));
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  turbopack: {
+    // Explicitly set the workspace root so Next.js doesn't pick up the
+    // stray package-lock.json at /Users/ashrayamishra/ instead of this project.
+    root: projectRoot,
+  },
+
   images: {
     // Serve AVIF first (50-70 % smaller than JPEG), fall back to WebP, then original.
     formats: ["image/avif", "image/webp"],

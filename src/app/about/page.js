@@ -195,6 +195,82 @@ export default function AboutUsPage() {
           </div>
         </section>
 
+        {/* ── Founder Quote ─────────────────────────────────────────────── */}
+        <section className="py-16 md:py-24 px-6 md:px-16 bg-[#0e0e0e] border-t border-white/5 flex flex-col items-center text-center">
+          <div className="max-w-2xl mx-auto space-y-8">
+            {/* Decorative opening quote */}
+            <span className="font-playfair text-[72px] leading-none text-gold/20 select-none block -mb-4">
+              &ldquo;
+            </span>
+            <blockquote className="font-playfair text-[20px] md:text-[24px] font-medium text-white/90 leading-relaxed tracking-wide italic">
+              I started Pehnawa for one woman — the one who has given the most, lived the most, and somehow been asked to settle for the least when it comes to how she gets to dress. That ends here.
+            </blockquote>
+            <div className="flex flex-col items-center gap-2 pt-2">
+              <div className="h-[1px] w-12 bg-gold/40"></div>
+              <p className="font-montserrat text-[12px] text-gold tracking-[0.3em] uppercase font-semibold">
+                Laxshmi
+              </p>
+              <p className="font-montserrat text-[10px] text-white/35 tracking-widest uppercase">
+                Founder, Pehnawa by Laxshmi
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Customer Voices ────────────────────────────────────────────── */}
+        <section className="py-16 md:py-24 px-6 md:px-16 bg-[#131313] border-t border-white/5">
+          <div className="max-w-5xl mx-auto space-y-12">
+            <div className="text-center space-y-3">
+              <span className="font-montserrat text-[11px] tracking-[0.3em] text-gold uppercase block">
+                Their Words
+              </span>
+              <h2 className="font-playfair text-[28px] md:text-[36px] font-medium text-white tracking-wide">
+                Women Who Wear Pehnawa
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+              {[
+                {
+                  quote: "For the first time in years I walked into a room and didn't wonder if my outfit was right. I knew it was.",
+                  name: "Sunita R.",
+                  detail: "52 · Wore the Noorani Anarkali to her daughter's wedding",
+                },
+                {
+                  quote: "They altered every measurement to my exact body. Not a standard size — my body. I cried when it arrived.",
+                  name: "Meera K.",
+                  detail: "47 · Plus-size · Signature Edit customer",
+                },
+                {
+                  quote: "I am 61 and I have never felt more stylish. This brand sees me. Not a version of me — me.",
+                  name: "Anjali P.",
+                  detail: "61 · Golden Era collection",
+                },
+              ].map(({ quote, name, detail }) => (
+                <div
+                  key={name}
+                  className="flex flex-col gap-5 p-6 md:p-8 border border-white/8 bg-[#0e0e0e]/60 hover:border-gold/20 transition-colors duration-300"
+                >
+                  <span className="font-playfair text-[40px] leading-none text-gold/30 select-none -mb-2">
+                    &ldquo;
+                  </span>
+                  <p className="font-playfair text-[16px] md:text-[17px] text-white/85 leading-relaxed italic font-light flex-1">
+                    {quote}
+                  </p>
+                  <div className="border-t border-white/8 pt-4 space-y-0.5">
+                    <p className="font-montserrat text-[12px] text-white font-semibold tracking-wide">
+                      {name}
+                    </p>
+                    <p className="font-montserrat text-[10px] text-white/35 tracking-wider">
+                      {detail}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Editorial Footer CTA Section */}
         <section className="py-24 md:py-32 px-6 md:px-16 bg-[#0e0e0e] border-t border-white/5 relative overflow-hidden flex flex-col items-center text-center">
           {/* Subtle Golden Glow Accent */}
