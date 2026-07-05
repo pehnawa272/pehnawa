@@ -168,7 +168,11 @@ export default function ProductDetail({ initialProduct }) {
               {/* Category Breadcrumbs */}
               <div className="flex items-center gap-4">
                 <span className="font-montserrat text-[10px] text-gold uppercase tracking-widest italic font-semibold">
-                  {product.category === "signature" ? "Signature Edit" : "Professional Ethnic"}
+                  {product.category === "signature"
+                    ? "Signature Edit"
+                    : product.category === "bridal"
+                    ? "Golden Era"
+                    : "Professional Ethnic"}
                 </span>
                 <div className="h-[1px] flex-grow bg-white/10"></div>
               </div>
@@ -184,6 +188,23 @@ export default function ProductDetail({ initialProduct }) {
                 <p className="font-montserrat text-[14px] md:text-[16px] text-white/70 font-light leading-relaxed">
                   {product.description}
                 </p>
+
+                {/* Per-category emotional identity line */}
+                {product.category === "bridal" && (
+                  <p className="font-playfair text-[13px] text-gold/70 italic leading-relaxed pt-1">
+                    For the woman who has arrived — and knows it.
+                  </p>
+                )}
+                {product.category === "signature" && (
+                  <p className="font-playfair text-[13px] text-gold/70 italic leading-relaxed pt-1">
+                    A piece that announces you before you speak.
+                  </p>
+                )}
+                {product.category === "everyday" && (
+                  <p className="font-playfair text-[13px] text-gold/70 italic leading-relaxed pt-1">
+                    Crafted for the days that ask everything of you.
+                  </p>
+                )}
               </div>
 
               {/* Pricing */}
