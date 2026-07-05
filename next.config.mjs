@@ -42,79 +42,10 @@ const nextConfig = {
     imageSizes: [16, 32, 64, 96, 128, 256],
   },
 
-  async headers() {
-    return [
-      {
-        source: "/:path*",
-        headers: [
-          {
-            key: "Content-Security-Policy",
-            value: [
-              "default-src 'self';",
-
-              // 'unsafe-inline' is required by Next.js hydration scripts.
-              // 'strict-dynamic' makes modern browsers ignore 'unsafe-inline' when
-              // a trusted script is present — effectively upgrading the policy
-              // without needing a nonce middleware rewrite.
-              // 'unsafe-eval' is required by Razorpay checkout.js (runs inline).
-              "script-src 'self' 'unsafe-inline' 'unsafe-eval' 'strict-dynamic'" +
-                " https://checkout.razorpay.com https://va.vercel-insights.com;",
-
-              "style-src 'self' 'unsafe-inline';",
-
-              // blob: covers Next.js image blur placeholders.
-              "img-src 'self' data: blob: https://res.cloudinary.com https://lh3.googleusercontent.com;",
-
-              // ws://localhost:* scopes unencrypted WebSocket to local dev HMR only.
-              // wss: covers secure WebSocket in production.
-              "connect-src 'self' ws://localhost:* wss:" +
-                " https://api.razorpay.com https://lh3.googleusercontent.com https://va.vercel-insights.com;",
-
-              "frame-src 'self' https://checkout.razorpay.com;",
-              "frame-ancestors 'none';",
-              "font-src 'self';",
-              "media-src 'self' https://res.cloudinary.com;",
-              "object-src 'none';",
-              "base-uri 'self';",
-
-              // form-action includes Razorpay for payment form submissions.
-              "form-action 'self' https://checkout.razorpay.com;",
-
-              // Allow service workers and blob-URL workers.
-              "worker-src 'self' blob:;",
-
-              // Force all sub-resource requests to HTTPS.
-              "upgrade-insecure-requests;",
-            ].join(" "),
-          },
-
-          // HSTS — tell browsers to always use HTTPS for this domain.
-          // max-age=63072000 = 2 years. includeSubDomains + preload once stable.
-          {
-            key: "Strict-Transport-Security",
-            value: "max-age=63072000; includeSubDomains",
-          },
-
-          {
-            key: "X-Frame-Options",
-            value: "DENY",
-          },
-          {
-            key: "X-Content-Type-Options",
-            value: "nosniff",
-          },
-          {
-            key: "Referrer-Policy",
-            value: "strict-origin-when-cross-origin",
-          },
-          {
-            key: "Permissions-Policy",
-            value: "camera=(), microphone=(), geolocation=()",
-          },
-        ],
-      },
-    ];
-  },
+  // Security headers are set per-request in src/middleware.ts so that a fresh
+  // nonce can be included in the Content-Security-Policy on every response.
+  // Do NOT add a static headers() block here — it would conflict with the
+  // per-request nonce the middleware generates.
 };
 
 export default nextConfig;

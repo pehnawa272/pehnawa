@@ -47,11 +47,17 @@ export default function Homepage() {
               }`}>
               The Heritage of Modernity
             </h2>
-            <div className={`flex flex-col items-center gap-4 transition-all duration-1000 delay-500 ${revealActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-              }`}>
+            <div
+              className="flex flex-col items-center gap-4"
+              style={{
+                opacity: revealActive ? 1 : 0,
+                transform: revealActive ? "translateY(0)" : "translateY(24px)",
+                transition: "opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s",
+              }}
+            >
               <Link
                 href="/products"
-                className="group inline-flex items-center gap-3 bg-gold text-[#131313] hover:bg-white hover:text-[#131313] px-8 sm:px-14 py-4 sm:py-5 font-montserrat text-[12px] font-bold tracking-[0.25em] sm:tracking-[0.3em] transition-all duration-300 uppercase rounded-none border border-gold hover:border-white active:scale-95 text-center hover:shadow-[0_8px_32px_rgba(212,175,55,0.35)]"
+                className="group inline-flex items-center gap-3 bg-[#D4AF37] text-[#131313] hover:bg-white hover:text-[#131313] border-2 border-[#D4AF37] hover:border-white px-8 sm:px-14 py-4 sm:py-5 font-montserrat text-[12px] font-bold tracking-[0.25em] sm:tracking-[0.3em] uppercase transition-colors duration-300 active:scale-95"
               >
                 SHOP THE COLLECTION
                 <SymbolIcon name="arrow_forward" className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
