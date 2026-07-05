@@ -150,6 +150,8 @@ body {
     transparent
   );
   transform: translateX(-120%) skewX(-18deg);
+  /* Always behind button text/icons, even inside overflow:hidden parents */
+  z-index: -1;
 }
 .btn-shimmer:hover::after {
   animation: shimmerSweep 0.7s ease forwards;

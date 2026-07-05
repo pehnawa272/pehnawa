@@ -1,0 +1,4 @@
+Contact: mailto:pehnawabylaxshmi1@gmail.com
+Expires: 2027-07-05T00:00:00.000Z
+Preferred-Languages: en, hi
+Canonical: https://pehnawabylaxshmi.com/.well-known/security.txt
