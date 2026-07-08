@@ -49,7 +49,7 @@ export function proxy(req: NextRequest) {
     `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://checkout.razorpay.com https://va.vercel-insights.com;`,
     `style-src 'self' 'unsafe-inline';`,
     "img-src 'self' data: blob: https://res.cloudinary.com https://lh3.googleusercontent.com;",
-    "connect-src 'self' ws: wss: https://api.razorpay.com https://va.vercel-insights.com;",
+    "connect-src 'self' ws: wss: https://api.razorpay.com https://va.vercel-insights.com https://api.cloudinary.com;",
     "frame-src 'self' https://checkout.razorpay.com;",
     "frame-ancestors 'none';",
     "font-src 'self';",
