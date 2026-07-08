@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
         },
       });
       if (previousOrder) {
-        throw new AppError("You have already used this coupon code", 400);
+        throw new AppError("This coupon has already been used", 400);
       }
     }
 

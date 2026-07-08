@@ -77,7 +77,7 @@ export default function AdminDashboard() {
 
     async function loadDashboard() {
       const [ordersResponse, consultationsResponse, productsResponse, couponsResponse] = await Promise.all([
-        fetch("/api/admin/orders"),
+        fetch("/api/admin/orders?limit=1000"),
         fetch("/api/consultations?limit=200"),
         fetch("/api/admin/products?limit=1"),
         fetch("/api/admin/coupons"),
@@ -198,8 +198,8 @@ export default function AdminDashboard() {
   };
 
   const tabs = [
-    { id: "orders", label: "Custom Orders", count: 0, icon: "receipt" },
-    { id: "bookings", label: "Consultation Bookings", count: 0, icon: "event" },
+    { id: "orders", label: "Custom Orders", count: orders.length, icon: "receipt" },
+    { id: "bookings", label: "Consultation Bookings", count: bookings.length, icon: "event" },
     { id: "inquiries", label: "Golden Era Inquiries", count: inquiries.length, icon: "mail" },
     { id: "products", label: "Product Catalog", count: productsCount, icon: "shopping_bag" },
     { id: "coupons", label: "Coupons & Discounts", count: couponsCount, icon: "confirmation_number" },
@@ -231,21 +231,21 @@ export default function AdminDashboard() {
             <span className="font-montserrat text-[10px] text-white/44 tracking-widest uppercase font-bold block">
               TOTAL ATELIER ORDERS
             </span>
-            <span className="font-playfair text-[32px] text-gold font-bold">0</span>
+            <span className="font-playfair text-[32px] text-gold font-bold">{orders.length}</span>
           </div>
           <div className="p-6 bg-[#1F1F1F]/40 border border-white/5 space-y-2">
             <span className="font-montserrat text-[10px] text-white/44 tracking-widest uppercase font-bold block">
               TOTAL ORDER VALUE
             </span>
             <span className="font-playfair text-[32px] text-gold font-bold">
-              ₹0
+              ₹{totalRevenue.toLocaleString("en-IN", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
             </span>
           </div>
           <div className="p-6 bg-[#1F1F1F]/40 border border-white/5 space-y-2">
             <span className="font-montserrat text-[10px] text-white/44 tracking-widest uppercase font-bold block">
               SCHEDULED CONSULTATIONS
             </span>
-            <span className="font-playfair text-[32px] text-gold font-bold">0</span>
+            <span className="font-playfair text-[32px] text-gold font-bold">{bookings.length}</span>
           </div>
           <div className="p-6 bg-[#1F1F1F]/40 border border-white/5 space-y-2">
             <span className="font-montserrat text-[10px] text-white/44 tracking-widest uppercase font-bold block">
