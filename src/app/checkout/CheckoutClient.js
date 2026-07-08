@@ -72,7 +72,8 @@ export default function Checkout() {
 
       const json = await res.json();
       if (!res.ok) {
-        throw new Error(json.error || json.message || "Failed to validate coupon.");
+        const msg = json?.error?.message || json?.error || json?.message || "Failed to validate coupon.";
+        throw new Error(typeof msg === "string" ? msg : JSON.stringify(msg));
       }
 
       setAppliedCoupon({
