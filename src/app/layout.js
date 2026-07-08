@@ -2,6 +2,8 @@ import { Playfair_Display, Montserrat } from "next/font/google";
 import { headers } from "next/headers";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
+import { Analytics } from "@vercel/analytics/next";
+
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -37,6 +39,7 @@ export default async function RootLayout({ children }) {
     >
       <body className="min-h-full bg-luxury-bg text-foreground font-sans flex flex-col hide-scrollbar">
         <CartProvider>{children}</CartProvider>
+        <Analytics />
       </body>
     </html>
   );
