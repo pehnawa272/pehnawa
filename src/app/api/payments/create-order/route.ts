@@ -119,20 +119,18 @@ export async function POST(req: NextRequest) {
       if (coupon.expiresAt && coupon.expiresAt.getTime() <= Date.now()) {
         throw new AppError("This coupon has expired", 400);
       }
-      if (coupon.maxUses !== null && coupon.usedCount >= coupon.maxUses) {
-        throw new AppError("This coupon has reached its usage limit", 400);
-      }
-
-      // Per-email: prevent same customer from reusing the coupon
-      const previousOrder = await prisma.order.findFirst({
-        where: {
-          user: { email: { equals: shippingForm.email.trim(), mode: "insensitive" } },
-          couponId: coupon.id,
-          payment: { status: "PAID" },
-        },
-      });
-      if (previousOrder) {
-        throw new AppError("This coupon has already been used", 400);
+      // Per-email: prevent same customer from exceeding their maximum uses of the coupon
+      if (coupon.maxUses !== null) {
+        const usageCount = await prisma.order.count({
+          where: {
+            user: { email: { equals: shippingForm.email.trim(), mode: "insensitive" } },
+            couponId: coupon.id,
+            payment: { status: "PAID" },
+          },
+        });
+        if (usageCount >= coupon.maxUses) {
+          throw new AppError("This coupon has already been used", 400);
+        }
       }
 
       if (subtotal < coupon.minOrderValue) {

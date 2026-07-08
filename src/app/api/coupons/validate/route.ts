@@ -30,20 +30,16 @@ export async function POST(req: NextRequest) {
       throw new AppError("This coupon has expired", 400);
     }
 
-    if (coupon.maxUses !== null && coupon.usedCount >= coupon.maxUses) {
-      throw new AppError("This coupon has reached its usage limit", 400);
-    }
-
-    // Check if this email address has already successfully used this coupon
-    if (email) {
-      const previousOrder = await prisma.order.findFirst({
+    // Check if this email address has reached the maximum permitted uses of this coupon
+    if (email && coupon.maxUses !== null) {
+      const usageCount = await prisma.order.count({
         where: {
           user: { email: { equals: email.trim(), mode: "insensitive" } },
           couponId: coupon.id,
           payment: { status: "PAID" },
         },
       });
-      if (previousOrder) {
+      if (usageCount >= coupon.maxUses) {
         throw new AppError("This coupon has already been used", 400);
       }
     }

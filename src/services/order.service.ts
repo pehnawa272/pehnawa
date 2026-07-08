@@ -253,16 +253,18 @@ export const OrderService = {
         if (couponCode) {
           const coupon = await tx.coupon.findUnique({ where: { code: couponCode } });
           if (coupon) {
-            // Final safety: prevent same email from reusing a coupon
-            const alreadyUsed = await tx.order.findFirst({
-              where: {
-                userId: user.id,
-                couponId: coupon.id,
-                payment: { status: "PAID" },
-              },
-            });
-            if (alreadyUsed) {
-              throw new AppError("This coupon has already been used", 400);
+            // Final safety: check if the user has reached their usage limit for this coupon
+            if (coupon.maxUses !== null) {
+              const usageCount = await tx.order.count({
+                where: {
+                  userId: user.id,
+                  couponId: coupon.id,
+                  payment: { status: "PAID" },
+                },
+              });
+              if (usageCount >= coupon.maxUses) {
+                throw new AppError("This coupon has already been used", 400);
+              }
             }
 
             couponId = coupon.id;
