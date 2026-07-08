@@ -61,12 +61,13 @@ const ShippingFormSchema = z.object({
 const CreateOrderPayloadSchema = z.object({
   shippingForm: ShippingFormSchema,
   items:        z.array(CheckoutItemInputSchema).min(1).max(20),
+  couponCode:   z.string().nullable().optional(),
 });
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { shippingForm, items } = CreateOrderPayloadSchema.parse(body);
+    const { shippingForm, items, couponCode } = CreateOrderPayloadSchema.parse(body);
 
     // Fetch products and calculate total price in paise
     const productIdsOrSlugs = items.map((i) => i.id);
@@ -105,14 +106,60 @@ export async function POST(req: NextRequest) {
       throw new AppError("Order total must be greater than zero", 400);
     }
 
-    // Create Razorpay Order
+    // ─── Server-side coupon validation ─────────────────────────────────
+    let discountAmountInPaise = 0;
+    let validatedCouponCode: string | undefined;
+
+    if (couponCode) {
+      const code = couponCode.trim().toUpperCase();
+      const coupon = await prisma.coupon.findUnique({ where: { code } });
+
+      if (!coupon) throw new AppError("Invalid coupon code", 400);
+      if (!coupon.isActive) throw new AppError("This coupon is no longer active", 400);
+      if (coupon.expiresAt && coupon.expiresAt.getTime() <= Date.now()) {
+        throw new AppError("This coupon has expired", 400);
+      }
+      if (coupon.maxUses !== null && coupon.usedCount >= coupon.maxUses) {
+        throw new AppError("This coupon has reached its usage limit", 400);
+      }
+
+      // Per-email: prevent same customer from reusing the coupon
+      const previousOrder = await prisma.order.findFirst({
+        where: {
+          user: { email: { equals: shippingForm.email.trim(), mode: "insensitive" } },
+          couponId: coupon.id,
+          payment: { status: "PAID" },
+        },
+      });
+      if (previousOrder) {
+        throw new AppError("You have already used this coupon code", 400);
+      }
+
+      if (subtotal < coupon.minOrderValue) {
+        throw new AppError(
+          `Minimum order value is ₹${(coupon.minOrderValue / 100).toLocaleString("en-IN")}`,
+          400,
+        );
+      }
+
+      discountAmountInPaise = Math.round(subtotal * (coupon.discountPercent / 100));
+      validatedCouponCode = code;
+    }
+
+    const chargeAmount = subtotal - discountAmountInPaise;
+    if (chargeAmount <= 0) {
+      throw new AppError("Discount cannot exceed order total", 400);
+    }
+
+    // Create Razorpay Order (amount = discounted total)
     const rzpOrder = await getRazorpay().orders.create({
-      amount:   subtotal, // stored in paise, matching Razorpay expectation
+      amount:   chargeAmount,
       currency: "INR",
       receipt:  `receipt_${Date.now()}_${Math.floor(Math.random() * 1000)}`,
       notes: {
         clientEmail: shippingForm.email,
         itemCount:   String(items.length),
+        ...(validatedCouponCode ? { couponCode: validatedCouponCode } : {}),
       },
     });
 
@@ -128,12 +175,15 @@ export async function POST(req: NextRequest) {
         measurementProfileId: item.measurementProfileId ?? undefined,
       })),
       shippingForm,
-      totalAmountInPaise: subtotal,
+      totalAmountInPaise:    chargeAmount,
+      subtotalAmountInPaise: subtotal,
+      discountAmountInPaise: discountAmountInPaise || undefined,
+      couponCode:            validatedCouponCode,
     });
 
     return successResponse({
       razorpayOrderId: rzpOrder.id,
-      amount:          subtotal,
+      amount:          chargeAmount,
       currency:        "INR",
       keyId:           process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || process.env.RAZORPAY_KEY_ID,
       prefill: {
@@ -146,3 +196,4 @@ export async function POST(req: NextRequest) {
     return handleError(e);
   }
 }
+

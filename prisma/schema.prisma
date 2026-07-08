@@ -440,6 +440,8 @@ model Order {
 
   items       OrderItem[]
   payment     Payment?
+  couponId    String?
+  coupon      Coupon?     @relation(fields: [couponId], references: [id])
 
   @@index([userId])
   @@index([status])
@@ -649,4 +651,24 @@ model PendingOrder {
   payload         Json
   createdAt       DateTime @default(now())
 }
+
+// ─────────────────────────────────────────────────────────────
+// COUPON
+// ─────────────────────────────────────────────────────────────
+
+model Coupon {
+  id              String    @id @default(cuid())
+  code            String    @unique
+  discountPercent Int
+  minOrderValue   Int       // minimum subtotal in paise
+  maxUses         Int?      // null/0 = unlimited
+  usedCount       Int       @default(0)
+  expiresAt       DateTime?
+  isActive        Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  orders          Order[]
+}
+
 

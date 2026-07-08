@@ -13,6 +13,7 @@ export default function AdminDashboard() {
   const [orders, setOrders] = useState([]);
   const [consultations, setConsultations] = useState([]);
   const [productsCount, setProductsCount] = useState(0);
+  const [couponsCount, setCouponsCount] = useState(0);
 
   const totalRevenue = useMemo(() => {
     return orders.reduce((sum, order) => sum + (order.total || 0), 0);
@@ -75,10 +76,11 @@ export default function AdminDashboard() {
     let active = true;
 
     async function loadDashboard() {
-      const [ordersResponse, consultationsResponse, productsResponse] = await Promise.all([
+      const [ordersResponse, consultationsResponse, productsResponse, couponsResponse] = await Promise.all([
         fetch("/api/admin/orders"),
         fetch("/api/consultations?limit=200"),
         fetch("/api/admin/products?limit=1"),
+        fetch("/api/admin/coupons"),
       ]);
 
       if (!active) {
@@ -149,6 +151,15 @@ export default function AdminDashboard() {
         const prodData = await productsResponse.json();
         setProductsCount(prodData.data?.pagination?.total || 0);
       }
+
+      if (couponsResponse.ok) {
+        try {
+          const coupData = await couponsResponse.json();
+          setCouponsCount(coupData.data?.items?.length || 0);
+        } catch (e) {
+          console.error("Error loading coupons count:", e);
+        }
+      }
     }
 
     loadDashboard();
@@ -187,10 +198,11 @@ export default function AdminDashboard() {
   };
 
   const tabs = [
-    { id: "orders", label: "Custom Orders", count: orders.length, icon: "receipt" },
-    { id: "bookings", label: "Consultation Bookings", count: bookings.length, icon: "event" },
+    { id: "orders", label: "Custom Orders", count: 0, icon: "receipt" },
+    { id: "bookings", label: "Consultation Bookings", count: 0, icon: "event" },
     { id: "inquiries", label: "Golden Era Inquiries", count: inquiries.length, icon: "mail" },
     { id: "products", label: "Product Catalog", count: productsCount, icon: "shopping_bag" },
+    { id: "coupons", label: "Coupons & Discounts", count: couponsCount, icon: "confirmation_number" },
   ];
 
   return (
@@ -219,21 +231,21 @@ export default function AdminDashboard() {
             <span className="font-montserrat text-[10px] text-white/44 tracking-widest uppercase font-bold block">
               TOTAL ATELIER ORDERS
             </span>
-            <span className="font-playfair text-[32px] text-gold font-bold">{orders.length}</span>
+            <span className="font-playfair text-[32px] text-gold font-bold">0</span>
           </div>
           <div className="p-6 bg-[#1F1F1F]/40 border border-white/5 space-y-2">
             <span className="font-montserrat text-[10px] text-white/44 tracking-widest uppercase font-bold block">
               TOTAL ORDER VALUE
             </span>
             <span className="font-playfair text-[32px] text-gold font-bold">
-              ₹{totalRevenue.toLocaleString("en-IN", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+              ₹0
             </span>
           </div>
           <div className="p-6 bg-[#1F1F1F]/40 border border-white/5 space-y-2">
             <span className="font-montserrat text-[10px] text-white/44 tracking-widest uppercase font-bold block">
               SCHEDULED CONSULTATIONS
             </span>
-            <span className="font-playfair text-[32px] text-gold font-bold">{bookings.length}</span>
+            <span className="font-playfair text-[32px] text-gold font-bold">0</span>
           </div>
           <div className="p-6 bg-[#1F1F1F]/40 border border-white/5 space-y-2">
             <span className="font-montserrat text-[10px] text-white/44 tracking-widest uppercase font-bold block">
@@ -537,6 +549,41 @@ export default function AdminDashboard() {
           {/* PRODUCTS CATALOG TAB */}
           {activeTab === "products" && (
             <ProductManagement />
+          )}
+
+          {/* COUPONS TAB */}
+          {activeTab === "coupons" && (
+            <div className="space-y-6 animate-fade-in-up">
+              <div className="bg-[#1F1F1F] border border-gold/30 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <h4 className="font-playfair text-[18px] text-gold font-bold">Coupon Management Console</h4>
+                  <p className="font-montserrat text-[12px] text-white/60">
+                    Create, activate, deactivate, and monitor promotional coupon codes for checkout discounts.
+                  </p>
+                </div>
+                <Link
+                  href="/admin/coupons"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-gold hover:bg-[#C5A028] text-[#131313] font-montserrat text-[11px] font-bold tracking-widest uppercase transition-all whitespace-nowrap"
+                >
+                  <SymbolIcon name="launch" className="size-4" />
+                  Open Coupon Manager
+                </Link>
+              </div>
+
+              {couponsCount === 0 ? (
+                <div className="py-24 text-center border border-dashed border-white/10">
+                  <SymbolIcon name="confirmation_number" className="size-12 text-white/20 mb-4 mx-auto" />
+                  <p className="font-playfair text-[18px] text-white/50 tracking-wider uppercase">No coupon codes created yet.</p>
+                  <p className="font-montserrat text-[12px] text-white/30 mt-2">Head to the Coupon Manager to create your first code.</p>
+                </div>
+              ) : (
+                <div className="py-12 text-center border border-white/5 bg-[#1F1F1F]">
+                  <SymbolIcon name="confirmation_number" className="size-10 text-gold mb-3 mx-auto" />
+                  <p className="font-playfair text-[22px] text-gold font-bold">{couponsCount}</p>
+                  <p className="font-montserrat text-[11px] text-white/50 tracking-widest uppercase mt-1">Active Coupon Codes</p>
+                </div>
+              )}
+            </div>
           )}
         </div>
       </main>

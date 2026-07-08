@@ -6,6 +6,7 @@ export interface PendingOrderPayload {
     productId: string;
     quantity: number;
     size?: string;
+    colour?: string;
     customTailoring?: any;
     measurementProfileId?: string;
   }>;
@@ -20,6 +21,9 @@ export interface PendingOrderPayload {
     giftDraping: boolean;
   };
   totalAmountInPaise: number;
+  subtotalAmountInPaise?: number;
+  discountAmountInPaise?: number;
+  couponCode?: string;
 }
 
 export const PendingOrderStore = {

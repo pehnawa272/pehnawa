@@ -72,7 +72,8 @@ export const ModelName = {
   ReferralCode: 'ReferralCode',
   ReferralRecord: 'ReferralRecord',
   ConsultationRequest: 'ConsultationRequest',
-  PendingOrder: 'PendingOrder'
+  PendingOrder: 'PendingOrder',
+  Coupon: 'Coupon'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -302,7 +303,8 @@ export const OrderScalarFieldEnum = {
   cancellationReason: 'cancellationReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  couponId: 'couponId'
 } as const
 
 export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
@@ -437,6 +439,22 @@ export const PendingOrderScalarFieldEnum = {
 } as const
 
 export type PendingOrderScalarFieldEnum = (typeof PendingOrderScalarFieldEnum)[keyof typeof PendingOrderScalarFieldEnum]
+
+
+export const CouponScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  discountPercent: 'discountPercent',
+  minOrderValue: 'minOrderValue',
+  maxUses: 'maxUses',
+  usedCount: 'usedCount',
+  expiresAt: 'expiresAt',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CouponScalarFieldEnum = (typeof CouponScalarFieldEnum)[keyof typeof CouponScalarFieldEnum]
 
 
 export const SortOrder = {

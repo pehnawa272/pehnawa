@@ -159,8 +159,15 @@ export const OrderService = {
       giftDraping: boolean;
     };
     totalAmountInPaise: number;
+    subtotalAmountInPaise?: number;
+    discountAmountInPaise?: number;
+    couponCode?: string;
   }) {
-    const { razorpayOrderId, razorpayPaymentId, razorpaySignature, items, shippingForm, totalAmountInPaise } = payload;
+    const {
+      razorpayOrderId, razorpayPaymentId, razorpaySignature,
+      items, shippingForm, totalAmountInPaise,
+      subtotalAmountInPaise, discountAmountInPaise, couponCode,
+    } = payload;
 
     try {
       return await prisma.$transaction(async (tx) => {
@@ -231,24 +238,56 @@ export const OrderService = {
         });
 
         // Double-check total amount matches calculation
-        if (calculatedSubtotal !== totalAmountInPaise) {
-          console.error(`[createGuestOrder] Amount mismatch: calculated=${calculatedSubtotal} vs paid=${totalAmountInPaise}`);
+        // When a coupon is applied, totalAmountInPaise = subtotal - discount
+        const expectedSubtotal = subtotalAmountInPaise ?? totalAmountInPaise;
+        if (calculatedSubtotal !== expectedSubtotal) {
+          console.error(`[createGuestOrder] Amount mismatch: calculated=${calculatedSubtotal} vs expected=${expectedSubtotal}`);
           throw new AppError("Order calculation mismatch", 400);
         }
 
-        // 4. Create Order + OrderItems + Payment
+        const discount = discountAmountInPaise ?? 0;
+        const orderTotal = calculatedSubtotal - discount;
+
+        // 4. Resolve coupon (if code was used)
+        let couponId: string | undefined;
+        if (couponCode) {
+          const coupon = await tx.coupon.findUnique({ where: { code: couponCode } });
+          if (coupon) {
+            // Final safety: prevent same email from reusing a coupon
+            const alreadyUsed = await tx.order.findFirst({
+              where: {
+                userId: user.id,
+                couponId: coupon.id,
+                payment: { status: "PAID" },
+              },
+            });
+            if (alreadyUsed) {
+              throw new AppError("You have already used this coupon code", 400);
+            }
+
+            couponId = coupon.id;
+            // Increment usedCount atomically
+            await tx.coupon.update({
+              where: { id: coupon.id },
+              data: { usedCount: { increment: 1 } },
+            });
+          }
+        }
+
+        // 5. Create Order + OrderItems + Payment
         const order = await tx.order.create({
           data: {
             orderNumber: generateOrderNumber(),
             userId:      user.id,
             addressId:   address.id,
             status:      OrderStatus.NEW,
-            subtotal:    totalAmountInPaise,
-            discount:    0,
+            subtotal:    calculatedSubtotal,
+            discount,
             shipping:    0,
-            total:       totalAmountInPaise,
+            total:       orderTotal,
             giftDraping: shippingForm.giftDraping,
             giftMessage: null,
+            ...(couponId ? { couponId } : {}),
             items: {
               create: orderItems,
             },
@@ -259,8 +298,8 @@ export const OrderService = {
                 razorpayOrderId,
                 razorpayPaymentId,
                 razorpaySignature,
-                amount:            totalAmountInPaise,
-                razorpayAmount:    totalAmountInPaise,
+                amount:            orderTotal,
+                razorpayAmount:    orderTotal,
                 paidAt:            new Date(),
               },
             },
@@ -268,7 +307,7 @@ export const OrderService = {
           include: orderInclude,
         });
 
-        // 5. Clear active cart for this user (if any cart items exist)
+        // 6. Clear active cart for this user (if any cart items exist)
         await tx.cartItem.deleteMany({
           where: { cart: { userId: user.id } },
         });

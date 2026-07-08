@@ -86,6 +86,9 @@ export async function POST(req: NextRequest) {
           items:              pendingOrder.items,
           shippingForm:       pendingOrder.shippingForm,
           totalAmountInPaise: pendingOrder.totalAmountInPaise,
+          subtotalAmountInPaise: pendingOrder.subtotalAmountInPaise,
+          discountAmountInPaise: pendingOrder.discountAmountInPaise,
+          couponCode:            pendingOrder.couponCode,
         });
         await PendingOrderStore.delete(razorpayOrderId);
       } else {

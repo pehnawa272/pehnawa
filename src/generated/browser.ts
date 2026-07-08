@@ -127,3 +127,8 @@ export type ConsultationRequest = Prisma.ConsultationRequestModel
  * 
  */
 export type PendingOrder = Prisma.PendingOrderModel
+/**
+ * Model Coupon
+ * 
+ */
+export type Coupon = Prisma.CouponModel

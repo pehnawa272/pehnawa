@@ -74,6 +74,9 @@ export async function POST(req: NextRequest) {
       items:              pendingOrder.items,
       shippingForm:       pendingOrder.shippingForm,
       totalAmountInPaise: pendingOrder.totalAmountInPaise,
+      subtotalAmountInPaise: pendingOrder.subtotalAmountInPaise,
+      discountAmountInPaise: pendingOrder.discountAmountInPaise,
+      couponCode:            pendingOrder.couponCode,
     });
 
     // 5. Delete cached pending order details

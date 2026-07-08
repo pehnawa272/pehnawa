@@ -16,6 +16,12 @@ export default function Checkout() {
   const [orderResult, setOrderResult] = useState(null);
   const [paymentError, setPaymentError] = useState(null);
 
+  // Coupon States
+  const [couponCode, setCouponCode] = useState("");
+  const [appliedCoupon, setAppliedCoupon] = useState(null);
+  const [couponError, setCouponError] = useState("");
+  const [validatingCoupon, setValidatingCoupon] = useState(false);
+
   const [shippingForm, setShippingForm] = useState({
     name: "",
     email: "",
@@ -40,6 +46,48 @@ export default function Checkout() {
       // Allow redirecting back or showing empty state
     }
   }, [cartItems, step]);
+
+  // Reset coupon if cart contents change
+  useEffect(() => {
+    if (appliedCoupon) {
+      setAppliedCoupon(null);
+      setCouponError("Cart was modified. Please re-apply coupon.");
+    }
+  }, [cartItems]);
+
+  const handleApplyCoupon = async () => {
+    if (!couponCode.trim()) return;
+    setCouponError("");
+    setValidatingCoupon(true);
+    try {
+      const res = await fetch("/api/coupons/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          code: couponCode,
+          cartSubtotal: cartTotal,
+          email: shippingForm.email || null,
+        }),
+      });
+
+      const json = await res.json();
+      if (!res.ok) {
+        throw new Error(json.error || json.message || "Failed to validate coupon.");
+      }
+
+      setAppliedCoupon({
+        code: json.data.code,
+        discountPercent: json.data.discountPercent,
+        discountAmountInRupees: json.data.discountAmountInRupees,
+      });
+      setCouponError("");
+    } catch (err) {
+      setCouponError(err.message);
+      setAppliedCoupon(null);
+    } finally {
+      setValidatingCoupon(false);
+    }
+  };
 
   const handleShippingSubmit = (e) => {
     e.preventDefault();
@@ -96,6 +144,7 @@ export default function Checkout() {
               customTailoring: tailoring,
             };
           }),
+          couponCode: appliedCoupon ? appliedCoupon.code : undefined,
         }),
       });
 
@@ -155,7 +204,7 @@ export default function Checkout() {
                 colour: item.colour,
                 quantity: item.quantity,
               })),
-              total: cartTotal,
+              total: createdOrder.total / 100, // Show actual paid amount in rupees (paise / 100)
             });
 
             clearCart();
@@ -687,11 +736,66 @@ export default function Checkout() {
                   ))}
                 </div>
 
+                {/* Coupon Code Section */}
+                <div className="border-t border-white/10 pt-4 space-y-3">
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      placeholder="COUPON CODE"
+                      value={couponCode}
+                      onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+                      disabled={validatingCoupon || !!appliedCoupon}
+                      className="flex-grow bg-[#131313] border border-white/10 px-3 py-2 text-[12px] font-montserrat text-white placeholder:text-white/20 focus:border-gold focus:outline-none uppercase disabled:opacity-50"
+                    />
+                    {appliedCoupon ? (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setAppliedCoupon(null);
+                          setCouponCode("");
+                          setCouponError("");
+                        }}
+                        className="px-4 py-2 border border-red-500/30 text-red-400 hover:bg-red-500/10 font-montserrat text-[10px] font-bold tracking-widest uppercase transition-all"
+                      >
+                        Remove
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={handleApplyCoupon}
+                        disabled={validatingCoupon || !couponCode.trim()}
+                        className="px-5 py-2 bg-gold hover:bg-[#C5A028] disabled:opacity-50 text-[#131313] font-montserrat text-[10px] font-bold tracking-widest uppercase transition-all"
+                      >
+                        {validatingCoupon ? "Checking..." : "Apply"}
+                      </button>
+                    )}
+                  </div>
+
+                  {couponError && (
+                    <p className="text-[11px] font-montserrat text-red-400 font-medium">
+                      {couponError}
+                    </p>
+                  )}
+
+                  {appliedCoupon && (
+                    <div className="flex justify-between items-center text-[11px] font-montserrat text-green-400 font-semibold bg-green-500/5 border border-green-500/15 p-2">
+                      <span>Code "{appliedCoupon.code}" Applied</span>
+                      <span>{appliedCoupon.discountPercent}% OFF</span>
+                    </div>
+                  )}
+                </div>
+
                 <div className="border-t border-white/10 pt-4 space-y-2 font-montserrat text-[12px]">
                   <div className="flex justify-between text-white/60">
                     <span className="uppercase">Subtotal</span>
                     <span>₹ {cartTotal.toLocaleString()}</span>
                   </div>
+                  {appliedCoupon && (
+                    <div className="flex justify-between text-green-400 font-medium">
+                      <span className="uppercase">Discount ({appliedCoupon.discountPercent}%)</span>
+                      <span>- ₹ {appliedCoupon.discountAmountInRupees.toLocaleString()}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between text-white/40">
                     <span className="uppercase">Shipping</span>
                     <span className="text-gold font-medium uppercase text-[10px]">Complimentary</span>
@@ -704,7 +808,7 @@ export default function Checkout() {
                   <div className="flex justify-between text-white font-bold items-baseline">
                     <span className="font-playfair text-[14px] uppercase tracking-wider">Estimated Total</span>
                     <span className="text-[16px] text-gold font-semibold">
-                      ₹ {cartTotal.toLocaleString()}
+                      ₹ {(cartTotal - (appliedCoupon ? appliedCoupon.discountAmountInRupees : 0)).toLocaleString()}
                     </span>
                   </div>
                 </div>
