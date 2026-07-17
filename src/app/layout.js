@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 
 const playfair = Playfair_Display({
@@ -40,6 +41,7 @@ export default async function RootLayout({ children }) {
       <body className="min-h-full bg-luxury-bg text-foreground font-sans flex flex-col hide-scrollbar">
         <CartProvider>{children}</CartProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
