@@ -20,9 +20,17 @@ const loginSchema = z.object({
   password: z.string().min(1).max(200),
 });
 
+import { checkRateLimit } from "@/lib/ratelimit";
+
 // POST /api/admin/login  — verify credentials, set signed httpOnly session cookie
 export async function POST(req: NextRequest) {
   try {
+    // Check rate limit: 5 attempts per 15 minutes
+    const limitRes = await checkRateLimit(req, "admin-login", { requests: 5, duration: "15 m" });
+    if (!limitRes.success) {
+      return errorResponse("Too many requests, please try again in a moment", 429, "RATE_LIMIT_EXCEEDED");
+    }
+
     const body = await req.json().catch(() => null);
     const { username, password } = loginSchema.parse(body);
 

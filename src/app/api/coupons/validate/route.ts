@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { successResponse, handleError, AppError } from "@/lib/errors";
 import { z } from "zod";
+import { checkRateLimit } from "@/lib/ratelimit";
 
 const ValidateCouponSchema = z.object({
   code: z.string().min(1).transform(val => val.trim().toUpperCase()),
@@ -11,6 +12,12 @@ const ValidateCouponSchema = z.object({
 
 export async function POST(req: NextRequest) {
   try {
+    // Check rate limit: 10 requests per minute (60 seconds)
+    const limitRes = await checkRateLimit(req, "coupons-validate", { requests: 10, duration: "60 s" });
+    if (!limitRes.success) {
+      throw new AppError("Too many requests, please try again in a moment", 429);
+    }
+
     const body = await req.json();
     const { code, cartSubtotal, email } = ValidateCouponSchema.parse(body);
 

@@ -64,8 +64,16 @@ const CreateOrderPayloadSchema = z.object({
   couponCode:   z.string().nullable().optional(),
 });
 
+import { checkRateLimit } from "@/lib/ratelimit";
+
 export async function POST(req: NextRequest) {
   try {
+    // Check rate limit: 5 requests per minute (60 seconds)
+    const limitRes = await checkRateLimit(req, "payments-create-order", { requests: 5, duration: "60 s" });
+    if (!limitRes.success) {
+      throw new AppError("Too many requests, please try again in a moment", 429);
+    }
+
     const body = await req.json();
     const { shippingForm, items, couponCode } = CreateOrderPayloadSchema.parse(body);
 
