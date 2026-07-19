@@ -185,7 +185,7 @@ export default function Navbar({ admin = false }) {
                         }`}>
                           {col.name}
                         </span>
-                        <span className="font-montserrat text-[10px] text-white/40 font-light leading-snug">
+                        <span className="font-montserrat text-[10px] text-white/60 font-light leading-snug">
                           {col.description}
                         </span>
                       </Link>
@@ -199,12 +199,12 @@ export default function Navbar({ admin = false }) {
                   onClick={() => setCollectionsOpen(false)}
                   className="group flex items-center justify-between px-5 py-3 border-t border-white/5 hover:bg-[#1F1F1F] transition-colors"
                 >
-                  <span className="font-montserrat text-[10px] text-white/40 uppercase tracking-widest">
+                  <span className="font-montserrat text-[10px] text-white/60 uppercase tracking-widest">
                     Browse all pieces
                   </span>
                   <SymbolIcon
                     name="arrow_forward"
-                    className="size-3 text-white/30 group-hover:text-gold group-hover:translate-x-0.5 transition-all"
+                    className="size-3 text-white/50 group-hover:text-gold group-hover:translate-x-0.5 transition-all"
                   />
                 </Link>
               </div>
@@ -268,7 +268,7 @@ export default function Navbar({ admin = false }) {
                         }`}>
                           {res.name}
                         </span>
-                        <span className="font-montserrat text-[10px] text-white/40 font-light leading-snug">
+                        <span className="font-montserrat text-[10px] text-white/60 font-light leading-snug">
                           {res.description}
                         </span>
                       </Link>
@@ -342,7 +342,7 @@ export default function Navbar({ admin = false }) {
             <button
               type="button"
               onClick={handleAdminLogout}
-              className="font-montserrat text-[10px] text-white/50 hover:text-gold uppercase tracking-widest flex items-center gap-1.5 transition-colors cursor-pointer"
+              className="font-montserrat text-[10px] text-white/65 hover:text-gold uppercase tracking-widest flex items-center gap-1.5 transition-colors cursor-pointer"
             >
               <SymbolIcon name="lock" className="size-4" />
               Sign out
@@ -432,7 +432,7 @@ export default function Navbar({ admin = false }) {
                         <p className={`font-montserrat text-[13px] font-semibold tracking-wider uppercase ${active ? "text-gold" : "text-white/70"}`}>
                           {col.name}
                         </p>
-                        <p className="font-montserrat text-[11px] text-white/35 mt-0.5 font-light">
+                        <p className="font-montserrat text-[11px] text-white/60 mt-0.5 font-light">
                           {col.description}
                         </p>
                       </div>
@@ -480,7 +480,7 @@ export default function Navbar({ admin = false }) {
                         <p className={`font-montserrat text-[13px] font-semibold tracking-wider uppercase ${active ? "text-gold" : "text-white/70"}`}>
                           {res.name}
                         </p>
-                        <p className="font-montserrat text-[11px] text-white/35 mt-0.5 font-light">
+                        <p className="font-montserrat text-[11px] text-white/60 mt-0.5 font-light">
                           {res.description}
                         </p>
                       </div>
@@ -533,7 +533,7 @@ export default function Navbar({ admin = false }) {
           )}
 
           {/* Footer */}
-          <div className="mt-8 text-center text-white/30 text-[10px] tracking-widest uppercase">
+          <div className="mt-8 text-center text-white/60 text-[10px] tracking-widest uppercase">
             © 2026 PEHNAWA HOUSE OF COUTURE
           </div>
         </div>

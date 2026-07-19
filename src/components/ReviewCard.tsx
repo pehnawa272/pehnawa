@@ -37,7 +37,7 @@ export default function ReviewCard({
             {customerName}
           </p>
           {productName && (
-            <p className="font-montserrat text-[11px] text-white/40 mt-0.5">
+            <p className="font-montserrat text-[11px] text-white/60 mt-0.5">
               {productName}
             </p>
           )}
@@ -91,7 +91,7 @@ export default function ReviewCard({
             </span>
           )}
         </div>
-        <span className="font-montserrat text-[10px] text-white/30">
+        <span className="font-montserrat text-[10px] text-white/60">
           {dateStr}
         </span>
       </div>

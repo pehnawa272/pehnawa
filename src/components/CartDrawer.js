@@ -76,7 +76,7 @@ export default function CartDrawer() {
                   <h3 className="font-playfair text-[18px] text-white tracking-widest uppercase mb-2">
                     Your bag is empty
                   </h3>
-                  <p className="font-montserrat text-[12px] text-white/50 max-w-[250px] leading-relaxed">
+                  <p className="font-montserrat text-[12px] text-white/60 max-w-[250px] leading-relaxed">
                     Allow us to curate your wardrobe. Begin exploring our unique designs.
                   </p>
                 </div>
@@ -120,7 +120,7 @@ export default function CartDrawer() {
                           Size: {item.size}
                         </span>
                         {item.colour && (
-                          <span className="inline-block font-montserrat text-[11px] uppercase tracking-wider text-white/50 font-medium">
+                          <span className="inline-block font-montserrat text-[11px] uppercase tracking-wider text-white/60 font-medium">
                             Colour: {item.colour}
                           </span>
                         )}
@@ -129,7 +129,7 @@ export default function CartDrawer() {
                         type="button"
                         onClick={() => removeFromCart(item.key)}
                         aria-label={`Remove ${item.title} from cart`}
-                        className="text-white/40 hover:text-gold transition-colors"
+                        className="text-white/60 hover:text-gold transition-colors"
                       >
                         <SymbolIcon name="delete" className="size-4.5" />
                       </button>
@@ -138,7 +138,7 @@ export default function CartDrawer() {
                     {/* Custom Tailoring Display */}
                     {item.customTailoring && (
                       <div className="mt-2 p-2 bg-white/5 border border-white/5 space-y-1">
-                        <span className="block text-[10px] font-montserrat tracking-wider text-white/40 uppercase font-semibold">
+                        <span className="block text-[10px] font-montserrat tracking-wider text-white/60 uppercase font-semibold">
                           Custom Tailoring Specs:
                         </span>
 
@@ -205,7 +205,7 @@ export default function CartDrawer() {
                   <span className="font-montserrat text-[12px] tracking-wider uppercase">Subtotal</span>
                   <span className="font-montserrat text-[13px] font-medium">₹ {cartTotal.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between text-white/40">
+                <div className="flex justify-between text-white/60">
                   <span className="font-montserrat text-[11px] tracking-wider uppercase">Custom Tailoring</span>
                   <span className="font-montserrat text-[11px] uppercase text-gold font-medium">Complimentary</span>
                 </div>
@@ -231,7 +231,7 @@ export default function CartDrawer() {
                 </Link>
                 <div className="flex items-center justify-center gap-2">
                   <SymbolIcon name="verified" className="size-3.5 text-gold/60" />
-                  <p className="text-[10px] font-montserrat text-white/40 text-center">
+                  <p className="text-[10px] font-montserrat text-white/60 text-center">
                     Complimentary delivery · Free bespoke tailoring · Secure payment
                   </p>
                 </div>

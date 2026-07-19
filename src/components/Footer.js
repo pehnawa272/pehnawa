@@ -8,7 +8,7 @@ export default function Footer() {
       {/* Brand Signature */}
       <h2 className="font-playfair text-[32px] md:text-[40px] text-gold mb-8 tracking-widest select-none leading-[1.1] flex flex-col items-center">
         <span>PEHNAWA</span>
-        <span className="block font-montserrat text-[11px] md:text-[12px] tracking-[0.3em] font-light text-white/50 mt-2 uppercase">
+        <span className="block font-montserrat text-[11px] md:text-[12px] tracking-[0.3em] font-light text-white/60 mt-2 uppercase">
           by Laxshmi
         </span>
       </h2>
@@ -17,31 +17,31 @@ export default function Footer() {
       <div className="flex flex-wrap justify-center gap-x-6 sm:gap-x-12 gap-y-3 mb-12">
         <Link
           href="/about"
-          className="font-montserrat text-[13px] text-white/50 hover:text-gold transition-colors tracking-widest uppercase"
+          className="font-montserrat text-[13px] text-white/60 hover:text-gold transition-colors tracking-widest uppercase"
         >
           About Us
         </Link>
         <Link
           href="/craftsmanship"
-          className="font-montserrat text-[13px] text-white/50 hover:text-gold transition-colors tracking-widest uppercase"
+          className="font-montserrat text-[13px] text-white/60 hover:text-gold transition-colors tracking-widest uppercase"
         >
           Craftsmanship
         </Link>
         <Link
           href="/privacy-policy"
-          className="font-montserrat text-[13px] text-white/50 hover:text-gold transition-colors tracking-widest uppercase"
+          className="font-montserrat text-[13px] text-white/60 hover:text-gold transition-colors tracking-widest uppercase"
         >
           Privacy Policy
         </Link>
         <Link
           href="/return-policy"
-          className="font-montserrat text-[13px] text-white/50 hover:text-gold transition-colors tracking-widest uppercase"
+          className="font-montserrat text-[13px] text-white/60 hover:text-gold transition-colors tracking-widest uppercase"
         >
           Return Policy
         </Link>
         <a
           href="tel:+917309336575"
-          className="font-montserrat text-[13px] text-white/50 hover:text-gold transition-colors tracking-widest uppercase"
+          className="font-montserrat text-[13px] text-white/60 hover:text-gold transition-colors tracking-widest uppercase"
         >
           Contact Us
         </a>
@@ -49,7 +49,7 @@ export default function Footer() {
 
       {/* Contact Info Details */}
       <div className="flex flex-col items-center gap-2 mb-10">
-        <span className="font-montserrat text-[10px] text-white/30 tracking-[0.25em] uppercase font-semibold">Inquiries & Appointments</span>
+        <span className="font-montserrat text-[10px] text-white/60 tracking-[0.25em] uppercase font-semibold">Inquiries & Appointments</span>
         <a 
           href="tel:+917309336575" 
           className="font-montserrat text-[15px] text-white hover:text-gold transition-colors tracking-widest font-medium"
@@ -60,19 +60,19 @@ export default function Footer() {
 
       {/* Social Indicators */}
       <div className="flex gap-2 mb-12">
-        <button type="button" aria-label="Website" className="p-3 text-white/40 hover:text-gold transition-colors">
+        <button type="button" aria-label="Website" className="p-3 text-white/60 hover:text-gold transition-colors">
           <SymbolIcon name="public" className="size-5" />
         </button>
-        <button type="button" aria-label="Instagram" className="p-3 text-white/40 hover:text-gold transition-colors">
+        <button type="button" aria-label="Instagram" className="p-3 text-white/60 hover:text-gold transition-colors">
           <SymbolIcon name="photo_camera" className="size-5" />
         </button>
-        <a href="tel:+917309336575" aria-label="Call Us" className="p-3 text-white/40 hover:text-gold transition-colors">
+        <a href="tel:+917309336575" aria-label="Call Us" className="p-3 text-white/60 hover:text-gold transition-colors">
           <SymbolIcon name="phone" className="size-5" />
         </a>
       </div>
 
       {/* Brand Copyright */}
-      <p className="font-montserrat text-[12px] text-white/30 tracking-widest max-w-lg leading-relaxed">
+      <p className="font-montserrat text-[12px] text-white/60 tracking-widest max-w-lg leading-relaxed">
         © 2026 PEHNAWA BY LAXSHMI HOUSE OF COUTURE. ALL RIGHTS RESERVED.
       </p>
     </footer>
