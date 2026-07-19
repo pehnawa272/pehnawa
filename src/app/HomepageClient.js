@@ -43,10 +43,10 @@ export default function Homepage() {
               }`}>
               AUTUMN / WINTER 2026
             </p>
-            <h2 className={`font-playfair text-[32px] sm:text-[44px] md:text-[64px] font-bold text-white leading-tight tracking-wider mb-8 max-w-4xl transition-all duration-1000 delay-300 ${revealActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            <h1 className={`font-playfair text-[32px] sm:text-[44px] md:text-[64px] font-bold text-white leading-tight tracking-wider mb-8 max-w-4xl transition-all duration-1000 delay-300 ${revealActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               }`}>
               The Heritage of Modernity
-            </h2>
+            </h1>
             <div
               className="flex flex-col items-center gap-4"
               style={{
@@ -62,7 +62,7 @@ export default function Homepage() {
                 SHOP THE COLLECTION
                 <SymbolIcon name="arrow_forward" className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
-              <p className="font-montserrat text-[10px] tracking-[0.2em] text-white/40 uppercase">
+              <p className="font-montserrat text-[10px] tracking-[0.2em] text-white/60 uppercase">
                 Free global delivery · Bespoke tailoring on every order
               </p>
             </div>
@@ -74,7 +74,7 @@ export default function Homepage() {
           <div className="max-w-2xl mx-auto space-y-6 animate-fade-in-up">
             <span className="font-montserrat text-[11px] tracking-[0.3em] text-gold uppercase block">THE PHILOSOPHY</span>
             <p className="font-playfair text-[22px] md:text-[30px] font-medium text-white/90 leading-snug tracking-wide italic">
-              "We do not just dress bodies. We drape stories."
+              &quot;We do not just dress bodies. We drape stories.&quot;
             </p>
             <div className="flex justify-center">
               <div className="h-[1px] w-16 bg-gold/30"></div>
@@ -114,7 +114,7 @@ export default function Homepage() {
                 <div className="absolute inset-0 bg-black/35 group-hover:bg-black/10 transition-colors duration-500"></div>
               </div>
               <div className="text-center group-hover:transform group-hover:translate-y-[-4px] transition-transform duration-300">
-                <h4 className="font-playfair text-[20px] md:text-[24px] font-medium text-white mb-2">Professional Ethnic</h4>
+                <h3 className="font-playfair text-[20px] md:text-[24px] font-medium text-white mb-2">Professional Ethnic</h3>
                 <p className="font-montserrat text-[11px] text-white/50 tracking-[0.2em] uppercase">Casual Elegance</p>
               </div>
             </Link>
@@ -132,7 +132,7 @@ export default function Homepage() {
                 <div className="absolute inset-0 bg-black/35 group-hover:bg-black/10 transition-colors duration-500"></div>
               </div>
               <div className="text-center group-hover:transform group-hover:translate-y-[-4px] transition-transform duration-300">
-                <h4 className="font-playfair text-[20px] md:text-[24px] font-medium text-white mb-2">Signature Edit</h4>
+                <h3 className="font-playfair text-[20px] md:text-[24px] font-medium text-white mb-2">Signature Edit</h3>
                 <p className="font-montserrat text-[11px] text-white/50 tracking-[0.2em] uppercase">The Statement</p>
               </div>
             </Link>
@@ -150,7 +150,7 @@ export default function Homepage() {
                 <div className="absolute inset-0 bg-black/35 group-hover:bg-black/10 transition-colors duration-500"></div>
               </div>
               <div className="text-center group-hover:transform group-hover:translate-y-[-4px] transition-transform duration-300">
-                <h4 className="font-playfair text-[20px] md:text-[24px] font-medium text-white mb-2">Golden Era</h4>
+                <h3 className="font-playfair text-[20px] md:text-[24px] font-medium text-white mb-2">Golden Era</h3>
                 <p className="font-montserrat text-[11px] text-white/50 tracking-[0.2em] uppercase">Timeless Elegance</p>
               </div>
             </Link>
@@ -168,7 +168,7 @@ export default function Homepage() {
                 <div className="absolute inset-0 bg-black/35 group-hover:bg-black/10 transition-colors duration-500"></div>
               </div>
               <div className="text-center group-hover:transform group-hover:translate-y-[-4px] transition-transform duration-300">
-                <h4 className="font-playfair text-[20px] md:text-[24px] font-medium text-white mb-2">Others</h4>
+                <h3 className="font-playfair text-[20px] md:text-[24px] font-medium text-white mb-2">Others</h3>
                 <p className="font-montserrat text-[11px] text-white/50 tracking-[0.2em] uppercase">Beyond Categories</p>
               </div>
             </Link>

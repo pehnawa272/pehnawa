@@ -182,9 +182,9 @@ export default function ProductDetail({ initialProduct, reviewStats = { avgRatin
 
               {/* Title & Info */}
               <div className="space-y-3">
-                <h2 className="font-playfair text-[28px] md:text-[36px] font-medium text-white leading-tight">
+                <h1 className="font-playfair text-[28px] md:text-[36px] font-medium text-white leading-tight">
                   {product.title}
-                </h2>
+                </h1>
                 <p className="font-montserrat text-[12px] text-white/50 tracking-wider">
                   {product.subTitle}
                 </p>
@@ -199,7 +199,7 @@ export default function ProductDetail({ initialProduct, reviewStats = { avgRatin
                     <span className="font-montserrat text-[13px] text-gold font-medium">
                       {reviewStats.avgRating}
                     </span>
-                    <span className="font-montserrat text-[11px] text-white/40">
+                    <span className="font-montserrat text-[11px] text-white/60">
                       ({reviewStats.count} review{reviewStats.count !== 1 ? "s" : ""})
                     </span>
                   </div>
@@ -243,7 +243,7 @@ export default function ProductDetail({ initialProduct, reviewStats = { avgRatin
                 </div>
                 {product.price && product.mrp && product.mrp > product.price && (
                   <div className="flex items-center gap-2 mt-1">
-                    <span className="font-montserrat text-[14px] text-white/40 line-through">
+                    <span className="font-montserrat text-[14px] text-white/60 line-through">
                       MRP: ₹{product.mrp.toLocaleString()}
                     </span>
                     <span className="font-montserrat text-[11px] text-emerald-500 font-semibold tracking-wider">
@@ -251,7 +251,7 @@ export default function ProductDetail({ initialProduct, reviewStats = { avgRatin
                     </span>
                   </div>
                 )}
-                <p className="font-montserrat text-[10px] text-white/40 mt-1.5">
+                <p className="font-montserrat text-[10px] text-white/60 mt-1.5">
                   Inclusive of all taxes & global luxury logistics.
                 </p>
               </div>
@@ -320,13 +320,13 @@ export default function ProductDetail({ initialProduct, reviewStats = { avgRatin
                     onChange={(e) => setCustomTailoringEnabled(e.target.checked)}
                     className="form-checkbox w-4 h-4 bg-transparent border-white/20 text-gold rounded-none focus:ring-0 focus:ring-offset-0 cursor-pointer"
                   />
-                  <h4 className="font-montserrat text-[12px] font-bold text-white tracking-widest uppercase flex items-center gap-2">
+                  <h2 className="font-montserrat text-[12px] font-bold text-white tracking-widest uppercase flex items-center gap-2">
                     <SymbolIcon name="straighten" className="size-4 text-gold" />
                     ENABLE BESPOKE TAILORING
-                  </h4>
+                  </h2>
                 </label>
                 
-                <p className="font-montserrat text-[11px] text-white/50 leading-relaxed font-light">
+                <p className="font-montserrat text-[11px] text-white/60 leading-relaxed font-light">
                   Experience a private tailored fit. Enter your specifications below. Sizing consultation is complimentary.
                 </p>
 
@@ -336,7 +336,7 @@ export default function ProductDetail({ initialProduct, reviewStats = { avgRatin
 
                     {/* Sleeve Length Selection */}
                     <div className="space-y-2">
-                      <label htmlFor="product-sleeve" className="block text-[11px] font-montserrat text-white/50 tracking-wider uppercase font-semibold">
+                      <label htmlFor="product-sleeve" className="block text-[11px] font-montserrat text-white/60 tracking-wider uppercase font-semibold">
                         Sleeve Length
                       </label>
                       <select
@@ -354,12 +354,12 @@ export default function ProductDetail({ initialProduct, reviewStats = { avgRatin
 
                     {/* Personal Body Measurements */}
                     <div className="space-y-4">
-                      <span className="block text-[11px] font-montserrat text-white/50 tracking-wider uppercase font-semibold">
+                      <span className="block text-[11px] font-montserrat text-white/60 tracking-wider uppercase font-semibold">
                         Body Measurements (Optional - Inches)
                       </span>
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                         <div>
-                          <label htmlFor="product-bust" className="block text-[11px] font-montserrat text-white/40 uppercase mb-1">
+                          <label htmlFor="product-bust" className="block text-[11px] font-montserrat text-white/60 uppercase mb-1">
                             Bust
                           </label>
                           <input
@@ -373,7 +373,7 @@ export default function ProductDetail({ initialProduct, reviewStats = { avgRatin
                           />
                         </div>
                         <div>
-                          <label htmlFor="product-waist" className="block text-[11px] font-montserrat text-white/40 uppercase mb-1">
+                          <label htmlFor="product-waist" className="block text-[11px] font-montserrat text-white/60 uppercase mb-1">
                             Waist
                           </label>
                           <input
@@ -387,7 +387,7 @@ export default function ProductDetail({ initialProduct, reviewStats = { avgRatin
                           />
                         </div>
                         <div>
-                          <label htmlFor="product-height" className="block text-[11px] font-montserrat text-white/40 uppercase mb-1">
+                          <label htmlFor="product-height" className="block text-[11px] font-montserrat text-white/60 uppercase mb-1">
                             Height
                           </label>
                           <input
@@ -463,9 +463,9 @@ export default function ProductDetail({ initialProduct, reviewStats = { avgRatin
         {/* Detailed Storytelling Section */}
         <section className="py-16 md:py-32 px-6 md:px-16 bg-[#0e0e0e] border-b border-white/5 relative">
           <div className="max-w-4xl mx-auto space-y-16">
-            <h3 className="font-playfair text-[26px] md:text-[36px] font-medium text-white tracking-wide text-center">
+            <h2 className="font-playfair text-[26px] md:text-[36px] font-medium text-white tracking-wide text-center">
               The Soul of the Craft
-            </h3>
+            </h2>
             
             <div className="flex flex-col md:flex-row gap-16 items-center">
               <div className="w-full md:w-1/2 space-y-6 text-left">
@@ -476,9 +476,9 @@ export default function ProductDetail({ initialProduct, reviewStats = { avgRatin
                   <div className="flex items-start gap-4">
                     <SymbolIcon name="diamond" className="size-5 text-gold mt-0.5" />
                     <div>
-                      <h5 className="font-montserrat text-[13px] font-bold text-white tracking-wider uppercase">
+                      <h3 className="font-montserrat text-[13px] font-bold text-white tracking-wider uppercase">
                         Zari Embroidery
-                      </h5>
+                      </h3>
                       <p className="font-montserrat text-[11px] text-white/50 leading-relaxed font-light">
                         Real gold-dipped silver threads woven with absolute handcrafting precision.
                       </p>
@@ -487,9 +487,9 @@ export default function ProductDetail({ initialProduct, reviewStats = { avgRatin
                   <div className="flex items-start gap-4">
                     <SymbolIcon name="eco" className="size-5 text-gold mt-0.5" />
                     <div>
-                      <h5 className="font-montserrat text-[13px] font-bold text-white tracking-wider uppercase">
+                      <h3 className="font-montserrat text-[13px] font-bold text-white tracking-wider uppercase">
                         Organic Materials
-                      </h5>
+                      </h3>
                       <p className="font-montserrat text-[11px] text-white/50 leading-relaxed font-light">
                         Ethically sourced high-grade {product.fabric || "fabrics"} matching quiet luxury.
                       </p>
