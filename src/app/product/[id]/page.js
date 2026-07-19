@@ -1,6 +1,7 @@
 import ProductDetailClient from "./ProductDetailClient";
 import { DB } from "@/lib/db";
 import { ProductService } from "@/services/product.service";
+import { prisma } from "@/lib/prisma";
 
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
@@ -105,5 +106,27 @@ export default async function ProductDetailPage({ params }) {
     }
   }
 
-  return <ProductDetailClient initialProduct={product} />;
+  // Fetch approved review stats for this product
+  let reviewStats = { avgRating: 0, count: 0 };
+  try {
+    if (product?.dbId || product?.id) {
+      const productDbId = product.dbId || product.id;
+      const reviews = await prisma.review.findMany({
+        where: { productId: productDbId, isApproved: true },
+        select: { rating: true },
+      });
+      if (reviews.length > 0) {
+        const sum = reviews.reduce((acc, r) => acc + r.rating, 0);
+        reviewStats = {
+          avgRating: Math.round((sum / reviews.length) * 10) / 10,
+          count: reviews.length,
+        };
+      }
+    }
+  } catch {
+    // If review query fails (e.g. no DB), leave stats at 0
+  }
+
+  return <ProductDetailClient initialProduct={product} reviewStats={reviewStats} />;
 }
+

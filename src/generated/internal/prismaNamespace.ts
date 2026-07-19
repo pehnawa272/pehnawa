@@ -406,7 +406,9 @@ export const ModelName = {
   ReferralRecord: 'ReferralRecord',
   ConsultationRequest: 'ConsultationRequest',
   PendingOrder: 'PendingOrder',
-  Coupon: 'Coupon'
+  Coupon: 'Coupon',
+  Blog: 'Blog',
+  Review: 'Review'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -422,7 +424,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "address" | "occasion" | "product" | "productOccasion" | "productAccessory" | "productImage" | "productVideo" | "measurementProfile" | "wishlist" | "wishlistItem" | "cart" | "cartItem" | "order" | "orderItem" | "payment" | "wallet" | "walletTransaction" | "referralCode" | "referralRecord" | "consultationRequest" | "pendingOrder" | "coupon"
+    modelProps: "user" | "address" | "occasion" | "product" | "productOccasion" | "productAccessory" | "productImage" | "productVideo" | "measurementProfile" | "wishlist" | "wishlistItem" | "cart" | "cartItem" | "order" | "orderItem" | "payment" | "wallet" | "walletTransaction" | "referralCode" | "referralRecord" | "consultationRequest" | "pendingOrder" | "coupon" | "blog" | "review"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2128,6 +2130,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Blog: {
+      payload: Prisma.$BlogPayload<ExtArgs>
+      fields: Prisma.BlogFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BlogFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BlogFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload>
+        }
+        findFirst: {
+          args: Prisma.BlogFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BlogFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload>
+        }
+        findMany: {
+          args: Prisma.BlogFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload>[]
+        }
+        create: {
+          args: Prisma.BlogCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload>
+        }
+        createMany: {
+          args: Prisma.BlogCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BlogCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload>[]
+        }
+        delete: {
+          args: Prisma.BlogDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload>
+        }
+        update: {
+          args: Prisma.BlogUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload>
+        }
+        deleteMany: {
+          args: Prisma.BlogDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BlogUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BlogUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload>[]
+        }
+        upsert: {
+          args: Prisma.BlogUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BlogPayload>
+        }
+        aggregate: {
+          args: Prisma.BlogAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBlog>
+        }
+        groupBy: {
+          args: Prisma.BlogGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BlogGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BlogCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BlogCountAggregateOutputType> | number
+        }
+      }
+    }
+    Review: {
+      payload: Prisma.$ReviewPayload<ExtArgs>
+      fields: Prisma.ReviewFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ReviewFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ReviewFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewPayload>
+        }
+        findFirst: {
+          args: Prisma.ReviewFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ReviewFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewPayload>
+        }
+        findMany: {
+          args: Prisma.ReviewFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewPayload>[]
+        }
+        create: {
+          args: Prisma.ReviewCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewPayload>
+        }
+        createMany: {
+          args: Prisma.ReviewCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ReviewCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewPayload>[]
+        }
+        delete: {
+          args: Prisma.ReviewDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewPayload>
+        }
+        update: {
+          args: Prisma.ReviewUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewPayload>
+        }
+        deleteMany: {
+          args: Prisma.ReviewDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ReviewUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ReviewUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewPayload>[]
+        }
+        upsert: {
+          args: Prisma.ReviewUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ReviewPayload>
+        }
+        aggregate: {
+          args: Prisma.ReviewAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateReview>
+        }
+        groupBy: {
+          args: Prisma.ReviewGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReviewGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ReviewCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ReviewCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2530,6 +2680,41 @@ export const CouponScalarFieldEnum = {
 } as const
 
 export type CouponScalarFieldEnum = (typeof CouponScalarFieldEnum)[keyof typeof CouponScalarFieldEnum]
+
+
+export const BlogScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  excerpt: 'excerpt',
+  content: 'content',
+  coverImage: 'coverImage',
+  images: 'images',
+  metaTitle: 'metaTitle',
+  metaDescription: 'metaDescription',
+  isPublished: 'isPublished',
+  publishedAt: 'publishedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BlogScalarFieldEnum = (typeof BlogScalarFieldEnum)[keyof typeof BlogScalarFieldEnum]
+
+
+export const ReviewScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  orderId: 'orderId',
+  customerName: 'customerName',
+  rating: 'rating',
+  text: 'text',
+  images: 'images',
+  isVerifiedPurchase: 'isVerifiedPurchase',
+  isApproved: 'isApproved',
+  createdAt: 'createdAt'
+} as const
+
+export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -2977,6 +3162,8 @@ export type GlobalOmitConfig = {
   consultationRequest?: Prisma.ConsultationRequestOmit
   pendingOrder?: Prisma.PendingOrderOmit
   coupon?: Prisma.CouponOmit
+  blog?: Prisma.BlogOmit
+  review?: Prisma.ReviewOmit
 }
 
 /* Types for Logging */

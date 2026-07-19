@@ -30,6 +30,20 @@ const COLLECTIONS = [
   },
 ];
 
+const RESOURCES = [
+  {
+    name: "Blog",
+    description: "Read our stories, behind the scenes, and style guides",
+    href: "/blog",
+  },
+  {
+    name: "Reviews",
+    description: "What our clients say about Pehnawa",
+    href: "/reviews",
+  },
+];
+
+
 export default function Navbar({ admin = false }) {
   const pathname = usePathname();
   const { cartCount, toggleCart } = useCart();
@@ -37,8 +51,11 @@ export default function Navbar({ admin = false }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [collectionsOpen, setCollectionsOpen] = useState(false);
   const [mobileCollectionsOpen, setMobileCollectionsOpen] = useState(false);
+  const [resourcesOpen, setResourcesOpen] = useState(false);
+  const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
   const [mounted, setMounted]         = useState(false);
   const dropdownRef = useRef(null);
+  const resourcesDropdownRef = useRef(null);
 
   const handleAdminLogout = async () => {
     await fetch("/api/admin/logout", { method: "POST", credentials: "same-origin" }).catch(() => {});
@@ -59,6 +76,9 @@ export default function Navbar({ admin = false }) {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setCollectionsOpen(false);
       }
+      if (resourcesDropdownRef.current && !resourcesDropdownRef.current.contains(e.target)) {
+        setResourcesOpen(false);
+      }
     };
     document.addEventListener("mousedown", onClickOutside);
     return () => document.removeEventListener("mousedown", onClickOutside);
@@ -68,6 +88,7 @@ export default function Navbar({ admin = false }) {
   useEffect(() => { setMobileMenuOpen(false); }, [pathname]);
 
   const isCollectionActive = COLLECTIONS.some((c) => pathname === c.href);
+  const isResourcesActive = RESOURCES.some((r) => pathname === r.href);
 
   return (
     <>
@@ -186,6 +207,74 @@ export default function Navbar({ admin = false }) {
                     className="size-3 text-white/30 group-hover:text-gold group-hover:translate-x-0.5 transition-all"
                   />
                 </Link>
+              </div>
+            </div>
+
+            {/* Resources — hover dropdown */}
+            <div
+              ref={resourcesDropdownRef}
+              className="relative"
+              onMouseEnter={() => setResourcesOpen(true)}
+              onMouseLeave={() => setResourcesOpen(false)}
+            >
+              <button
+                type="button"
+                onClick={() => setResourcesOpen((v) => !v)}
+                aria-expanded={resourcesOpen}
+                aria-haspopup="true"
+                className={`inline-flex items-center gap-1.5 font-montserrat text-[10.5px] xl:text-[11px] font-semibold uppercase tracking-[0.12em] xl:tracking-[0.15em] transition-all duration-300 px-3 py-2 whitespace-nowrap ${
+                  isResourcesActive
+                    ? "text-gold border-b border-gold"
+                    : "text-white/60 hover:text-gold"
+                }`}
+              >
+                Resources
+                <SymbolIcon
+                  name="expand_more"
+                  className={`size-3.5 transition-transform duration-300 ${resourcesOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+
+              {/* Dropdown panel */}
+              <div
+                className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[440px] bg-[#131313]/98 backdrop-blur-xl border border-white/10 shadow-[0_16px_48px_rgba(0,0,0,0.6)] transition-all duration-200 origin-top ${
+                  resourcesOpen
+                    ? "opacity-100 scale-y-100 translate-y-0 pointer-events-auto"
+                    : "opacity-0 scale-y-95 -translate-y-1 pointer-events-none"
+                }`}
+              >
+                {/* Dropdown header */}
+                <div className="px-5 pt-4 pb-3 border-b border-white/5">
+                  <span className="font-montserrat text-[10px] tracking-[0.3em] text-gold uppercase">
+                    The Resources
+                  </span>
+                </div>
+
+                {/* Resource links — 2-column grid */}
+                <div className="grid grid-cols-2 gap-px bg-white/5 p-px">
+                  {RESOURCES.map((res) => {
+                    const active = pathname === res.href;
+                    return (
+                      <Link
+                        key={res.href}
+                        href={res.href}
+                        onClick={() => setResourcesOpen(false)}
+                        className={`group flex flex-col gap-1 px-5 py-4 bg-[#131313] hover:bg-[#1F1F1F] transition-colors duration-200 ${
+                          active ? "border-l-2 border-gold" : "border-l-2 border-transparent"
+                        }`}
+                      >
+                        <span className={`font-montserrat text-[11px] font-semibold tracking-wider uppercase transition-colors ${
+                          active ? "text-gold" : "text-white/80 group-hover:text-gold"
+                        }`}>
+                          {res.name}
+                        </span>
+                        <span className="font-montserrat text-[10px] text-white/40 font-light leading-snug">
+                          {res.description}
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
             </div>
 
@@ -345,6 +434,54 @@ export default function Navbar({ admin = false }) {
                         </p>
                         <p className="font-montserrat text-[11px] text-white/35 mt-0.5 font-light">
                           {col.description}
+                        </p>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Resources — accordion on mobile */}
+            <div className="border-b border-white/5">
+              <button
+                type="button"
+                onClick={() => setMobileResourcesOpen((v) => !v)}
+                aria-expanded={mobileResourcesOpen}
+                className={`w-full flex items-center justify-between py-3.5 font-montserrat text-[15px] font-semibold tracking-[0.2em] uppercase transition-colors ${
+                  isResourcesActive ? "text-gold" : "text-white/80"
+                }`}
+              >
+                Resources
+                <SymbolIcon
+                  name="expand_more"
+                  className={`size-5 text-white/30 transition-transform duration-300 ${mobileResourcesOpen ? "rotate-180" : ""}`}
+                />
+              </button>
+
+              {/* Accordion body */}
+              <div
+                className={`overflow-hidden transition-all duration-300 ${
+                  mobileResourcesOpen ? "max-h-[400px] pb-3" : "max-h-0"
+                }`}
+              >
+                {RESOURCES.map((res) => {
+                  const active = pathname === res.href;
+                  return (
+                    <Link
+                      key={res.href}
+                      href={res.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-start gap-3 py-3 px-3 rounded-none transition-colors ${
+                        active ? "border-l-2 border-gold pl-4" : "border-l-2 border-transparent pl-4 hover:border-gold/40"
+                      }`}
+                    >
+                      <div>
+                        <p className={`font-montserrat text-[13px] font-semibold tracking-wider uppercase ${active ? "text-gold" : "text-white/70"}`}>
+                          {res.name}
+                        </p>
+                        <p className="font-montserrat text-[11px] text-white/35 mt-0.5 font-light">
+                          {res.description}
                         </p>
                       </div>
                     </Link>

@@ -73,7 +73,9 @@ export const ModelName = {
   ReferralRecord: 'ReferralRecord',
   ConsultationRequest: 'ConsultationRequest',
   PendingOrder: 'PendingOrder',
-  Coupon: 'Coupon'
+  Coupon: 'Coupon',
+  Blog: 'Blog',
+  Review: 'Review'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -455,6 +457,41 @@ export const CouponScalarFieldEnum = {
 } as const
 
 export type CouponScalarFieldEnum = (typeof CouponScalarFieldEnum)[keyof typeof CouponScalarFieldEnum]
+
+
+export const BlogScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  slug: 'slug',
+  excerpt: 'excerpt',
+  content: 'content',
+  coverImage: 'coverImage',
+  images: 'images',
+  metaTitle: 'metaTitle',
+  metaDescription: 'metaDescription',
+  isPublished: 'isPublished',
+  publishedAt: 'publishedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BlogScalarFieldEnum = (typeof BlogScalarFieldEnum)[keyof typeof BlogScalarFieldEnum]
+
+
+export const ReviewScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  orderId: 'orderId',
+  customerName: 'customerName',
+  rating: 'rating',
+  text: 'text',
+  images: 'images',
+  isVerifiedPurchase: 'isVerifiedPurchase',
+  isApproved: 'isApproved',
+  createdAt: 'createdAt'
+} as const
+
+export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
 
 
 export const SortOrder = {

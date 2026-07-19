@@ -24,6 +24,12 @@ import {
   Trash2,
   Truck,
   X,
+  Plus,
+  Edit,
+  AlertCircle,
+  Upload,
+  ExternalLink,
+  FileText,
 } from "lucide-react";
 
 const WhatsAppIcon = ({ className = "", ...props }) => (
@@ -39,6 +45,12 @@ const WhatsAppIcon = ({ className = "", ...props }) => (
 );
 
 const icons = {
+  add: Plus,
+  edit: Edit,
+  error: AlertCircle,
+  cloud_upload: Upload,
+  launch: ExternalLink,
+  article: FileText,
   arrow_forward: ArrowRight,
   calendar_month: Calendar,
   check: Check,

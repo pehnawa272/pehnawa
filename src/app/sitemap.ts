@@ -1,8 +1,9 @@
 import type { MetadataRoute } from "next";
+import { prisma } from "@/lib/prisma";
 
 const baseUrl = "https://pehnawabylaxshmi.com";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${baseUrl}/`, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
     { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.6 },
@@ -17,20 +18,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/return-policy`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.2 },
   ];
 
-  // TODO (optional, not applied here): add individual /product/[id] pages
-  // dynamically by querying Prisma for published products, e.g.:
-  //
-  // const products = await prisma.product.findMany({ where: { published: true } });
-  // const productRoutes = products.map((p) => ({
-  //   url: `${baseUrl}/product/${p.id}`,
-  //   lastModified: p.updatedAt,
-  //   changeFrequency: "weekly" as const,
-  //   priority: 0.7,
-  // }));
-  // return [...staticRoutes, ...productRoutes];
-  //
-  // Left as static-only for now since this file didn't previously exist —
-  // wire in the dynamic part once you confirm the static version works.
+  try {
+    const blogs = await prisma.blog.findMany({
+      where: {
+        isPublished: true,
+      },
+      select: {
+        slug: true,
+        updatedAt: true,
+      },
+    });
 
-  return staticRoutes;
+    const blogRoutes = blogs.map((b) => ({
+      url: `${baseUrl}/blog/${b.slug}`,
+      lastModified: b.updatedAt,
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
+    }));
+
+    return [...staticRoutes, ...blogRoutes];
+  } catch (err) {
+    console.error("Error generating dynamic sitemap routes:", err);
+    return staticRoutes;
+  }
 }
+

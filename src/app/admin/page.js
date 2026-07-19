@@ -14,6 +14,8 @@ export default function AdminDashboard() {
   const [consultations, setConsultations] = useState([]);
   const [productsCount, setProductsCount] = useState(0);
   const [couponsCount, setCouponsCount] = useState(0);
+  const [reviewsPendingCount, setReviewsPendingCount] = useState(0);
+  const [blogsCount, setBlogsCount] = useState(0);
 
   const totalRevenue = useMemo(() => {
     return orders.reduce((sum, order) => sum + (order.total || 0), 0);
@@ -76,11 +78,13 @@ export default function AdminDashboard() {
     let active = true;
 
     async function loadDashboard() {
-      const [ordersResponse, consultationsResponse, productsResponse, couponsResponse] = await Promise.all([
+      const [ordersResponse, consultationsResponse, productsResponse, couponsResponse, reviewsResponse, blogsResponse] = await Promise.all([
         fetch("/api/admin/orders?limit=1000"),
         fetch("/api/consultations?limit=200"),
         fetch("/api/admin/products?limit=1"),
         fetch("/api/admin/coupons"),
+        fetch("/api/admin/reviews?isApproved=false"),
+        fetch("/api/admin/blogs"),
       ]);
 
       if (!active) {
@@ -154,11 +158,26 @@ export default function AdminDashboard() {
 
       if (couponsResponse.ok) {
         try {
-          const coupData = await couponsResponse.json();
-          setCouponsCount(coupData.data?.items?.length || 0);
-        } catch (e) {
-          console.error("Error loading coupons count:", e);
-        }
+          const couponsData = await couponsResponse.json();
+          const couponsArray = couponsData.data?.items || [];
+          setCouponsCount(couponsArray.length);
+        } catch { /* ignore */ }
+      }
+
+      if (reviewsResponse.ok) {
+        try {
+          const reviewsData = await reviewsResponse.json();
+          const reviewsArray = reviewsData.data || [];
+          setReviewsPendingCount(reviewsArray.length);
+        } catch { /* ignore */ }
+      }
+
+      if (blogsResponse.ok) {
+        try {
+          const blogsData = await blogsResponse.json();
+          const blogsArray = blogsData.data || [];
+          setBlogsCount(blogsArray.length);
+        } catch { /* ignore */ }
       }
     }
 
@@ -203,6 +222,8 @@ export default function AdminDashboard() {
     { id: "inquiries", label: "Golden Era Inquiries", count: inquiries.length, icon: "mail" },
     { id: "products", label: "Product Catalog", count: productsCount, icon: "shopping_bag" },
     { id: "coupons", label: "Coupons & Discounts", count: couponsCount, icon: "confirmation_number" },
+    { id: "reviews", label: "Customer Reviews", count: reviewsPendingCount, icon: "rate_review" },
+    { id: "blogs", label: "Blog Journal", count: blogsCount, icon: "article" },
   ];
 
   return (
@@ -581,6 +602,76 @@ export default function AdminDashboard() {
                   <SymbolIcon name="confirmation_number" className="size-10 text-gold mb-3 mx-auto" />
                   <p className="font-playfair text-[22px] text-gold font-bold">{couponsCount}</p>
                   <p className="font-montserrat text-[11px] text-white/50 tracking-widest uppercase mt-1">Active Coupon Codes</p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* REVIEWS TAB */}
+          {activeTab === "reviews" && (
+            <div className="space-y-6 animate-fade-in-up">
+              <div className="bg-[#1F1F1F] border border-gold/30 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <h4 className="font-playfair text-[18px] text-gold font-bold">Reviews Moderation Console</h4>
+                  <p className="font-montserrat text-[12px] text-white/60">
+                    Approve, reject, or delete customer reviews. Seed manual reviews for new products.
+                  </p>
+                </div>
+                <Link
+                  href="/admin/reviews"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-gold hover:bg-[#C5A028] text-[#131313] font-montserrat text-[11px] font-bold tracking-widest uppercase transition-all whitespace-nowrap"
+                >
+                  <SymbolIcon name="launch" className="size-4" />
+                  Open Reviews Manager
+                </Link>
+              </div>
+
+              {reviewsPendingCount === 0 ? (
+                <div className="py-24 text-center border border-dashed border-white/10">
+                  <SymbolIcon name="rate_review" className="size-12 text-white/20 mb-4 mx-auto" />
+                  <p className="font-playfair text-[18px] text-white/50 tracking-wider uppercase">No reviews pending approval.</p>
+                  <p className="font-montserrat text-[12px] text-white/30 mt-2">All submitted reviews have been moderated.</p>
+                </div>
+              ) : (
+                <div className="py-12 text-center border border-white/5 bg-[#1F1F1F]">
+                  <SymbolIcon name="rate_review" className="size-10 text-gold mb-3 mx-auto" />
+                  <p className="font-playfair text-[22px] text-gold font-bold">{reviewsPendingCount}</p>
+                  <p className="font-montserrat text-[11px] text-white/50 tracking-widest uppercase mt-1">Reviews Pending Approval</p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* BLOGS TAB */}
+          {activeTab === "blogs" && (
+            <div className="space-y-6 animate-fade-in-up">
+              <div className="bg-[#1F1F1F] border border-gold/30 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div className="space-y-1">
+                  <h4 className="font-playfair text-[18px] text-gold font-bold">Blog Journal Console</h4>
+                  <p className="font-montserrat text-[12px] text-white/60">
+                    Create, edit, publish, and manage blog posts, behind-the-scenes stories, and lookbook journals.
+                  </p>
+                </div>
+                <Link
+                  href="/admin/blogs"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-gold hover:bg-[#C5A028] text-[#131313] font-montserrat text-[11px] font-bold tracking-widest uppercase transition-all whitespace-nowrap"
+                >
+                  <SymbolIcon name="launch" className="size-4" />
+                  Open Blog Editor
+                </Link>
+              </div>
+
+              {blogsCount === 0 ? (
+                <div className="py-24 text-center border border-dashed border-white/10">
+                  <SymbolIcon name="article" className="size-12 text-white/20 mb-4 mx-auto" />
+                  <p className="font-playfair text-[18px] text-white/50 tracking-wider uppercase">No blog posts created yet.</p>
+                  <p className="font-montserrat text-[12px] text-white/30 mt-2">Head to the Blog Editor to publish your first story.</p>
+                </div>
+              ) : (
+                <div className="py-12 text-center border border-white/5 bg-[#1F1F1F]">
+                  <SymbolIcon name="article" className="size-10 text-gold mb-3 mx-auto" />
+                  <p className="font-playfair text-[22px] text-gold font-bold">{blogsCount}</p>
+                  <p className="font-montserrat text-[11px] text-white/50 tracking-widest uppercase mt-1">Published Blog Posts</p>
                 </div>
               )}
             </div>

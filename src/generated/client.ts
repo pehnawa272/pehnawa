@@ -156,3 +156,13 @@ export type PendingOrder = Prisma.PendingOrderModel
  * 
  */
 export type Coupon = Prisma.CouponModel
+/**
+ * Model Blog
+ * 
+ */
+export type Blog = Prisma.BlogModel
+/**
+ * Model Review
+ * 
+ */
+export type Review = Prisma.ReviewModel

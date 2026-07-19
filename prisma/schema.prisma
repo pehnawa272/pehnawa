@@ -101,22 +101,22 @@ enum AddressType {
 // ─────────────────────────────────────────────────────────────
 
 model User {
-  id        String   @id @default(cuid())
-  clerkId   String   @unique           // Clerk's user ID — source of truth for auth
-  email     String   @unique
+  id        String  @id @default(cuid())
+  clerkId   String  @unique // Clerk's user ID — source of truth for auth
+  email     String  @unique
   phone     String?
   name      String?
   avatarUrl String?
 
-  role      UserRole @default(CUSTOMER)
+  role UserRole @default(CUSTOMER)
 
   // Local password auth (scrypt hash, format: scrypt$N$salt$hash).
   // Only set for admin/staff who log in via /api/admin/login.
   passwordHash String?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  deletedAt DateTime?                  // soft delete
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? // soft delete
 
   // Relations
   addresses           Address[]
@@ -126,8 +126,8 @@ model User {
   orders              Order[]
   wallet              Wallet?
   referralCode        ReferralCode?
-  referralsGiven      ReferralRecord[]     @relation("referrer")
-  referralsReceived   ReferralRecord[]     @relation("referred")
+  referralsGiven      ReferralRecord[]      @relation("referrer")
+  referralsReceived   ReferralRecord[]      @relation("referred")
   consultations       ConsultationRequest[]
 
   @@index([clerkId])
@@ -146,27 +146,27 @@ enum UserRole {
 // ─────────────────────────────────────────────────────────────
 
 model Address {
-  id         String      @id @default(cuid())
-  userId     String
-  user       User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  type       AddressType @default(SHIPPING)
-  label      String?     // e.g. "Home", "Office"
-  name       String
-  phone      String
-  line1      String
-  line2      String?
-  city       String
-  state      String
-  pincode    String
-  country    String      @default("IN")
-  isDefault  Boolean     @default(false)
+  type      AddressType @default(SHIPPING)
+  label     String? // e.g. "Home", "Office"
+  name      String
+  phone     String
+  line1     String
+  line2     String?
+  city      String
+  state     String
+  pincode   String
+  country   String      @default("IN")
+  isDefault Boolean     @default(false)
 
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  deletedAt  DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 
-  orders     Order[]
+  orders Order[]
 
   @@index([userId])
   @@index([deletedAt])
@@ -177,9 +177,9 @@ model Address {
 // ─────────────────────────────────────────────────────────────
 
 model Occasion {
-  id       String    @id @default(cuid())
-  name     String    @unique  // e.g. "Wedding", "Sangeet", "Casual"
-  slug     String    @unique
+  id       String            @id @default(cuid())
+  name     String            @unique // e.g. "Wedding", "Sangeet", "Casual"
+  slug     String            @unique
   products ProductOccasion[]
 }
 
@@ -188,45 +188,46 @@ model Occasion {
 // ─────────────────────────────────────────────────────────────
 
 model Product {
-  id          String             @id @default(cuid())
-  slug        String             @unique   // URL-friendly e.g. "noorani-anarkali"
+  id          String   @id @default(cuid())
+  slug        String   @unique // URL-friendly e.g. "noorani-anarkali"
   title       String
   subTitle    String?
   description String
   fabric      String?
   embroidery  String?
-  details     String[]           // array of bullet points
+  details     String[] // array of bullet points
 
   category    ProductCategory
   subCategory ProductSubCategory?
-  status      ProductStatus      @default(DRAFT)
+  status      ProductStatus       @default(DRAFT)
 
   // Pricing — nullable for "Enquire" (bridal)
-  price       Int?               // stored in paise (₹ × 100) for precision
-  mrp         Int?               // stored in paise (₹ × 100) for precision
-  isEnquireOnly Boolean          @default(false)
+  price         Int? // stored in paise (₹ × 100) for precision
+  mrp           Int? // stored in paise (₹ × 100) for precision
+  isEnquireOnly Boolean @default(false)
 
   // Available colour variants for this design (e.g. ["Ivory White", "Midnight Black"])
-  colours       String[]         @default([])
+  colours String[] @default([])
 
   // Metadata
-  craftingHours Int?             // e.g. 400 hours
-  isFeatured    Boolean          @default(false)
-  sortOrder     Int              @default(0)
+  craftingHours Int? // e.g. 400 hours
+  isFeatured    Boolean @default(false)
+  sortOrder     Int     @default(0)
 
-  createdAt   DateTime           @default(now())
-  updatedAt   DateTime           @updatedAt
-  deletedAt   DateTime?          // soft delete
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? // soft delete
 
   // Relations
-  images      ProductImage[]
-  videos      ProductVideo[]
-  occasions   ProductOccasion[]
-  accessories ProductAccessory[] @relation("parent")
-  bundledIn   ProductAccessory[] @relation("accessory")
-  cartItems   CartItem[]
-  orderItems  OrderItem[]
+  images        ProductImage[]
+  videos        ProductVideo[]
+  occasions     ProductOccasion[]
+  accessories   ProductAccessory[] @relation("parent")
+  bundledIn     ProductAccessory[] @relation("accessory")
+  cartItems     CartItem[]
+  orderItems    OrderItem[]
   wishlistItems WishlistItem[]
+  reviews       Review[]
 
   @@index([slug])
   @@index([status])
@@ -250,7 +251,7 @@ model ProductAccessory {
   id          String  @id @default(cuid())
   parentId    String
   accessoryId String
-  parent      Product @relation("parent",    fields: [parentId],    references: [id], onDelete: Cascade)
+  parent      Product @relation("parent", fields: [parentId], references: [id], onDelete: Cascade)
   accessory   Product @relation("accessory", fields: [accessoryId], references: [id], onDelete: Cascade)
 
   @@unique([parentId, accessoryId])
@@ -258,15 +259,15 @@ model ProductAccessory {
 }
 
 model ProductImage {
-  id        String   @id @default(cuid())
+  id        String  @id @default(cuid())
   productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
-  url           String   // Cloudinary secure URL
-  cloudinaryId  String   // Cloudinary public_id for deletion/transformation
-  alt           String?
-  sortOrder     Int      @default(0)
-  isPrimary     Boolean  @default(false)
+  url          String // Cloudinary secure URL
+  cloudinaryId String // Cloudinary public_id for deletion/transformation
+  alt          String?
+  sortOrder    Int     @default(0)
+  isPrimary    Boolean @default(false)
 
   createdAt DateTime @default(now())
 
@@ -274,9 +275,9 @@ model ProductImage {
 }
 
 model ProductVideo {
-  id        String   @id @default(cuid())
+  id        String  @id @default(cuid())
   productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   url          String
   cloudinaryId String
@@ -293,12 +294,12 @@ model ProductVideo {
 // ─────────────────────────────────────────────────────────────
 
 model MeasurementProfile {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  label     String   @default("My Measurements") // e.g. "Bridal 2025"
-  isDefault Boolean  @default(false)
+  label     String  @default("My Measurements") // e.g. "Bridal 2025"
+  isDefault Boolean @default(false)
 
   // All measurements in inches (decimal)
   bust      Decimal? @db.Decimal(5, 2)
@@ -310,8 +311,8 @@ model MeasurementProfile {
   inseam    Decimal? @db.Decimal(5, 2)
   notes     String?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
   orderItems OrderItem[] // which order items used this profile
@@ -325,14 +326,14 @@ model MeasurementProfile {
 // ─────────────────────────────────────────────────────────────
 
 model Wishlist {
-  id        String         @id @default(cuid())
-  userId    String         @unique
-  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  items     WishlistItem[]
+  items WishlistItem[]
 }
 
 model WishlistItem {
@@ -342,7 +343,7 @@ model WishlistItem {
   productId  String
   product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 
-  addedAt    DateTime @default(now())
+  addedAt DateTime @default(now())
 
   @@unique([wishlistId, productId])
   @@index([wishlistId])
@@ -353,26 +354,26 @@ model WishlistItem {
 // ─────────────────────────────────────────────────────────────
 
 model Cart {
-  id        String     @id @default(cuid())
-  userId    String     @unique
-  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  items     CartItem[]
+  items CartItem[]
 }
 
 model CartItem {
-  id        String   @id @default(cuid())
+  id        String  @id @default(cuid())
   cartId    String
-  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
   productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
-  quantity  Int      @default(1)
-  size      String?  // S, M, L, XL, or "custom"
-  colour    String?  // Selected colour variant
+  quantity Int     @default(1)
+  size     String? // S, M, L, XL, or "custom"
+  colour   String? // Selected colour variant
 
   // Custom tailoring directives (stored as JSON)
   customTailoring Json?
@@ -389,7 +390,7 @@ model CartItem {
   addedAt   DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([cartId, productId, size, colour])   // one row per product+size+colour combo
+  @@unique([cartId, productId, size, colour]) // one row per product+size+colour combo
   @@index([cartId])
 }
 
@@ -398,50 +399,51 @@ model CartItem {
 // ─────────────────────────────────────────────────────────────
 
 model Order {
-  id          String      @id @default(cuid())
-  orderNumber String      @unique  // e.g. "PEH-2025-001234" — human-readable
+  id          String @id @default(cuid())
+  orderNumber String @unique // e.g. "PEH-2025-001234" — human-readable
 
-  userId      String
-  user        User        @relation(fields: [userId], references: [id])
-  addressId   String
-  address     Address     @relation(fields: [addressId], references: [id])
+  userId    String
+  user      User    @relation(fields: [userId], references: [id])
+  addressId String
+  address   Address @relation(fields: [addressId], references: [id])
 
-  status      OrderStatus @default(NEW)
+  status OrderStatus @default(NEW)
 
   // Pricing (all in paise)
-  subtotal    Int         // sum of items
-  discount    Int         @default(0)  // wallet/coupon discount
-  shipping    Int         @default(0)
-  total       Int         // final charged amount
+  subtotal Int // sum of items
+  discount Int @default(0) // wallet/coupon discount
+  shipping Int @default(0)
+  total    Int // final charged amount
 
   // Optional gift wrapping
-  giftDraping Boolean     @default(false)
+  giftDraping Boolean @default(false)
   giftMessage String?
 
   // Tracking
-  trackingCode    String?
-  shippingCarrier String?
-  trackingUrl     String?
+  trackingCode      String?
+  shippingCarrier   String?
+  trackingUrl       String?
   estimatedDelivery DateTime?
 
   // Timestamps for lifecycle transitions
-  acceptedAt      DateTime?
-  stitchingAt     DateTime?
-  qualityCheckAt  DateTime?
-  readyAt         DateTime?
-  shippedAt       DateTime?
-  deliveredAt     DateTime?
-  cancelledAt     DateTime?
+  acceptedAt         DateTime?
+  stitchingAt        DateTime?
+  qualityCheckAt     DateTime?
+  readyAt            DateTime?
+  shippedAt          DateTime?
+  deliveredAt        DateTime?
+  cancelledAt        DateTime?
   cancellationReason String?
 
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  deletedAt   DateTime?   // soft delete (admin hide)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime? // soft delete (admin hide)
 
-  items       OrderItem[]
-  payment     Payment?
-  couponId    String?
-  coupon      Coupon?     @relation(fields: [couponId], references: [id])
+  items    OrderItem[]
+  payment  Payment?
+  reviews  Review[]
+  couponId String?
+  coupon   Coupon?     @relation(fields: [couponId], references: [id])
 
   @@index([userId])
   @@index([status])
@@ -451,22 +453,22 @@ model Order {
 }
 
 model OrderItem {
-  id        String   @id @default(cuid())
+  id        String  @id @default(cuid())
   orderId   String
-  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   productId String
-  product   Product  @relation(fields: [productId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
 
   // Snapshot at time of order (product details can change later)
   productTitle    String
   productSlug     String
   productImageUrl String?
-  unitPrice       Int      // in paise at time of purchase
-  quantity        Int      @default(1)
+  unitPrice       Int // in paise at time of purchase
+  quantity        Int     @default(1)
   size            String?
-  colour          String?  // Selected colour variant
+  colour          String? // Selected colour variant
 
-  customTailoring     Json?    // same shape as CartItem
+  customTailoring      Json? // same shape as CartItem
   measurementProfileId String?
   measurementProfile   MeasurementProfile? @relation(fields: [measurementProfileId], references: [id])
 
@@ -481,22 +483,22 @@ model OrderItem {
 // ─────────────────────────────────────────────────────────────
 
 model Payment {
-  id      String        @id @default(cuid())
-  orderId String        @unique
-  order   Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  id      String @id @default(cuid())
+  orderId String @unique
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
-  method  PaymentMethod @default(RAZORPAY)
-  status  PaymentStatus @default(PENDING)
+  method PaymentMethod @default(RAZORPAY)
+  status PaymentStatus @default(PENDING)
 
   // Razorpay identifiers
-  razorpayOrderId   String?  @unique  // order_xxxxx from Razorpay
-  razorpayPaymentId String?  @unique  // pay_xxxxx
-  razorpaySignature String?           // HMAC verification signature
+  razorpayOrderId   String? @unique // order_xxxxx from Razorpay
+  razorpayPaymentId String? @unique // pay_xxxxx
+  razorpaySignature String? // HMAC verification signature
 
   // Amounts (in paise)
   amount         Int
-  walletAmount   Int  @default(0)  // portion paid from wallet
-  razorpayAmount Int  @default(0)  // portion paid via Razorpay
+  walletAmount   Int @default(0) // portion paid from wallet
+  razorpayAmount Int @default(0) // portion paid via Razorpay
 
   // Refund tracking
   refundId     String?
@@ -519,11 +521,11 @@ model Payment {
 // ─────────────────────────────────────────────────────────────
 
 model Wallet {
-  id      String   @id @default(cuid())
-  userId  String   @unique
-  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  balance Int      @default(0)  // in paise
+  balance Int @default(0) // in paise
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -534,17 +536,17 @@ model Wallet {
 }
 
 model WalletTransaction {
-  id       String         @id @default(cuid())
+  id       String @id @default(cuid())
   walletId String
-  wallet   Wallet         @relation(fields: [walletId], references: [id], onDelete: Cascade)
+  wallet   Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
 
-  type     WalletTxType   // CREDIT | DEBIT
-  reason   WalletTxReason
-  amount   Int            // in paise (always positive)
-  balance  Int            // running balance after this transaction
+  type    WalletTxType // CREDIT | DEBIT
+  reason  WalletTxReason
+  amount  Int // in paise (always positive)
+  balance Int // running balance after this transaction
 
   description String?
-  referenceId String?  // order ID, refund ID, referral ID, etc.
+  referenceId String? // order ID, refund ID, referral ID, etc.
 
   createdAt DateTime @default(now())
 
@@ -561,15 +563,15 @@ model ReferralCode {
   userId String @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  code   String @unique  // e.g. "ASHRAYA100"
+  code String @unique // e.g. "ASHRAYA100"
 
   // Reward config (in paise)
-  referrerBonus  Int @default(10000)  // ₹100 referrer gets when referred makes first order
-  referredBonus  Int @default(5000)   // ₹50 new user gets on signup
+  referrerBonus Int @default(10000) // ₹100 referrer gets when referred makes first order
+  referredBonus Int @default(5000) // ₹50 new user gets on signup
 
-  isActive  Boolean  @default(true)
-  usesCount Int      @default(0)
-  maxUses   Int?     // null = unlimited
+  isActive  Boolean @default(true)
+  usesCount Int     @default(0)
+  maxUses   Int? // null = unlimited
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -590,16 +592,16 @@ model ReferralRecord {
   referred   User   @relation("referred", fields: [referredId], references: [id])
 
   // Reward payout status
-  referrerRewarded Boolean  @default(false)
-  referredRewarded Boolean  @default(false)
+  referrerRewarded Boolean   @default(false)
+  referredRewarded Boolean   @default(false)
   rewardedAt       DateTime?
 
   // Triggered by first completed order
-  triggerOrderId   String?
+  triggerOrderId String?
 
   createdAt DateTime @default(now())
 
-  @@unique([referralCodeId, referredId])  // one referral per user
+  @@unique([referralCodeId, referredId]) // one referral per user
   @@index([referrerId])
   @@index([referredId])
 }
@@ -609,25 +611,25 @@ model ReferralRecord {
 // ─────────────────────────────────────────────────────────────
 
 model ConsultationRequest {
-  id     String @id @default(cuid())
+  id     String  @id @default(cuid())
   userId String?
-  user   User?  @relation(fields: [userId], references: [id], onDelete: SetNull)
+  user   User?   @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   // Guest details (for unauthenticated users)
   clientName  String
   clientEmail String
   clientPhone String
 
-  type    ConsultationType   @default(VIRTUAL)
-  status  ConsultationStatus @default(NEW)
+  type   ConsultationType   @default(VIRTUAL)
+  status ConsultationStatus @default(NEW)
 
   // Scheduling
   requestedDate DateTime?
-  requestedTime String?       // e.g. "10:00 AM"
-  scheduledAt   DateTime?     // confirmed by admin
+  requestedTime String? // e.g. "10:00 AM"
+  scheduledAt   DateTime? // confirmed by admin
 
-  message      String?        // style inquiry / notes
-  adminNotes   String?        // internal notes by stylist
+  message    String? // style inquiry / notes
+  adminNotes String? // internal notes by stylist
 
   // Linked order (if consultation converted to a sale)
   convertedOrderId String?
@@ -660,15 +662,54 @@ model Coupon {
   id              String    @id @default(cuid())
   code            String    @unique
   discountPercent Int
-  minOrderValue   Int       // minimum subtotal in paise
-  maxUses         Int?      // null/0 = unlimited
+  minOrderValue   Int // minimum subtotal in paise
+  maxUses         Int? // null/0 = unlimited
   usedCount       Int       @default(0)
   expiresAt       DateTime?
   isActive        Boolean   @default(true)
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
-  orders          Order[]
+  orders Order[]
 }
 
+// ─────────────────────────────────────────────────────────────
+// BLOG
+// ─────────────────────────────────────────────────────────────
 
+model Blog {
+  id              String    @id @default(cuid())
+  title           String
+  slug            String    @unique
+  excerpt         String
+  content         String    @db.Text
+  coverImage      String
+  images          String[]
+  metaTitle       String?
+  metaDescription String?
+  isPublished     Boolean   @default(false)
+  publishedAt     DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([slug])
+  @@index([isPublished])
+}
+
+model Review {
+  id                 String   @id @default(cuid())
+  productId          String
+  product            Product  @relation(fields: [productId], references: [id])
+  orderId            String? // nullable for manual reviews
+  order              Order?   @relation(fields: [orderId], references: [id])
+  customerName       String
+  rating             Int      @default(0) // 1-5
+  text               String
+  images             String[] // Cloudinary URLs
+  isVerifiedPurchase Boolean  @default(false)
+  isApproved         Boolean  @default(false)
+  createdAt          DateTime @default(now())
+
+  @@index([productId])
+  @@index([orderId])
+}
