@@ -31,7 +31,7 @@ export default function Homepage() {
               alt="PEHNAWA BY LAXSHMI Luxury Indian Couture"
               fill
               priority
-              quality={85}
+              quality={75}
               className="object-cover object-top scale-[1.03] hover:scale-100 transition-transform duration-[4000ms] brightness-[0.75]"
               sizes="100vw"
             />
