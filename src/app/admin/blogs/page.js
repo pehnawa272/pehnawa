@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+
 import SymbolIcon from "@/components/SymbolIcon";
 import BlogForm from "@/components/admin/BlogForm";
 import AdminAuthWrapper from "@/components/admin/AdminAuthWrapper";
@@ -228,7 +228,7 @@ export default function AdminBlogsPage() {
 
       </main>
 
-      <Footer />
+
     </AdminAuthWrapper>
   );
 }

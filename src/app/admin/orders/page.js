@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+
 import SymbolIcon from "@/components/SymbolIcon";
 import Link from "next/link";
 import AdminAuthWrapper from "@/components/admin/AdminAuthWrapper";
@@ -954,7 +954,7 @@ export default function AdminOrdersPage() {
         )}
       </main>
 
-      <Footer />
+
 
       {/* Detail Panel */}
       {selected && (

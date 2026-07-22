@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from "react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+
 import SymbolIcon from "@/components/SymbolIcon";
 import ProductManagement from "@/components/admin/ProductManagement";
 import Link from "next/link";
@@ -240,68 +240,71 @@ export default function AdminDashboard() {
             <h2 className="font-playfair text-[28px] md:text-[40px] text-white font-medium">
               Atelier Management
             </h2>
-            <p className="font-montserrat text-[12px] text-white/50 font-light">
+            <p className="font-montserrat text-[12px] text-white/60 font-light">
               Review custom measurements, bespoke direct orders, styling consultations, and manage the product catalog.
             </p>
           </div>
         </div>
 
         {/* Dashboard Stat Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-          <div className="p-6 bg-[#1F1F1F]/40 border border-white/5 space-y-2">
-            <span className="font-montserrat text-[10px] text-white/44 tracking-widest uppercase font-bold block">
-              TOTAL ATELIER ORDERS
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-6">
+          <div className="p-4 sm:p-6 bg-[#1F1F1F]/40 border border-white/5 space-y-1 sm:space-y-2">
+            <span className="font-montserrat text-[9px] sm:text-[10px] text-white/60 tracking-widest uppercase font-bold block">
+              TOTAL ORDERS
             </span>
-            <span className="font-playfair text-[32px] text-gold font-bold">{orders.length}</span>
+            <span className="font-playfair text-[24px] sm:text-[32px] text-gold font-bold">{orders.length}</span>
           </div>
-          <div className="p-6 bg-[#1F1F1F]/40 border border-white/5 space-y-2">
-            <span className="font-montserrat text-[10px] text-white/44 tracking-widest uppercase font-bold block">
-              TOTAL ORDER VALUE
+          <div className="p-4 sm:p-6 bg-[#1F1F1F]/40 border border-white/5 space-y-1 sm:space-y-2">
+            <span className="font-montserrat text-[9px] sm:text-[10px] text-white/60 tracking-widest uppercase font-bold block">
+              ORDER VALUE
             </span>
-            <span className="font-playfair text-[32px] text-gold font-bold">
+            <span className="font-playfair text-[24px] sm:text-[32px] text-gold font-bold">
               ₹{totalRevenue.toLocaleString("en-IN", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
             </span>
           </div>
-          <div className="p-6 bg-[#1F1F1F]/40 border border-white/5 space-y-2">
-            <span className="font-montserrat text-[10px] text-white/44 tracking-widest uppercase font-bold block">
-              SCHEDULED CONSULTATIONS
+          <div className="p-4 sm:p-6 bg-[#1F1F1F]/40 border border-white/5 space-y-1 sm:space-y-2">
+            <span className="font-montserrat text-[9px] sm:text-[10px] text-white/60 tracking-widest uppercase font-bold block">
+              CONSULTATIONS
             </span>
-            <span className="font-playfair text-[32px] text-gold font-bold">{bookings.length}</span>
+            <span className="font-playfair text-[24px] sm:text-[32px] text-gold font-bold">{bookings.length}</span>
           </div>
-          <div className="p-6 bg-[#1F1F1F]/40 border border-white/5 space-y-2">
-            <span className="font-montserrat text-[10px] text-white/44 tracking-widest uppercase font-bold block">
-              GOLDEN ERA LEADS
+          <div className="p-4 sm:p-6 bg-[#1F1F1F]/40 border border-white/5 space-y-1 sm:space-y-2">
+            <span className="font-montserrat text-[9px] sm:text-[10px] text-white/60 tracking-widest uppercase font-bold block">
+              ERA LEADS
             </span>
-            <span className="font-playfair text-[32px] text-gold font-bold">{inquiries.length}</span>
+            <span className="font-playfair text-[24px] sm:text-[32px] text-gold font-bold">{inquiries.length}</span>
           </div>
-          <div className="p-6 bg-[#1F1F1F]/40 border border-white/5 space-y-2">
-            <span className="font-montserrat text-[10px] text-white/44 tracking-widest uppercase font-bold block">
-              TOTAL CATALOG PRODUCTS
+          <div className="p-4 sm:p-6 bg-[#1F1F1F]/40 border border-white/5 space-y-1 sm:space-y-2 col-span-2 sm:col-span-1">
+            <span className="font-montserrat text-[9px] sm:text-[10px] text-white/60 tracking-widest uppercase font-bold block">
+              PRODUCTS
             </span>
-            <span className="font-playfair text-[32px] text-gold font-bold">{productsCount}</span>
+            <span className="font-playfair text-[24px] sm:text-[32px] text-gold font-bold">{productsCount}</span>
           </div>
         </div>
 
         {/* Dynamic Tabs Navigation */}
-        <div className="flex border-b border-white/10 overflow-x-auto hide-scrollbar">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              type="button"
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2.5 px-6 py-4.5 font-montserrat text-[11px] md:text-[12px] tracking-widest uppercase font-bold transition-all border-b-2 flex-shrink-0 ${
-                activeTab === tab.id
-                  ? "border-gold text-gold bg-gold/5"
-                  : "border-transparent text-white/55 hover:text-gold hover:bg-white/2"
-              }`}
-            >
-              <SymbolIcon name={tab.icon} className="size-4.5" />
-              {tab.label}
-              <span className="ml-1 bg-white/10 text-white text-[10px] px-2 py-0.5 rounded-full font-medium">
-                {tab.count}
-              </span>
-            </button>
-          ))}
+        <div className="relative border-b border-white/10">
+          <div className="flex overflow-x-auto hide-scrollbar -mb-px">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center gap-2 px-4 sm:px-6 min-h-[44px] font-montserrat text-[10px] sm:text-[11px] md:text-[12px] tracking-widest uppercase font-bold transition-all border-b-2 flex-shrink-0 ${
+                  activeTab === tab.id
+                    ? "border-gold text-gold bg-gold/5"
+                    : "border-transparent text-white/60 hover:text-gold hover:bg-white/2"
+                }`}
+              >
+                <SymbolIcon name={tab.icon} className="size-4" />
+                <span className="hidden sm:inline">{tab.label}</span>
+                <span className="sm:hidden">{tab.id === "orders" ? "Orders" : tab.id === "bookings" ? "Bookings" : tab.id === "inquiries" ? "Inquiries" : tab.id === "products" ? "Products" : tab.id === "coupons" ? "Coupons" : tab.id === "reviews" ? "Reviews" : "Blog"}</span>
+                <span className="ml-1 bg-white/10 text-white text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 rounded-full font-medium">
+                  {tab.count}
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Tab Viewport */}
@@ -342,20 +345,20 @@ export default function AdminDashboard() {
                         <span className="text-[11px] font-montserrat text-gold bg-gold/10 px-3 py-1 font-semibold uppercase tracking-wider">
                           {order.status}
                         </span>
-                        <span className="text-[11px] font-montserrat text-white/40">
+                        <span className="text-[11px] font-montserrat text-white/60">
                           {new Date(order.timestamp).toLocaleString()}
                         </span>
                       </div>
                       
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-montserrat text-[13px] leading-relaxed">
                         <div>
-                          <span className="block text-[10px] text-white/40 tracking-wider uppercase font-semibold">Customer Dossier</span>
+                          <span className="block text-[10px] text-white/60 tracking-wider uppercase font-semibold">Customer Dossier</span>
                           <span className="text-white/80 font-medium">{order.customer.name}</span>
-                          <span className="block text-white/50">{order.customer.email}</span>
-                          <span className="block text-white/50">{order.customer.phone}</span>
+                          <span className="block text-white/60">{order.customer.email}</span>
+                          <span className="block text-white/60">{order.customer.phone}</span>
                         </div>
                         <div>
-                          <span className="block text-[10px] text-white/40 tracking-wider uppercase font-semibold">Delivery Address</span>
+                          <span className="block text-[10px] text-white/60 tracking-wider uppercase font-semibold">Delivery Address</span>
                           <span className="text-white/80 leading-snug block">{order.customer.address}</span>
                           {order.customer.giftDraping && (
                             <span className="text-[11px] text-gold font-semibold uppercase tracking-wider block mt-1">
@@ -371,16 +374,16 @@ export default function AdminDashboard() {
                             </span>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-white/60">
                               <div>
-                                <span className="text-white/40 font-medium">Method:</span> {order.payment.method} ({order.payment.status})
+                                <span className="text-white/60 font-medium">Method:</span> {order.payment.method} ({order.payment.status})
                               </div>
                               <div>
-                                <span className="text-white/40 font-medium">Razorpay Order:</span> {order.payment.razorpayOrderId}
+                                <span className="text-white/60 font-medium">Razorpay Order:</span> {order.payment.razorpayOrderId}
                               </div>
                               <div>
-                                <span className="text-white/40 font-medium">Razorpay Payment:</span> {order.payment.razorpayPaymentId}
+                                <span className="text-white/60 font-medium">Razorpay Payment:</span> {order.payment.razorpayPaymentId}
                               </div>
                               <div>
-                                <span className="text-white/40 font-medium">Paid Date:</span> {order.payment.createdAt ? new Date(order.payment.createdAt).toLocaleString() : "N/A"}
+                                <span className="text-white/60 font-medium">Paid Date:</span> {order.payment.createdAt ? new Date(order.payment.createdAt).toLocaleString() : "N/A"}
                               </div>
                             </div>
                           </div>
@@ -389,7 +392,7 @@ export default function AdminDashboard() {
 
                       {/* Items Ordered */}
                       <div className="space-y-3 pt-4 border-t border-white/5">
-                        <span className="block text-[10px] text-white/40 tracking-wider uppercase font-semibold">Items Catalog Details</span>
+                        <span className="block text-[10px] text-white/60 tracking-wider uppercase font-semibold">Items Catalog Details</span>
                         <div className="space-y-2">
                           {order.items.map((item) => (
                             <div key={`${item.id}-${item.size}-${item.colour || "std"}`} className="p-3 bg-[#131313] border border-white/5 text-[12px] font-montserrat flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -422,7 +425,7 @@ export default function AdminDashboard() {
                                   )}
                                 </div>
                               ) : (
-                                <span className="text-white/40 italic text-[11px]">Standard sizing directives</span>
+                                <span className="text-white/60 italic text-[11px]">Standard sizing directives</span>
                               )}
                             </div>
                           ))}
@@ -433,13 +436,13 @@ export default function AdminDashboard() {
                     {/* Total billing card */}
                     <div className="flex-shrink-0 self-center bg-[#131313] border border-white/5 p-6 text-center space-y-4 w-full lg:w-48">
                       <div>
-                        <span className="font-montserrat text-[10px] text-white/40 tracking-widest uppercase block">GRAND BILLING</span>
+                        <span className="font-montserrat text-[10px] text-white/60 tracking-widest uppercase block">GRAND BILLING</span>
                         <span className="font-playfair text-[22px] text-gold font-bold block">₹ {order.total.toLocaleString()}</span>
                       </div>
                       <div className="h-px bg-white/5"></div>
                       
                       <div className="space-y-2 text-left">
-                        <label className="block text-[9px] font-montserrat text-white/40 uppercase tracking-widest">
+                        <label className="block text-[9px] font-montserrat text-white/60 uppercase tracking-widest">
                           Update Status
                         </label>
                         <select
@@ -483,21 +486,21 @@ export default function AdminDashboard() {
                         <span className="text-[11px] font-montserrat text-gold bg-gold/10 px-3 py-1 font-semibold uppercase tracking-wider">
                           {booking.type} Consult
                         </span>
-                        <span className="text-[11px] font-montserrat text-white/40">
+                        <span className="text-[11px] font-montserrat text-white/60">
                           Created: {new Date(booking.timestamp).toLocaleString()}
                         </span>
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-montserrat text-[13px] leading-relaxed pt-2">
                         <div>
-                          <span className="block text-[10px] text-white/40 tracking-wider uppercase font-semibold">Client Profile</span>
+                          <span className="block text-[10px] text-white/60 tracking-wider uppercase font-semibold">Client Profile</span>
                           <span className="text-white/80 font-medium block">{booking.clientName}</span>
-                          <span className="text-white/50 block">{booking.clientEmail}</span>
-                          <span className="text-white/50 block">{booking.clientPhone}</span>
+                          <span className="text-white/60 block">{booking.clientEmail}</span>
+                          <span className="text-white/60 block">{booking.clientPhone}</span>
                         </div>
                         {booking.message && (
                           <div>
-                            <span className="block text-[10px] text-white/40 tracking-wider uppercase font-semibold">Client Directives</span>
+                            <span className="block text-[10px] text-white/60 tracking-wider uppercase font-semibold">Client Directives</span>
                             <p className="text-white/60 italic leading-snug">{booking.message}</p>
                           </div>
                         )}
@@ -505,7 +508,7 @@ export default function AdminDashboard() {
                     </div>
 
                     <div className="flex-shrink-0 self-center bg-[#131313] border border-white/5 p-6 text-center space-y-2 w-full md:w-56 flex flex-col justify-center">
-                      <span className="font-montserrat text-[10px] text-white/40 tracking-widest uppercase block">SCHEDULE DATE / TIME</span>
+                      <span className="font-montserrat text-[10px] text-white/60 tracking-widest uppercase block">SCHEDULE DATE / TIME</span>
                       <span className="font-playfair text-[18px] text-gold font-bold block">{booking.consultationDate}</span>
                       <span className="font-montserrat text-[13px] text-white block font-medium">{booking.consultationTime}</span>
                     </div>
@@ -534,27 +537,27 @@ export default function AdminDashboard() {
                         <span className="text-[11px] font-montserrat text-gold bg-gold/10 px-3 py-1 font-semibold uppercase tracking-wider">
                           Golden Era Request
                         </span>
-                        <span className="text-[11px] font-montserrat text-white/40">
+                        <span className="text-[11px] font-montserrat text-white/60">
                           {new Date(inq.timestamp).toLocaleString()}
                         </span>
                       </div>
 
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-montserrat text-[13px] leading-relaxed pt-2">
                         <div>
-                          <span className="block text-[10px] text-white/40 tracking-wider uppercase font-semibold">Golden Era Client Dossier</span>
+                          <span className="block text-[10px] text-white/60 tracking-wider uppercase font-semibold">Golden Era Client Dossier</span>
                           <span className="text-white/80 font-medium block">{inq.clientName}</span>
-                          <span className="text-white/50 block">{inq.clientEmail}</span>
-                          <span className="text-white/50 block">{inq.clientPhone}</span>
+                          <span className="text-white/60 block">{inq.clientEmail}</span>
+                          <span className="text-white/60 block">{inq.clientPhone}</span>
                         </div>
                         <div>
-                          <span className="block text-[10px] text-white/40 tracking-wider uppercase font-semibold">Inquiry Directives / Message</span>
+                          <span className="block text-[10px] text-white/60 tracking-wider uppercase font-semibold">Inquiry Directives / Message</span>
                           <p className="text-white/60 leading-snug">{inq.message || "No specific comments."}</p>
                         </div>
                       </div>
                     </div>
 
                     <div className="flex-shrink-0 self-center bg-[#131313] border border-white/5 p-6 text-center space-y-2 w-full md:w-56 flex flex-col justify-center">
-                      <span className="font-montserrat text-[10px] text-white/40 tracking-widest uppercase block">COUTURE COGNIZANCE</span>
+                      <span className="font-montserrat text-[10px] text-white/60 tracking-widest uppercase block">COUTURE COGNIZANCE</span>
                       <span className="font-playfair text-[16px] text-white font-bold block leading-snug">{inq.productTitle}</span>
                       <div className="h-px bg-white/5 my-2"></div>
                       <span className="font-montserrat text-[11px] text-gold uppercase tracking-widest font-semibold block">
@@ -595,13 +598,13 @@ export default function AdminDashboard() {
                 <div className="py-24 text-center border border-dashed border-white/10">
                   <SymbolIcon name="confirmation_number" className="size-12 text-white/20 mb-4 mx-auto" />
                   <p className="font-playfair text-[18px] text-white/50 tracking-wider uppercase">No coupon codes created yet.</p>
-                  <p className="font-montserrat text-[12px] text-white/30 mt-2">Head to the Coupon Manager to create your first code.</p>
+                  <p className="font-montserrat text-[12px] text-white/60 mt-2">Head to the Coupon Manager to create your first code.</p>
                 </div>
               ) : (
                 <div className="py-12 text-center border border-white/5 bg-[#1F1F1F]">
                   <SymbolIcon name="confirmation_number" className="size-10 text-gold mb-3 mx-auto" />
                   <p className="font-playfair text-[22px] text-gold font-bold">{couponsCount}</p>
-                  <p className="font-montserrat text-[11px] text-white/50 tracking-widest uppercase mt-1">Active Coupon Codes</p>
+                  <p className="font-montserrat text-[11px] text-white/60 tracking-widest uppercase mt-1">Active Coupon Codes</p>
                 </div>
               )}
             </div>
@@ -630,13 +633,13 @@ export default function AdminDashboard() {
                 <div className="py-24 text-center border border-dashed border-white/10">
                   <SymbolIcon name="rate_review" className="size-12 text-white/20 mb-4 mx-auto" />
                   <p className="font-playfair text-[18px] text-white/50 tracking-wider uppercase">No reviews pending approval.</p>
-                  <p className="font-montserrat text-[12px] text-white/30 mt-2">All submitted reviews have been moderated.</p>
+                  <p className="font-montserrat text-[12px] text-white/60 mt-2">All submitted reviews have been moderated.</p>
                 </div>
               ) : (
                 <div className="py-12 text-center border border-white/5 bg-[#1F1F1F]">
                   <SymbolIcon name="rate_review" className="size-10 text-gold mb-3 mx-auto" />
                   <p className="font-playfair text-[22px] text-gold font-bold">{reviewsPendingCount}</p>
-                  <p className="font-montserrat text-[11px] text-white/50 tracking-widest uppercase mt-1">Reviews Pending Approval</p>
+                  <p className="font-montserrat text-[11px] text-white/60 tracking-widest uppercase mt-1">Reviews Pending Approval</p>
                 </div>
               )}
             </div>
@@ -665,13 +668,13 @@ export default function AdminDashboard() {
                 <div className="py-24 text-center border border-dashed border-white/10">
                   <SymbolIcon name="article" className="size-12 text-white/20 mb-4 mx-auto" />
                   <p className="font-playfair text-[18px] text-white/50 tracking-wider uppercase">No blog posts created yet.</p>
-                  <p className="font-montserrat text-[12px] text-white/30 mt-2">Head to the Blog Editor to publish your first story.</p>
+                  <p className="font-montserrat text-[12px] text-white/60 mt-2">Head to the Blog Editor to publish your first story.</p>
                 </div>
               ) : (
                 <div className="py-12 text-center border border-white/5 bg-[#1F1F1F]">
                   <SymbolIcon name="article" className="size-10 text-gold mb-3 mx-auto" />
                   <p className="font-playfair text-[22px] text-gold font-bold">{blogsCount}</p>
-                  <p className="font-montserrat text-[11px] text-white/50 tracking-widest uppercase mt-1">Published Blog Posts</p>
+                  <p className="font-montserrat text-[11px] text-white/60 tracking-widest uppercase mt-1">Published Blog Posts</p>
                 </div>
               )}
             </div>
@@ -679,7 +682,7 @@ export default function AdminDashboard() {
         </div>
       </main>
 
-      <Footer />
+
     </AdminAuthWrapper>
   );
 }
