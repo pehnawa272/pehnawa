@@ -85,7 +85,7 @@ export default function EverydayEdit({ initialProducts = [] }) {
                   const el = document.getElementById("catalog-section");
                   el?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="px-10 py-4 bg-gold hover:bg-white hover:text-[#121212] text-[#121212] font-montserrat text-[12px] font-bold tracking-[0.2em] transition-all duration-300 rounded-none border border-gold"
+                className="px-10 py-4 bg-gold hover:bg-white hover:text-[#131313] text-[#131313] font-montserrat text-[12px] font-bold tracking-[0.2em] transition-all duration-300 rounded-none border border-gold"
               >
                 DISCOVER THE COLLLECTION
               </button>

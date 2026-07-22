@@ -472,7 +472,7 @@ export default function Checkout() {
                     <div className="pt-6">
                       <button
                         type="submit"
-                        className="w-full py-4.5 bg-gold hover:bg-[#C5A028] text-[#121212] font-montserrat text-[12px] font-bold tracking-[0.25em] transition-all uppercase rounded-none"
+                        className="w-full py-4.5 bg-gold hover:bg-[#C5A028] text-[#131313] font-montserrat text-[12px] font-bold tracking-[0.25em] transition-all uppercase rounded-none"
                       >
                         CONTINUE TO FITTING SUMMARY
                       </button>
@@ -554,7 +554,7 @@ export default function Checkout() {
                     <button
                       type="button"
                       onClick={handleConfirmMeasurements}
-                      className="w-full py-4.5 bg-gold hover:bg-[#C5A028] text-[#121212] font-montserrat text-[12px] font-bold tracking-[0.25em] transition-all uppercase rounded-none"
+                      className="w-full py-4.5 bg-gold hover:bg-[#C5A028] text-[#131313] font-montserrat text-[12px] font-bold tracking-[0.25em] transition-all uppercase rounded-none"
                     >
                       CONFIRM & PROCEED TO PAYMENT
                     </button>
@@ -617,7 +617,7 @@ export default function Checkout() {
                         type="button"
                         onClick={handleRazorpayPayment}
                         disabled={loading}
-                        className="w-full py-5 bg-gold hover:bg-[#C5A028] disabled:opacity-60 disabled:cursor-not-allowed text-[#121212] font-montserrat text-[13px] font-bold tracking-[0.2em] transition-all uppercase rounded-none"
+                        className="w-full py-5 bg-gold hover:bg-[#C5A028] disabled:opacity-60 disabled:cursor-not-allowed text-[#131313] font-montserrat text-[13px] font-bold tracking-[0.2em] transition-all uppercase rounded-none"
                       >
                         PROCEED TO SECURE PAYMENT
                       </button>

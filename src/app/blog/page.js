@@ -72,7 +72,7 @@ export default async function BlogListingPage() {
               {blogs.map((blog) => (
                 <article
                   key={blog.id}
-                  className="group flex flex-col bg-[#1F1F1F]/20 border border-white/5 hover:border-gold/25 transition-all duration-300 relative flex-1"
+                  className="group flex flex-col bg-[#1F1F1F]/20 border border-white/5 hover:border-gold/30 transition-all duration-300 relative flex-1"
                 >
                   {/* Link covers card but lets text highlight */}
                   <Link href={`/blog/${blog.slug}`} className="absolute inset-0 z-10" />
@@ -92,7 +92,7 @@ export default async function BlogListingPage() {
                       <div className="absolute inset-0 flex items-center justify-center text-white/20">NO COVER</div>
                     )}
                     {/* Inner gold overlay border on hover */}
-                    <div className="absolute inset-3 border border-gold/0 group-hover:border-gold/20 transition-all duration-300 pointer-events-none"></div>
+                    <div className="absolute inset-3 border border-gold/0 group-hover:border-gold/30 transition-all duration-300 pointer-events-none"></div>
                   </div>
 
                   {/* Content Container */}
@@ -116,7 +116,7 @@ export default async function BlogListingPage() {
                       </h3>
 
                       {/* Excerpt */}
-                      <p className="font-montserrat text-[13px] text-white/50 leading-relaxed font-light line-clamp-3">
+                      <p className="font-montserrat text-[13px] text-white/60 leading-relaxed font-light line-clamp-3">
                         {blog.excerpt}
                       </p>
                     </div>

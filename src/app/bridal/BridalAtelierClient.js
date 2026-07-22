@@ -341,7 +341,7 @@ export default function BridalAtelier({ initialProducts = [] }) {
                   <div className="pt-2">
                     <button
                       type="submit"
-                      className="w-full py-4 bg-gold hover:bg-[#C5A028] text-[#121212] font-montserrat text-[12px] font-bold tracking-[0.2em] transition-all uppercase rounded-none"
+                      className="w-full py-4 bg-gold hover:bg-[#C5A028] text-[#131313] font-montserrat text-[12px] font-bold tracking-[0.2em] transition-all uppercase rounded-none"
                     >
                       SUBMIT PRIVATE INQUIRY
                     </button>

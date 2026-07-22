@@ -223,7 +223,7 @@ export default function CartDrawer() {
                 <Link
                   href="/checkout"
                   onClick={toggleCart}
-                  className="btn-shimmer btn-pulse-glow group w-full flex items-center justify-center gap-3 py-4 bg-gold hover:bg-[#e8c840] text-[#121212] font-montserrat text-[13px] font-bold tracking-[0.2em] uppercase active:scale-[0.99] transition-all duration-300 hover:shadow-[0_6px_28px_rgba(212,175,55,0.40)]"
+                  className="btn-shimmer btn-pulse-glow group w-full flex items-center justify-center gap-3 py-4 bg-gold hover:bg-[#C5A028] text-[#131313] font-montserrat text-[13px] font-bold tracking-[0.2em] uppercase active:scale-[0.99] transition-all duration-300 hover:shadow-[0_6px_28px_rgba(212,175,55,0.40)]"
                 >
                   <SymbolIcon name="lock" className="size-3.5" />
                   SECURE CHECKOUT

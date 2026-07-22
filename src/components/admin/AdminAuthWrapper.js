@@ -126,7 +126,7 @@ export default function AdminAuthWrapper({ children }) {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-4.5 bg-gold hover:bg-[#C5A028] text-[#121212] font-montserrat text-[12px] font-bold tracking-[0.25em] transition-all uppercase rounded-none mt-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-4.5 bg-gold hover:bg-[#C5A028] text-[#131313] font-montserrat text-[12px] font-bold tracking-[0.25em] transition-all uppercase rounded-none mt-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {submitting ? "AUTHENTICATING…" : "AUTHENTICATE VAULT"}
             </button>

@@ -249,7 +249,7 @@ export default function AboutUsPage() {
               ].map(({ quote, name, detail }) => (
                 <div
                   key={name}
-                  className="flex flex-col gap-5 p-6 md:p-8 border border-white/8 bg-[#0e0e0e]/60 hover:border-gold/20 transition-colors duration-300"
+                  className="flex flex-col gap-5 p-6 md:p-8 border border-white/8 bg-[#0e0e0e]/60 hover:border-gold/30 transition-colors duration-300"
                 >
                   <span className="font-playfair text-[40px] leading-none text-gold/30 select-none -mb-2">
                     &ldquo;

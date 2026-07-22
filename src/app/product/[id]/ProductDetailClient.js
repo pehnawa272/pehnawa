@@ -185,7 +185,7 @@ export default function ProductDetail({ initialProduct, reviewStats = { avgRatin
                 <h1 className="font-playfair text-[28px] md:text-[36px] font-medium text-white leading-tight">
                   {product.title}
                 </h1>
-                <p className="font-montserrat text-[12px] text-white/50 tracking-wider">
+                <p className="font-montserrat text-[12px] text-white/60 tracking-wider">
                   {product.subTitle}
                 </p>
                 <p className="font-montserrat text-[14px] md:text-[16px] text-white/70 font-light leading-relaxed">
@@ -414,7 +414,7 @@ export default function ProductDetail({ initialProduct, reviewStats = { avgRatin
                   className={`btn-shimmer w-full py-5 font-montserrat text-[13px] font-bold tracking-[0.2em] transition-all duration-300 uppercase rounded-none flex items-center justify-center gap-3 active:scale-[0.98] ${
                     addedNotice
                       ? "bg-emerald-600 hover:bg-emerald-500 text-white border border-emerald-600"
-                      : "bg-gold hover:bg-[#e8c840] text-[#121212] hover:shadow-[0_8px_32px_rgba(212,175,55,0.40)]"
+                      : "bg-gold hover:bg-[#C5A028] text-[#131313] hover:shadow-[0_8px_32px_rgba(212,175,55,0.40)]"
                   }`}
                 >
                   {addedNotice ? (
@@ -469,7 +469,7 @@ export default function ProductDetail({ initialProduct, reviewStats = { avgRatin
             
             <div className="flex flex-col md:flex-row gap-16 items-center">
               <div className="w-full md:w-1/2 space-y-6 text-left">
-                <p className="font-playfair text-[18px] text-white/80 leading-relaxed italic font-light">
+                <p className="font-playfair text-[18px] text-white/70 leading-relaxed italic font-light">
                   &quot;Every stitch in this {product.title} tells a story of patience. In the narrow lanes of old Lucknow, our artisans breathe life into silk using techniques passed down through seven generations.&quot;
                 </p>
                 <div className="space-y-6 pt-4">
@@ -479,7 +479,7 @@ export default function ProductDetail({ initialProduct, reviewStats = { avgRatin
                       <h3 className="font-montserrat text-[13px] font-bold text-white tracking-wider uppercase">
                         Zari Embroidery
                       </h3>
-                      <p className="font-montserrat text-[11px] text-white/50 leading-relaxed font-light">
+                      <p className="font-montserrat text-[11px] text-white/60 leading-relaxed font-light">
                         Real gold-dipped silver threads woven with absolute handcrafting precision.
                       </p>
                     </div>
@@ -490,7 +490,7 @@ export default function ProductDetail({ initialProduct, reviewStats = { avgRatin
                       <h3 className="font-montserrat text-[13px] font-bold text-white tracking-wider uppercase">
                         Organic Materials
                       </h3>
-                      <p className="font-montserrat text-[11px] text-white/50 leading-relaxed font-light">
+                      <p className="font-montserrat text-[11px] text-white/60 leading-relaxed font-light">
                         Ethically sourced high-grade {product.fabric || "fabrics"} matching quiet luxury.
                       </p>
                     </div>

@@ -279,7 +279,7 @@ export default function BookConsultation() {
                 <div className="pt-4">
                   <button
                     type="submit"
-                    className="w-full py-4.5 bg-gold hover:bg-[#C5A028] text-[#121212] font-montserrat text-[12px] font-bold tracking-[0.25em] transition-all uppercase rounded-none"
+                    className="w-full py-4.5 bg-gold hover:bg-[#C5A028] text-[#131313] font-montserrat text-[12px] font-bold tracking-[0.25em] transition-all uppercase rounded-none"
                   >
                     SCHEDULE CONCIERGE APPOINTMENT
                   </button>

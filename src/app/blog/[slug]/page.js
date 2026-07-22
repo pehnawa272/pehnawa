@@ -56,7 +56,7 @@ function renderContent(content) {
     if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
       const items = trimmed.split("\n").map((item) => item.replace(/^[-*]\s+/, ""));
       return (
-        <ul key={index} className="list-disc pl-6 mb-6 text-white/80 font-montserrat font-light text-[15px] md:text-[16px] leading-relaxed space-y-2.5">
+        <ul key={index} className="list-disc pl-6 mb-6 text-white/70 font-montserrat font-light text-[15px] md:text-[16px] leading-relaxed space-y-2.5">
           {items.map((item, itemIdx) => (
             <li key={itemIdx}>{item}</li>
           ))}
@@ -91,7 +91,7 @@ function renderContent(content) {
     return (
       <p
         key={index}
-        className="mb-6 leading-relaxed font-light text-white/80 font-montserrat text-[15px] md:text-[16px] tracking-wide"
+        className="mb-6 leading-relaxed font-light text-white/70 font-montserrat text-[15px] md:text-[16px] tracking-wide"
       >
         {trimmed}
       </p>
@@ -181,7 +181,7 @@ export default async function BlogDetailsPage({ params }) {
               {blog.title}
             </h1>
 
-            <p className="font-montserrat text-[14px] md:text-[16px] text-white/50 leading-relaxed font-light italic max-w-3xl">
+            <p className="font-montserrat text-[14px] md:text-[16px] text-white/60 leading-relaxed font-light italic max-w-3xl">
               {blog.excerpt}
             </p>
           </div>
@@ -219,7 +219,7 @@ export default async function BlogDetailsPage({ params }) {
                 {blog.images.map((imgUrl, index) => (
                   <div
                     key={index}
-                    className="relative aspect-video sm:aspect-[3/4] w-full overflow-hidden bg-[#1F1F1F] border border-white/5 hover:border-gold/20 transition-all duration-300 group"
+                    className="relative aspect-video sm:aspect-[3/4] w-full overflow-hidden bg-[#1F1F1F] border border-white/5 hover:border-gold/30 transition-all duration-300 group"
                   >
                     <Image
                       src={imgUrl}

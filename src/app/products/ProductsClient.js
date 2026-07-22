@@ -76,7 +76,7 @@ export default function ProductsClient({ initialProducts = [] }) {
                   const el = document.getElementById("catalog-section");
                   el?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="btn-shimmer group inline-flex items-center gap-3 px-8 sm:px-12 py-4 sm:py-5 bg-gold hover:bg-white hover:text-[#121212] text-[#121212] font-montserrat text-[12px] font-bold tracking-[0.2em] sm:tracking-[0.25em] transition-all duration-300 rounded-none border border-gold hover:shadow-[0_8px_30px_rgba(212,175,55,0.35)] active:scale-[0.98] uppercase"
+                className="btn-shimmer group inline-flex items-center gap-3 px-8 sm:px-12 py-4 sm:py-5 bg-gold hover:bg-white hover:text-[#131313] text-[#131313] font-montserrat text-[12px] font-bold tracking-[0.2em] sm:tracking-[0.25em] transition-all duration-300 rounded-none border border-gold hover:shadow-[0_8px_30px_rgba(212,175,55,0.35)] active:scale-[0.98] uppercase"
               >
                 BROWSE ATELIER CATALOG
                 <SymbolIcon name="expand_more" className="size-4 bounce-slow" />

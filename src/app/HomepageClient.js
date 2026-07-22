@@ -115,7 +115,7 @@ export default function Homepage() {
               </div>
               <div className="text-center group-hover:transform group-hover:translate-y-[-4px] transition-transform duration-300">
                 <h3 className="font-playfair text-[16px] sm:text-[20px] md:text-[24px] font-medium text-white mb-1">Professional Ethnic</h3>
-                <p className="font-montserrat text-[9px] sm:text-[11px] text-white/50 tracking-[0.2em] uppercase">Casual Elegance</p>
+                <p className="font-montserrat text-[9px] sm:text-[11px] text-white/60 tracking-[0.2em] uppercase">Casual Elegance</p>
               </div>
             </Link>
 
@@ -133,7 +133,7 @@ export default function Homepage() {
               </div>
               <div className="text-center group-hover:transform group-hover:translate-y-[-4px] transition-transform duration-300">
                 <h3 className="font-playfair text-[16px] sm:text-[20px] md:text-[24px] font-medium text-white mb-1">Signature Edit</h3>
-                <p className="font-montserrat text-[9px] sm:text-[11px] text-white/50 tracking-[0.2em] uppercase">The Statement</p>
+                <p className="font-montserrat text-[9px] sm:text-[11px] text-white/60 tracking-[0.2em] uppercase">The Statement</p>
               </div>
             </Link>
 
@@ -151,7 +151,7 @@ export default function Homepage() {
               </div>
               <div className="text-center group-hover:transform group-hover:translate-y-[-4px] transition-transform duration-300">
                 <h3 className="font-playfair text-[16px] sm:text-[20px] md:text-[24px] font-medium text-white mb-1">Golden Era</h3>
-                <p className="font-montserrat text-[9px] sm:text-[11px] text-white/50 tracking-[0.2em] uppercase">Timeless Elegance</p>
+                <p className="font-montserrat text-[9px] sm:text-[11px] text-white/60 tracking-[0.2em] uppercase">Timeless Elegance</p>
               </div>
             </Link>
 
@@ -169,7 +169,7 @@ export default function Homepage() {
               </div>
               <div className="text-center group-hover:transform group-hover:translate-y-[-4px] transition-transform duration-300">
                 <h3 className="font-playfair text-[16px] sm:text-[20px] md:text-[24px] font-medium text-white mb-1">Others</h3>
-                <p className="font-montserrat text-[9px] sm:text-[11px] text-white/50 tracking-[0.2em] uppercase">Beyond Categories</p>
+                <p className="font-montserrat text-[9px] sm:text-[11px] text-white/60 tracking-[0.2em] uppercase">Beyond Categories</p>
               </div>
             </Link>
           </div>
@@ -189,7 +189,7 @@ export default function Homepage() {
               <div className="pt-4">
                 <Link
                   href="/craftsmanship"
-                  className="group inline-flex items-center gap-3 px-10 py-4 border border-white/25 hover:border-gold hover:bg-gold hover:text-[#121212] text-white font-montserrat text-[12px] tracking-[0.2em] font-medium transition-all duration-300 uppercase rounded-none"
+                  className="group inline-flex items-center gap-3 px-10 py-4 border border-white/25 hover:border-gold hover:bg-gold hover:text-[#131313] text-white font-montserrat text-[12px] tracking-[0.2em] font-medium transition-all duration-300 uppercase rounded-none"
                 >
                   THE CRAFT STORY
                   <SymbolIcon name="arrow_forward" className="size-3.5 transition-transform duration-300 group-hover:translate-x-1" />
@@ -237,7 +237,7 @@ export default function Homepage() {
               href="https://wa.me/917309336575?text=Hello%20Pehnawa%2C%20I%20would%20like%20to%20book%20a%20styling%20consultation."
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-shimmer btn-pulse-glow group inline-flex items-center gap-3 bg-gold text-[#121212] hover:bg-white hover:text-[#121212] px-8 sm:px-14 py-4 sm:py-5 font-montserrat text-[12px] font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase transition-all duration-300 rounded-none border border-gold hover:border-white active:scale-95 hover:shadow-[0_8px_40px_rgba(212,175,55,0.40)]"
+              className="btn-shimmer btn-pulse-glow group inline-flex items-center gap-3 bg-gold text-[#131313] hover:bg-white hover:text-[#131313] px-8 sm:px-14 py-4 sm:py-5 font-montserrat text-[12px] font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase transition-all duration-300 rounded-none border border-gold hover:border-white active:scale-95 hover:shadow-[0_8px_40px_rgba(212,175,55,0.40)]"
             >
               <SymbolIcon name="whatsapp" className="size-4.5" />
               BOOK A CONSULTATION
