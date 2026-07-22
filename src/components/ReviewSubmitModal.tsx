@@ -479,7 +479,7 @@ export default function ReviewSubmitModal({
                   />
                   <label
                     htmlFor="review-photo-upload"
-                    className="px-4 py-2 bg-white/10 text-white hover:bg-white/20 font-montserrat text-xs rounded transition-colors cursor-pointer inline-flex items-center gap-2 border border-white/10"
+                    className="px-4 py-3 min-h-[44px] bg-white/10 text-white hover:bg-white/20 font-montserrat text-xs rounded transition-colors cursor-pointer inline-flex items-center justify-center gap-2 border border-white/10"
                   >
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
@@ -519,36 +519,36 @@ export default function ReviewSubmitModal({
                 </div>
               )}
 
-              <div className="flex justify-between gap-3 pt-2">
+              <div className="flex flex-col gap-3 pt-2">
                 <button
-                  type="button"
-                  onClick={() => {
-                    if (isProductLocked) {
-                      setStep(1);
-                      setSelectedProduct(null);
-                    } else {
-                      setStep(2);
-                      setSelectedProduct(null);
-                    }
-                  }}
-                  className="px-4 py-2 bg-white/5 text-white/70 hover:bg-white/10 font-montserrat text-xs rounded transition-colors"
+                  type="submit"
+                  disabled={loading || isUploading}
+                  className="w-full py-3 min-h-[44px] bg-gold text-[#131313] font-montserrat text-sm font-semibold rounded hover:bg-gold/80 disabled:opacity-50 transition-colors flex items-center justify-center"
                 >
-                  ← Go Back
+                  {loading ? "Submitting..." : "Submit Review"}
                 </button>
-                <div className="flex gap-2">
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (isProductLocked) {
+                        setStep(1);
+                        setSelectedProduct(null);
+                      } else {
+                        setStep(2);
+                        setSelectedProduct(null);
+                      }
+                    }}
+                    className="w-full py-3 min-h-[44px] bg-white/5 text-white/70 hover:bg-white/10 font-montserrat text-xs rounded transition-colors flex items-center justify-center"
+                  >
+                    ← Go Back
+                  </button>
                   <button
                     type="button"
                     onClick={handleClose}
-                    className="px-4 py-2.5 bg-white/5 text-white/60 hover:bg-white/10 font-montserrat text-xs rounded transition-colors"
+                    className="w-full py-3 min-h-[44px] bg-white/5 text-white/60 hover:bg-white/10 font-montserrat text-xs rounded transition-colors flex items-center justify-center"
                   >
                     Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={loading || isUploading}
-                    className="px-5 py-2.5 bg-gold text-[#131313] font-montserrat text-xs font-semibold rounded hover:bg-gold/80 disabled:opacity-50 transition-colors"
-                  >
-                    {loading ? "Submitting..." : "Submit Review"}
                   </button>
                 </div>
               </div>

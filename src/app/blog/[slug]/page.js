@@ -219,7 +219,7 @@ export default async function BlogDetailsPage({ params }) {
                 {blog.images.map((imgUrl, index) => (
                   <div
                     key={index}
-                    className="relative aspect-[3/4] w-full overflow-hidden bg-[#1F1F1F] border border-white/5 hover:border-gold/20 transition-all duration-300 group"
+                    className="relative aspect-video sm:aspect-[3/4] w-full overflow-hidden bg-[#1F1F1F] border border-white/5 hover:border-gold/20 transition-all duration-300 group"
                   >
                     <Image
                       src={imgUrl}

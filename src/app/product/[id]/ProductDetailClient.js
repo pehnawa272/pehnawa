@@ -129,13 +129,13 @@ export default function ProductDetail({ initialProduct, reviewStats = { avgRatin
 
               {/* Side thumbnail row if multiple photos/videos are present */}
               {mediaItems.length > 1 && (
-                <div className="grid grid-cols-3 md:grid-cols-4 gap-1">
+                <div className="flex gap-2 overflow-x-auto pb-2 pt-1 scrollbar-none">
                   {mediaItems.map((item, idx) => (
                      <button
                        key={item.url}
                        type="button"
                        onClick={() => setActiveMediaIndex(idx)}
-                       className={`relative aspect-[3/4] overflow-hidden bg-[#1F1F1F] transition-all border ${
+                       className={`relative w-20 md:w-24 aspect-[3/4] shrink-0 overflow-hidden bg-[#1F1F1F] transition-all border ${
                          idx === activeMediaIndex ? "border-gold" : "border-transparent"
                        }`}
                      >
@@ -357,7 +357,7 @@ export default function ProductDetail({ initialProduct, reviewStats = { avgRatin
                       <span className="block text-[11px] font-montserrat text-white/60 tracking-wider uppercase font-semibold">
                         Body Measurements (Optional - Inches)
                       </span>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                      <div className="grid grid-cols-3 gap-2">
                         <div>
                           <label htmlFor="product-bust" className="block text-[11px] font-montserrat text-white/60 uppercase mb-1">
                             Bust

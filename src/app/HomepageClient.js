@@ -62,15 +62,15 @@ export default function Homepage() {
                 SHOP THE COLLECTION
                 <SymbolIcon name="arrow_forward" className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
-              <p className="font-montserrat text-[10px] tracking-[0.2em] text-white/60 uppercase">
-                Free global delivery · Bespoke tailoring on every order
+              <p className="font-montserrat text-[10px] tracking-[0.2em] text-white/60 uppercase leading-relaxed text-center">
+                Free global delivery <span className="hidden sm:inline">·</span> <br className="sm:hidden" /> Bespoke tailoring on every order
               </p>
             </div>
           </div>
         </section>
 
         {/* Brand Philosophy Section */}
-        <section className="py-16 md:py-24 px-6 md:px-16 text-center bg-[#0e0e0e] border-y border-white/5 relative">
+        <section className="py-10 md:py-24 px-6 md:px-16 text-center bg-[#0e0e0e] border-y border-white/5 relative">
           <div className="max-w-2xl mx-auto space-y-6 animate-fade-in-up">
             <span className="font-montserrat text-[11px] tracking-[0.3em] text-gold uppercase block">THE PHILOSOPHY</span>
             <p className="font-playfair text-[22px] md:text-[30px] font-medium text-white/90 leading-snug tracking-wide italic">
@@ -83,7 +83,7 @@ export default function Homepage() {
         </section>
 
         {/* Featured Collections Grid */}
-        <section className="py-16 md:py-32 bg-[#131313]">
+        <section className="py-10 md:py-32 bg-[#131313]">
           <div className="px-6 md:px-16 mb-10 md:mb-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
             <div>
               <span className="font-montserrat text-[11px] tracking-[0.3em] text-gold uppercase block mb-2">CURATED SELECTIONS</span>
@@ -100,7 +100,7 @@ export default function Homepage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-8 px-6 md:px-16 max-w-[1440px] mx-auto">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-10 md:gap-8 px-6 md:px-16 max-w-[1440px] mx-auto">
             {/* Everyday Edit */}
             <Link href="/everyday" className="group cursor-pointer flex flex-col">
               <div className="relative aspect-[3/4] overflow-hidden bg-[#1F1F1F] mb-6 border border-white/5 cinematic-zoom">
@@ -114,8 +114,8 @@ export default function Homepage() {
                 <div className="absolute inset-0 bg-black/35 group-hover:bg-black/10 transition-colors duration-500"></div>
               </div>
               <div className="text-center group-hover:transform group-hover:translate-y-[-4px] transition-transform duration-300">
-                <h3 className="font-playfair text-[20px] md:text-[24px] font-medium text-white mb-2">Professional Ethnic</h3>
-                <p className="font-montserrat text-[11px] text-white/50 tracking-[0.2em] uppercase">Casual Elegance</p>
+                <h3 className="font-playfair text-[16px] sm:text-[20px] md:text-[24px] font-medium text-white mb-1">Professional Ethnic</h3>
+                <p className="font-montserrat text-[9px] sm:text-[11px] text-white/50 tracking-[0.2em] uppercase">Casual Elegance</p>
               </div>
             </Link>
 
@@ -132,8 +132,8 @@ export default function Homepage() {
                 <div className="absolute inset-0 bg-black/35 group-hover:bg-black/10 transition-colors duration-500"></div>
               </div>
               <div className="text-center group-hover:transform group-hover:translate-y-[-4px] transition-transform duration-300">
-                <h3 className="font-playfair text-[20px] md:text-[24px] font-medium text-white mb-2">Signature Edit</h3>
-                <p className="font-montserrat text-[11px] text-white/50 tracking-[0.2em] uppercase">The Statement</p>
+                <h3 className="font-playfair text-[16px] sm:text-[20px] md:text-[24px] font-medium text-white mb-1">Signature Edit</h3>
+                <p className="font-montserrat text-[9px] sm:text-[11px] text-white/50 tracking-[0.2em] uppercase">The Statement</p>
               </div>
             </Link>
 
@@ -150,8 +150,8 @@ export default function Homepage() {
                 <div className="absolute inset-0 bg-black/35 group-hover:bg-black/10 transition-colors duration-500"></div>
               </div>
               <div className="text-center group-hover:transform group-hover:translate-y-[-4px] transition-transform duration-300">
-                <h3 className="font-playfair text-[20px] md:text-[24px] font-medium text-white mb-2">Golden Era</h3>
-                <p className="font-montserrat text-[11px] text-white/50 tracking-[0.2em] uppercase">Timeless Elegance</p>
+                <h3 className="font-playfair text-[16px] sm:text-[20px] md:text-[24px] font-medium text-white mb-1">Golden Era</h3>
+                <p className="font-montserrat text-[9px] sm:text-[11px] text-white/50 tracking-[0.2em] uppercase">Timeless Elegance</p>
               </div>
             </Link>
 
@@ -168,15 +168,15 @@ export default function Homepage() {
                 <div className="absolute inset-0 bg-black/35 group-hover:bg-black/10 transition-colors duration-500"></div>
               </div>
               <div className="text-center group-hover:transform group-hover:translate-y-[-4px] transition-transform duration-300">
-                <h3 className="font-playfair text-[20px] md:text-[24px] font-medium text-white mb-2">Others</h3>
-                <p className="font-montserrat text-[11px] text-white/50 tracking-[0.2em] uppercase">Beyond Categories</p>
+                <h3 className="font-playfair text-[16px] sm:text-[20px] md:text-[24px] font-medium text-white mb-1">Others</h3>
+                <p className="font-montserrat text-[9px] sm:text-[11px] text-white/50 tracking-[0.2em] uppercase">Beyond Categories</p>
               </div>
             </Link>
           </div>
         </section>
 
         {/* Craftsmanship Storytelling */}
-        <section className="py-16 md:py-32 px-6 md:px-16 bg-[#0e0e0e] border-y border-white/5 relative">
+        <section className="py-10 md:py-32 px-6 md:px-16 bg-[#0e0e0e] border-y border-white/5 relative">
           <div className="max-w-[1440px] mx-auto flex flex-col lg:flex-row items-center gap-16">
             <div className="w-full lg:w-1/2 space-y-8 text-left">
               <span className="font-montserrat text-[11px] tracking-[0.3em] text-gold uppercase block">THE ART OF DETAIL</span>
